@@ -50,13 +50,20 @@ public class MainActivity extends Activity
         mTitle = getTitle();
 
 
+
+
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        //mNavigationDrawerFragment.get
 
-        Intent intent = new Intent(this, DataRetrieverActivity.class);
+
+
+
+
+        //Intent intent = new Intent(this, DataRetrieverActivity.class);
 
     }
 

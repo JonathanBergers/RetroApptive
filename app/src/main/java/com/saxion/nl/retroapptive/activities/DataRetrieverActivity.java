@@ -43,7 +43,7 @@ public class DataRetrieverActivity extends Activity {
         ROClient.getInstance().setCredential("todoapp-admin", "pass");
         ROClient.getInstance().setHost("http://145.76.115.243:8080/restful");
         Link link = new Link();
-        link.setHref("http://145.76.115.243:8080/restful/services/ToDoItems/actions/notYetComplete/invoke");
+        link.setHref("http://192.168.0.109:8080/restful/services/ToDoItems/actions/notYetComplete/invoke");
         link.setMethod("GET");
         //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
         GetItemsTask getItemsTask = new GetItemsTask(ActionResult.class);
