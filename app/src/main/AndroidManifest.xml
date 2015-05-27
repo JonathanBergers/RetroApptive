@@ -22,6 +22,10 @@
             android:name=".ListActivity"
             android:label="@string/title_activity_list" >
         </activity>
+        
+        <activity android:name=".activities.LogInActivity"/>
+        <activity android:name=".activities.CommunicationActivity"/>
+        
     </application>
 
 </manifest>
