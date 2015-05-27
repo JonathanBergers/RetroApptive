@@ -17,6 +17,7 @@ import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.repres
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.DomainObject;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.JsonRepr;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Link;
+import com.saxion.nl.retroapptive.communication.login.LoginCredentials;
 import com.saxion.nl.retroapptive.model.Model;
 
 import java.util.ArrayList;
@@ -27,19 +28,25 @@ import javax.xml.transform.Result;
 public class DataRetrieverActivity extends Activity {
 
 
-
+    ArrayList<DomainObject> domainObjects = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_retriever);
+        //ApacheIsisDataGatherer.getInstance().setHost("http://145.76.115.243:8080/restful/");
 
-        GetItemsTask getItemsTask = new GetItemsTask(ActionResult.class);
+        LoginCredentials loginCredentials = new LoginCredentials("todoapp-admin", "pass");
+
+
 
         ROClient.getInstance().setCredential("todoapp-admin", "pass");
+        ROClient.getInstance().setHost("http://145.76.115.243:8080/restful");
         Link link = new Link();
-        link.setHref("http://145.76.115.243:8080/services/ToDoItems/actions/notYetComplete/invoke");
+        link.setHref("http://145.76.115.243:8080/restful/services/ToDoItems/actions/notYetComplete/invoke");
         link.setMethod("GET");
+        //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
+        GetItemsTask getItemsTask = new GetItemsTask(ActionResult.class);
         getItemsTask.execute(link);
 
 
@@ -80,11 +87,36 @@ public class DataRetrieverActivity extends Activity {
 
 
 
-}
+
+
+
+
 class GetItemsTask extends IsisTask<ActionResult>{
 
-    boolean objectRecieved = false;
-    ArrayList<DomainObject> domainObjects = new ArrayList<>();
+
+
+    class GetItemTask extends IsisTask<DomainObject>{
+        public GetItemTask(Class<DomainObject> typeClass) {
+            super(typeClass);
+
+
+        }
+
+
+
+
+        @Override
+        protected void onPostExecute(DomainObject domainObject) {
+            domainObjects.add(domainObject);
+
+            System.out.println(domainObject.getTitle());
+            Log.d("POST", domainObject.getTitle());
+
+
+
+        }
+
+    }
     public GetItemsTask(Class<ActionResult> typeClass) {
         super(typeClass);
     }
@@ -95,8 +127,11 @@ class GetItemsTask extends IsisTask<ActionResult>{
     protected void onPostExecute(ActionResult actionResult) {
 
 
-        List<Link> links = actionResult.getResult().getLinks();
 
+        List<Link> links = actionResult.getResult().getValueAsList();
+
+
+        Log.d("TRY", links.toString());
 
 
 
@@ -113,40 +148,32 @@ class GetItemsTask extends IsisTask<ActionResult>{
 
 
 
-            class GetItemTask extends IsisTask<DomainObject>{
 
-
-                public GetItemTask(Class<DomainObject> typeClass) {
-                    super(typeClass);
-
-
-                }
-                @Override
-                protected void onPostExecute(DomainObject domainObject) {
-                    domainObjects.add(domainObject);
-                    objectRecieved = true;
-                    System.out.println(domainObject.getTitle());
-
-                }
-
-
-
-
-            }
 
         Link firstLink = links.remove(0);
+        Log.d("TRY", firstLink.getHref());
         GetItemTask firstGetItemTask = new GetItemTask(DomainObject.class);
-        firstGetItemTask.doInBackground(firstLink);
+        firstGetItemTask.execute(firstLink);
 
 
-        while(links.isEmpty() == false  && objectRecieved == true ) {
+
+
+        while(links.isEmpty() == false) {
+
 
             Link linkToObject = links.remove(0);
+            Log.d("TRY", linkToObject.getHref());
             GetItemTask getItemTask = new GetItemTask(DomainObject.class);
-            getItemTask.doInBackground(linkToObject);
-            objectRecieved = false;
+            getItemTask.execute(linkToObject);
+
+
 
         }
+
+
+
+
+
 
 
 
@@ -162,7 +189,6 @@ class GetItemsTask extends IsisTask<ActionResult>{
 
 
 class IsisTask<T extends JsonRepr> extends AsyncTask<Link, Void, T> {
-
 
 
     private Class<T> typeClass;
@@ -182,7 +208,6 @@ class IsisTask<T extends JsonRepr> extends AsyncTask<Link, Void, T> {
     protected void onPreExecute() {
 
 
-
     }
 
     @Override
@@ -191,6 +216,7 @@ class IsisTask<T extends JsonRepr> extends AsyncTask<Link, Void, T> {
         ROClient client = ROClient.getInstance();
         RORequest request = client.RORequestTo(elementLink.getHref());
         try {
+            Log.d("TRY", elementLink.getHref());
             T result = client.executeT(typeClass, elementLink.getMethod(), request, null);
             Log.d("TRY", "WORK");
             return result;
@@ -212,9 +238,5 @@ class IsisTask<T extends JsonRepr> extends AsyncTask<Link, Void, T> {
     }
 
 
-
-
-
-
-
+}
 }

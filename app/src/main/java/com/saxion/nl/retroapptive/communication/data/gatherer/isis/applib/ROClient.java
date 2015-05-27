@@ -75,7 +75,7 @@ public class ROClient {
 				get = new HttpGet(roRequest.asUriStr());
 				get.setHeader("Accept", "*/*");
 				response = client.execute(get);
-				// System.out.println("Status code "+response.getStatusLine().getStatusCode());
+				System.out.println("Status code "+response.getStatusLine().getStatusCode());
 				// return response;
 			} catch (Exception e) {
 				e.printStackTrace();
