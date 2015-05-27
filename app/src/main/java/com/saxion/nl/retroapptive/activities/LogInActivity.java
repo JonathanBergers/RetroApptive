@@ -33,8 +33,8 @@ public class LogInActivity extends Activity {
             EditText password = (EditText) findViewById(R.id.password);
             ROClient.getInstance().setCredential(username.getText().toString(), password.getText().toString());
 
-            Intent intent = new Intent(LogInActivity.this, CommunicationActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(LogInActivity.this, CommunicationActivity.class);
+           // startActivity(intent);
         }
     };
 

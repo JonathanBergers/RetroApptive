@@ -17,6 +17,8 @@ public class JsonRepr implements Serializable {
 
     protected List<Link> links;
 
+
+
     public static <T> T fromString(Class<T> t, String str) {
         JsonParser jp;
         try {

@@ -1,5 +1,13 @@
 package com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib;
 
+import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.constants.Resource;
+import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.exceptions.ConnectionException;
+import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.exceptions.InvalidCredentialException;
+import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.exceptions.JsonParseException;
+import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.exceptions.UnknownErrorException;
+import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Homepage;
+import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.JsonRepr;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.auth.AuthScope;
@@ -20,13 +28,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import nl.topicus.retroapptive.applib.constants.Resource;
-import nl.topicus.retroapptive.applib.exceptions.ConnectionException;
-import nl.topicus.retroapptive.applib.exceptions.InvalidCredentialException;
-import nl.topicus.retroapptive.applib.exceptions.JsonParseException;
-import nl.topicus.retroapptive.applib.exceptions.UnknownErrorException;
-import nl.topicus.retroapptive.applib.representation.Homepage;
-import nl.topicus.retroapptive.applib.representation.JsonRepr;
+
 
 /* Author - Dimuthu Upeksha*/
 
@@ -208,12 +210,12 @@ public class ROClient {
 	public <T extends JsonRepr> T delete(Class<T> t, String uri, Map<String, Object> args) throws JsonParseException, ConnectionException, InvalidCredentialException, UnknownErrorException {
 		return executeT(t, "DELETE", RORequestTo(uri), args);
 	}
-
-	public Homepage homePage() throws JsonParseException, ConnectionException, InvalidCredentialException, UnknownErrorException {
-		String params[] = {};
-		RORequest request = RORequest.To(host, Resource.HomePage, params);
-		Homepage homepageRepresentation = executeT(Homepage.class, "GET", request, null);
-		return homepageRepresentation;
-	}
+//
+//	public Homepage homePage() throws JsonParseException, ConnectionException, InvalidCredentialException, UnknownErrorException {
+//		String params[] = {};
+//		RORequest request = RORequest.To(host, Resource.HomePage, params);
+//		Homepage homepageRepresentation = executeT(Homepage.class, "GET", request, null);
+//		return homepageRepresentation;
+//	}
 
 }

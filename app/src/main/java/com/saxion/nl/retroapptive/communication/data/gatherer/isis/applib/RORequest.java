@@ -1,11 +1,11 @@
 package com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib;
 
 
+import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.constants.Resource;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import nl.topicus.retroapptive.applib.constants.Resource;
 
 /* Author - Dimuthu Upeksha*/
 
