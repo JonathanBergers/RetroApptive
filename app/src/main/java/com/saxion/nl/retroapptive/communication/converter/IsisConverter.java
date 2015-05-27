@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.DomainObject;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.ObjectMember;
-
+import com.saxion.nl.retroapptive.model.Notitie;
 
 
 public class IsisConverter {

@@ -5,6 +5,7 @@ import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.repres
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Link;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.ObjectMember;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Model {
@@ -19,6 +20,7 @@ public class Model {
 
     private Link currentLink;
 
+    public ArrayList<String> notesTestStrings = new ArrayList<>();
   
 
     private Map<String , ObjectMember> todoItemMembers;

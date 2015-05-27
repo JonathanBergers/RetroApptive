@@ -1,12 +1,14 @@
 package com.saxion.nl.retroapptive.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.saxion.nl.retroapptive.MainActivity;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.ROClient;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.RORequest;
@@ -43,11 +45,15 @@ public class DataRetrieverActivity extends Activity {
         ROClient.getInstance().setCredential("todoapp-admin", "pass");
         ROClient.getInstance().setHost("http://145.76.115.243:8080/restful");
         Link link = new Link();
-        link.setHref("http://192.168.0.109:8080/restful/services/ToDoItems/actions/notYetComplete/invoke");
+        link.setHref("http://192.168.0.109:8080/restful/services/ToDoItems/actions/collectNotes/invoke");
         link.setMethod("GET");
         //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
         GetItemsTask getItemsTask = new GetItemsTask(ActionResult.class);
         getItemsTask.execute(link);
+
+
+
+
 
 
 
@@ -69,6 +75,9 @@ public class DataRetrieverActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -108,6 +117,7 @@ class GetItemsTask extends IsisTask<ActionResult>{
         @Override
         protected void onPostExecute(DomainObject domainObject) {
             domainObjects.add(domainObject);
+            Model.getInstance().notesTestStrings.add(domainObject.getTitle());
 
             System.out.println(domainObject.getTitle());
             Log.d("POST", domainObject.getTitle());
