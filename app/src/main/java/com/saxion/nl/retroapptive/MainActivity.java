@@ -30,6 +30,7 @@ import com.melnykov.fab.ScrollDirectionListener;
 import com.saxion.nl.retroapptive.activities.DataRetrieverActivity;
 import com.saxion.nl.retroapptive.controller.CollectionPagerAdapter;
 import com.saxion.nl.retroapptive.model.Model;
+import com.saxion.nl.retroapptive.view.ListViewFragment;
 
 import java.util.ArrayList;
 
@@ -91,13 +92,15 @@ public class MainActivity extends FragmentActivity
 
     }
 
+
+    // kan volgens mij weg
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, new ListViewFragment())
-                .commit();
+        //FragmentManager fragmentManager = getFragmentManager();
+        //fragmentManager.beginTransaction()
+               // .replace(R.id.container, new ListViewFragment())
+               // .commit();
     }
 
     public void onSectionAttached(int number) {
@@ -153,58 +156,8 @@ public class MainActivity extends FragmentActivity
     }
 
 
-    /**DE LISTVIEW
-     *
-     *
-     *
-     */
-    public static class ListViewFragment extends Fragment {
-
-        ListView list;
-        public void addData(ArrayList<String> data){
-
-            list.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, data));
 
 
-        }
-
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View root = inflater.inflate(R.layout.fragment_listview, container, false);
-
-            list = (ListView) root.findViewById(R.id.listViewItems);
-
-
-            addData(Model.getInstance().notesTestStrings);
-
-
-            FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
-            fab.attachToListView(list, new ScrollDirectionListener() {
-                @Override
-                public void onScrollDown() {
-                    Log.d("ListViewFragment", "onScrollDown()");
-                }
-
-                @Override
-                public void onScrollUp() {
-                    Log.d("ListViewFragment", "onScrollUp()");
-                }
-            }, new AbsListView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(AbsListView view, int scrollState) {
-                    Log.d("ListViewFragment", "onScrollStateChanged()");
-                }
-
-                @Override
-                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                    Log.d("ListViewFragment", "onScroll()");
-                }
-            });
-
-            return root;
-        }
-    }
 
 
 

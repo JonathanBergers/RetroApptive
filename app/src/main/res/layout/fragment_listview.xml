@@ -9,8 +9,7 @@
         android:id="@+id/listViewItems"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:cacheColorHint="@android:color/transparent"
-        android:headerDividersEnabled="false"/>
+        android:cacheColorHint="@android:color/transparent" />
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
