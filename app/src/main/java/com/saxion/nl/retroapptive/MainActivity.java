@@ -1,35 +1,16 @@
 package com.saxion.nl.retroapptive;
 
-import android.app.Activity;
-
 import android.app.ActionBar;
-import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.melnykov.fab.FloatingActionButton;
-import com.melnykov.fab.ScrollDirectionListener;
-import com.saxion.nl.retroapptive.activities.DataRetrieverActivity;
 import com.saxion.nl.retroapptive.communication.converter.IsisConverter;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.ROClient;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.RORequest;
@@ -41,10 +22,8 @@ import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.repres
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.JsonRepr;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Link;
 import com.saxion.nl.retroapptive.controller.CollectionPagerAdapter;
-import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.model.Notitie;
-import com.saxion.nl.retroapptive.view.ListViewFragment;
-import com.saxion.nl.retroapptive.view.ObjectFragment;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +48,7 @@ public class MainActivity extends FragmentActivity
     ViewPager mViewPager;
 
 
-    protected     ListViewFragment lvf;
+
 
 
 
@@ -142,6 +121,30 @@ public class MainActivity extends FragmentActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+
+
+
+
+
+
+        ROClient.getInstance().setCredential("todoapp-admin", "pass");
+        ROClient.getInstance().setHost("http://10.0.1.23:8080/restful");
+
+
+        Link link = new Link();
+        link.setHref("http://10.0.1.23:8080/restful/services/ToDoItems/actions/collectNotes/invoke");
+        link.setMethod("GET");
+        //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
+        GetItemsTask getItemsTask = new GetItemsTask(ActionResult.class);
+
+        getItemsTask.execute(link);
+
+        link.setHref("http://10.0.1.23:8080/restful/services/ToDoItems/actions/collectActions/invoke");
+        link.setMethod("GET");
+        //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
+        GetItemsTask jo = new GetItemsTask(ActionResult.class);
+
+        jo.execute(link);
 
         mCollectionPagerAdapter.notifyDataSetChanged();
 
@@ -263,7 +266,6 @@ private void getNotes(){
 
 
 
-                //TODO iets waardoor domainobjecten uit elkaar worden gehouden
 
                 IsisConverter.getInstance().convertObject(domainObject);
                 mCollectionPagerAdapter.notifyDataSetChanged();

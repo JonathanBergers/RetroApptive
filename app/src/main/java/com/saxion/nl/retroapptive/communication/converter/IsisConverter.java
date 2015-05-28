@@ -1,5 +1,6 @@
 package com.saxion.nl.retroapptive.communication.converter;
 
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,8 +38,10 @@ public  class IsisConverter {
         Map<String, ObjectMember> members = domainObject.getMembers();
 
         String type = members.get("category").getValue().getTextValue();
+        Log.d("CONVERTER", members.get("category").getValue().getTextValue());
 
         if(type.equals("Note")){
+            Log.d("CONVERTER", "NOTE CREATED");
 
             Model.getInstance().notes.add(getNotitieFromDomainObject(domainObject));
             return;
@@ -108,6 +111,7 @@ public  class IsisConverter {
 
 
 
+        Log.d("CONVERTER", "NOTE CREATED");
         return notitie;
 
 
@@ -131,13 +135,17 @@ public  class IsisConverter {
         Integer points = null;
         if(members.get("points").getValue() !=null){
 
-            points = Integer.parseInt(members.get("points").getValue().asText());
+            String pointString = members.get("points").getValue().asText();
+            points= Integer.parseInt(pointString.substring(0,pointString.length() - 2));
+
+
 
         }
         userStory.setPoints(points);
 
 
 
+        Log.d("CONVERTER", "USER STORY CREATED");
         return userStory;
 
 
@@ -157,11 +165,17 @@ public  class IsisConverter {
         Integer priority = null;
         if(members.get("points").getValue() !=null){
 
-            priority = Integer.parseInt(members.get("points").getValue().asText());
+            String points = members.get("points").getValue().asText();
+            priority= Integer.parseInt(points.substring(0, points.length() -2));
+
+
 
         }
         reaction.setPriority(priority);
 
+
+
+        Log.d("CONVERTER", "REACTION CREATED");
         return reaction;
 
 

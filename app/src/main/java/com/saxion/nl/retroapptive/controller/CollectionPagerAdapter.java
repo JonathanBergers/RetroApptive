@@ -2,17 +2,10 @@ package com.saxion.nl.retroapptive.controller;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
-import android.util.Log;
-import android.view.ViewGroup;
 
 import com.saxion.nl.retroapptive.MainActivity;
-import com.saxion.nl.retroapptive.R;
-import com.saxion.nl.retroapptive.model.Model;
-import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.view.ListViewFragment;
-import com.saxion.nl.retroapptive.view.ObjectFragment;
 
 /**
  * Created by falco on 28-5-15.
@@ -37,7 +30,7 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
 
 
 
-        return ObjectFragment.init(i);
+        return ListViewFragment.init(i);
 
     }
 

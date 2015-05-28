@@ -34,8 +34,8 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
 
 
 
-    public ItemAdapter(Context context, int resource, List<T> objects) {
-        super(context, resource, objects);
+    public ItemAdapter(Context context, int resource) {
+        super(context, resource);
 
 
     }
@@ -81,7 +81,7 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
 
     public   void setData(View convertedView, int position){
 
-
+//OVERIDE
 
 
 
@@ -90,31 +90,10 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
 
 
     public   void addViews(View convertedView, int position){
-
-
-    }
-
-
-    public View getNoteView(){
-
-
-        //TODO Hier zet je de data in de view
-return  null;
+//OVERIDE
 
     }
 
-
-    public View getUserStoryView(){
-//TODO Hier zet je de data in de view
-        return  null;
-    }
-
-
-    public View getReactionView(){
-//TODO Hier zet je de data in de view
-        return  null;
-
-    }
 
 
 }
