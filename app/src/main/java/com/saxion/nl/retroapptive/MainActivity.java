@@ -131,7 +131,13 @@ public class MainActivity extends FragmentActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+
         ListViewFragment lvf = (ListViewFragment) getFragmentManager().findFragmentById(R.id.listFragment);
+
+
+
+
         /*
         fab.attachToListView(lvf.getListView(), new ScrollDirectionListener() {
             @Override

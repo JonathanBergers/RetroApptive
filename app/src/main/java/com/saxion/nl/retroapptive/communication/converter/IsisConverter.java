@@ -59,10 +59,12 @@ public  class IsisConverter {
         String category;
         Boolean isPositive;
 
-
+        if(members.get("subcategory").getValue() !=null){
 
             category = members.get("subcategory").getValue().getTextValue();
             notitie.setCategory(category);
+        }
+
 
 
 
@@ -92,7 +94,7 @@ public  class IsisConverter {
 
 
         Integer points = null;
-        if(!members.get("points").getValue().isNull()){
+        if(members.get("points").getValue() !=null){
 
             points = Integer.parseInt(members.get("points").getValue().asText());
 
@@ -118,7 +120,7 @@ public  class IsisConverter {
         Reaction reaction = new Reaction(item);
 
         Integer priority = null;
-        if(!members.get("points").getValue().isNull()){
+        if(members.get("points").getValue() !=null){
 
             priority = Integer.parseInt(members.get("points").getValue().asText());
 
