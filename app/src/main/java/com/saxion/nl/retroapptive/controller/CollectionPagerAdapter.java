@@ -33,42 +33,20 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int i) {
 
-        Fragment fragment = new ObjectFragment();
-        Bundle args = new Bundle();
-
-        Log.d("TAB", ("" + i));
 
 
 
 
+        return ObjectFragment.init(i);
 
-//    ListViewFragment listViewFragment = new ListViewFragment();
-//
-//
-//    listViewFragment.setListAdapter(new ItemAdapter<Notitie>(activity, R.layout.fragment_list_item, Model.getInstance().notes));
-//
-//    //fragment.getChildFragmentManager().beginTransaction().add(1, listViewFragment);
-//
-//    fragment = listViewFragment;
-
-
-
-
-       args.putCharSequence(ObjectFragment.ARG_OBJECT, getTap(i));
-//
-//
-
-       fragment.setArguments(args);
-
-
-        return fragment;
     }
+
 
 
 
     @Override
     public int getCount() {
-        return 100;
+        return 3;
     }
 
 

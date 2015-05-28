@@ -142,7 +142,8 @@ public class MainActivity extends FragmentActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        mCollectionPagerAdapter.notifyDataSetChanged();
 
 
         //lvf = (ListViewFragment) getFragmentManager().findFragmentById(R.id.listFragment);

@@ -18,10 +18,12 @@ import java.util.List;
 /**
  * Created by falco on 28-5-15.
  */
-public class ItemAdapter<T> extends ArrayAdapter<T>{
+public abstract class ItemAdapter<T> extends ArrayAdapter<T>{
 
-    private TextView title;
-    private TextView summary;
+    protected TextView title;
+    protected TextView summary;
+    protected TextView sprintNumber;
+
     private TextView category;
 
     //private ....View sprint
@@ -44,23 +46,36 @@ public class ItemAdapter<T> extends ArrayAdapter<T>{
      public View getView(int position, View convertView, ViewGroup parent) {
 
 
-
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.fragment_list_item, parent, false);
+            convertView = inflateView(inflater, convertView);
         }
 
+
+
+
+
+        //DATA IS THE SAME FOR EVERY ITEM ??
         title = (TextView) convertView.findViewById(R.id.textViewNoteTitle);
         summary = (TextView) convertView.findViewById(R.id.textViewNotesummary);
-        category = (TextView) convertView.findViewById(R.id.textViewNoteCategory);
+        //sprintNumber = (TextView) convertView.findViewById(R.id.textViewSprintNumber);
 
-        title.setText(Model.getInstance().notes.get(position).getDescription());
-        summary.setText(Model.getInstance().notes.get(position).getSummary());
-        category.setText(Model.getInstance().notes.get(position).getCategory());
+
+
 
 
         return convertView;
     }
+
+
+
+    public abstract View inflateView(LayoutInflater inflater, View convertView);
+
+
+    public  abstract void setData(View convertedView, int position);
+
+
+    public  abstract void addViews(View convertedView, int position);
 
 
     public View getNoteView(){
