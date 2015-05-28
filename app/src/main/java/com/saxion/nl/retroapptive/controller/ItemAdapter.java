@@ -8,11 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.saxion.nl.retroapptive.R;
-import com.saxion.nl.retroapptive.model.Item;
-import com.saxion.nl.retroapptive.model.Model;
-import com.saxion.nl.retroapptive.model.Notitie;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**
