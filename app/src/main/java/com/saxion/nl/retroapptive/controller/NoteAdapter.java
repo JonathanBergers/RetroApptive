@@ -19,8 +19,8 @@ public class NoteAdapter extends ItemAdapter<Notitie> {
 
     private TextView category;
 
-    public NoteAdapter(Context context, int resource, List<Notitie> objects) {
-        super(context, resource, objects);
+    public NoteAdapter(Context context, int resource) {
+        super(context, resource);
     }
 
     @Override
