@@ -146,49 +146,10 @@ public class MainActivity extends FragmentActivity
         mCollectionPagerAdapter.notifyDataSetChanged();
 
 
-        //lvf = (ListViewFragment) getFragmentManager().findFragmentById(R.id.listFragment);
-
-
-
-
-
-        /*
-        fab.attachToListView(lvf.getListView(), new ScrollDirectionListener() {
-            @Override
-            public void onScrollDown() {
-                Log.d("ListViewFragment", "onScrollDown()");
-            }
-
-            @Override
-            public void onScrollUp() {
-                Log.d("ListViewFragment", "onScrollUp()");
-            }
-        }, new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                Log.d("ListViewFragment", "onScrollStateChanged()");
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                Log.d("ListViewFragment", "onScroll()");
-            }
-        });
-*/
-
-        //mNavigationDrawerFragment.get
-
-
-//        ListViewFragment listViewFragment = (ListViewFragment)getFragmentManager().findFragmentById(R.id.listFragment);
-//
-//        listViewFragment.addData(Model.getInstance().notesTestStrings);
-
-
-
-
-        //Intent intent = new Intent(this, DataRetrieverActivity.class);
-
     }
+
+
+    //TODO OPHALEN VAN USER STORIES bij oncreate.
 
 
 
@@ -299,13 +260,12 @@ private void getNotes(){
 
 
                 Log.d("POST", domainObject.getTitle());
-                domainObjects.add(domainObject);
-                Model.getInstance().notesTestStrings.add(domainObject.getTitle());
+
 
 
                 //TODO iets waardoor domainobjecten uit elkaar worden gehouden
 
-                Model.getInstance().notes.add(IsisConverter.getInstance().getNotitieFromDomainObject(domainObject));
+                IsisConverter.getInstance().convertObject(domainObject);
                 mCollectionPagerAdapter.notifyDataSetChanged();
 
 

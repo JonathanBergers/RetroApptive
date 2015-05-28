@@ -8,6 +8,7 @@ import android.util.Log;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.DomainObject;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.ObjectMember;
 import com.saxion.nl.retroapptive.model.Item;
+import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.model.Project;
 import com.saxion.nl.retroapptive.model.Reaction;
@@ -25,6 +26,40 @@ public  class IsisConverter {
             return new IsisConverter();
         }
         return isisConverter;
+
+    }
+
+    public void convertObject(DomainObject domainObject){
+
+
+
+
+        Map<String, ObjectMember> members = domainObject.getMembers();
+
+        String type = members.get("category").getValue().getTextValue();
+
+        if(type.equals("Note")){
+
+            Model.getInstance().notes.add(getNotitieFromDomainObject(domainObject));
+            return;
+        }
+
+        if(type.equals("User Story")){
+
+            Model.getInstance().userStories.add(getUserStoryFromDomainObject(domainObject));
+            return;
+        }
+
+        if(type.equals("Action")){
+
+
+            Model.getInstance().reactions.add(getReactionFromDomainObject(domainObject));
+            return;
+        }
+
+
+
+
 
     }
 
