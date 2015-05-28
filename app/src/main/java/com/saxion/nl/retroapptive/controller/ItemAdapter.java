@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.saxion.nl.retroapptive.R;
+import com.saxion.nl.retroapptive.model.Item;
 import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.model.Notitie;
 
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Created by falco on 28-5-15.
  */
-public class NotesAdapter extends ArrayAdapter<Notitie> {
+public class ItemAdapter<T> extends ArrayAdapter<T>{
 
     private TextView title;
     private TextView summary;
@@ -27,7 +28,7 @@ public class NotesAdapter extends ArrayAdapter<Notitie> {
 
 
 
-    public NotesAdapter(Context context, int resource, List<Notitie> objects) {
+    public ItemAdapter(Context context, int resource, List<T> objects) {
         super(context, resource, objects);
 
 
@@ -55,4 +56,28 @@ public class NotesAdapter extends ArrayAdapter<Notitie> {
 
         return convertView;
     }
+
+
+    public View getNoteView(){
+
+
+        //TODO Hier zet je de data in de view
+return  null;
+
+    }
+
+
+    public View getUserStoryView(){
+//TODO Hier zet je de data in de view
+        return  null;
+    }
+
+
+    public View getReactionView(){
+//TODO Hier zet je de data in de view
+        return  null;
+
+    }
+
+
 }
