@@ -24,6 +24,11 @@ public class ItemAdapter<T> extends ArrayAdapter<T>{
     private TextView summary;
     private TextView category;
 
+    //private ....View sprint
+    // private ...View points / priority
+    // private ..View Attachment ?
+
+
 
 
 
