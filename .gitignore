@@ -5,3 +5,15 @@
 .DS_Store
 /build
 /captures
+*.class
+*.lock
+.metadata/
+.recommenders/
+*.classpath
+*.project
+*.prefs
+*.html
+*/doc/
+*.dtd
+*/gen
+*/bin
