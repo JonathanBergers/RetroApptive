@@ -10,12 +10,13 @@
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" />
+            android:name=".activities.DataRetrieverActivity"
+            android:label="@string/title_activity_data_retriever"
+             />
 
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
-
+            <action android:name="com.saxion.nl.retroapptive.activities.DataRetrieverActivity"/>
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
 
@@ -26,8 +27,8 @@
         <activity android:name=".activities.LogInActivity" />
 
         <activity
-            android:name=".activities.DataRetrieverActivity"
-            android:label="@string/title_activity_data_retriever" >
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
         </activity>
     </application>
 

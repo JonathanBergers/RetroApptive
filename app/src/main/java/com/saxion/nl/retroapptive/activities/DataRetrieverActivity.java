@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.saxion.nl.retroapptive.MainActivity;
 import com.saxion.nl.retroapptive.R;
+import com.saxion.nl.retroapptive.communication.converter.IsisConverter;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.ROClient;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.RORequest;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.exceptions.ConnectionException;
@@ -21,6 +22,7 @@ import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.repres
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Link;
 import com.saxion.nl.retroapptive.communication.login.LoginCredentials;
 import com.saxion.nl.retroapptive.model.Model;
+import com.saxion.nl.retroapptive.model.Notitie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +33,11 @@ public class DataRetrieverActivity extends Activity {
 
 
     ArrayList<DomainObject> domainObjects = new ArrayList<>();
+    ArrayList<Notitie> notities = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_retriever);
         //ApacheIsisDataGatherer.getInstance().setHost("http://145.76.115.243:8080/restful/");
@@ -43,12 +47,13 @@ public class DataRetrieverActivity extends Activity {
 
 
         ROClient.getInstance().setCredential("todoapp-admin", "pass");
-        ROClient.getInstance().setHost("http://145.76.115.243:8080/restful");
+        ROClient.getInstance().setHost("http://192.168.2.10:8080/restful");
         Link link = new Link();
-        link.setHref("http://192.168.0.109:8080/restful/services/ToDoItems/actions/collectNotes/invoke");
+        link.setHref("http://192.168.2.10:8080/restful/services/ToDoItems/actions/collectNotes/invoke");
         link.setMethod("GET");
         //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
         GetItemsTask getItemsTask = new GetItemsTask(ActionResult.class);
+
         getItemsTask.execute(link);
 
 
@@ -79,11 +84,12 @@ public class DataRetrieverActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
+            Log.d("MAIN","Started");
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -125,6 +131,10 @@ class GetItemsTask extends IsisTask<ActionResult>{
             Model.getInstance().notesTestStrings.add(domainObject.getTitle());
 
 
+            //TODO iets waardoor domainobjecten uit elkaar worden gehouden
+            IsisConverter converter = new IsisConverter();
+            notities.add(converter.getNotitieFromDomainObject(domainObject));
+
 
             //Recursion ;D
             if(!links.isEmpty()){
@@ -150,6 +160,7 @@ class GetItemsTask extends IsisTask<ActionResult>{
     //post execute van ITEMSS
     @Override
     protected void onPostExecute(ActionResult actionResult) {
+
 
 
 
