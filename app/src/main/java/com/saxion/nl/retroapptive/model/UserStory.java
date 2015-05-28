@@ -3,7 +3,7 @@ package com.saxion.nl.retroapptive.model;
 public class UserStory extends Item {
 	
 	private Integer points;
-	private boolean isBurned = false; //standaard false
+	private Boolean isBurned = false; //standaard false
 
 	public UserStory(Item item) {
 		super(item);
@@ -14,7 +14,7 @@ public class UserStory extends Item {
 		this.points = points;
 	}
 
-	public void setIsBurned(boolean isBurned) {
+	public void setIsBurned(Boolean isBurned) {
 		this.isBurned = isBurned;
 	}
 
@@ -22,7 +22,7 @@ public class UserStory extends Item {
 		return points;
 	}
 
-	public boolean isBurned() {
+	public Boolean isBurned() {
 		return isBurned;
 	}
 	
@@ -30,7 +30,12 @@ public class UserStory extends Item {
 	 * zet de waarde van isBurned naar niet isBurned
 	 * @return de nieuwe waarde van isBurned
 	 */
-	public boolean setBurned() {
+	public Boolean changeBurned() {
+
+		if(isBurned == null){
+			isBurned = true;
+			return isBurned;
+		}
 		this.isBurned = !isBurned;
 		return isBurned;
 	}

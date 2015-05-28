@@ -13,7 +13,7 @@ public class Notitie extends Item {
 
 	}
 
-	public void setIsPositive(boolean isPositive) {
+	public void setIsPositive(Boolean isPositive) {
 		this.isPositive = isPositive;
 	}
 
@@ -26,7 +26,7 @@ public class Notitie extends Item {
 		return category;
 	}
 
-	public boolean isPositive() {
+	public Boolean isPositive() {
 		return isPositive;
 	}
 }

@@ -10,7 +10,9 @@ import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.repres
 import com.saxion.nl.retroapptive.model.Item;
 import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.model.Project;
+import com.saxion.nl.retroapptive.model.Reaction;
 import com.saxion.nl.retroapptive.model.Sprint;
+import com.saxion.nl.retroapptive.model.UserStory;
 
 
 public  class IsisConverter {
@@ -57,23 +59,78 @@ public  class IsisConverter {
         String category;
         Boolean isPositive;
 
-        if(members.containsKey("category")){
 
-            category = members.get("category").getValue().getTextValue();
+
+            category = members.get("subcategory").getValue().getTextValue();
             notitie.setCategory(category);
-        }
 
-        if(members.containsKey("isPositive")){
+
 
             isPositive = members.get("isPositive").getValue().getBooleanValue();
             notitie.setIsPositive(isPositive);
-        }
+
 
 
         return notitie;
 
 
     }
+
+
+    public UserStory getUserStoryFromDomainObject(DomainObject domainObject){
+
+
+        Item item = getItemFromDomainObject(domainObject);
+        Map<String, ObjectMember> members = domainObject.getMembers();
+
+        UserStory userStory = new UserStory(item);
+
+        Boolean isBurned;
+
+            isBurned = members.get("isPositive").getValue().getBooleanValue();
+            userStory.setIsBurned(isBurned);
+
+
+        Integer points = null;
+        if(!members.get("points").getValue().isNull()){
+
+            points = Integer.parseInt(members.get("points").getValue().asText());
+
+        }
+        userStory.setPoints(points);
+
+
+
+        return userStory;
+
+
+
+
+
+
+    }
+
+    public Reaction getReactionFromDomainObject(DomainObject domainObject){
+
+        Item item = getItemFromDomainObject(domainObject);
+        Map<String, ObjectMember> members = domainObject.getMembers();
+
+        Reaction reaction = new Reaction(item);
+
+        Integer priority = null;
+        if(!members.get("points").getValue().isNull()){
+
+            priority = Integer.parseInt(members.get("points").getValue().asText());
+
+        }
+        reaction.setPriority(priority);
+
+        return reaction;
+
+
+    }
+
+
 
 
 
