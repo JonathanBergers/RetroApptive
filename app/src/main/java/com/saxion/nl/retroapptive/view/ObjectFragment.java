@@ -13,7 +13,8 @@ import com.saxion.nl.retroapptive.R;
  * Created by falco on 28-5-15.
  */
 public final class ObjectFragment extends Fragment {
-
+    public static final String ARG_OBJECT = "object";
+    public static Bundle args;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -22,7 +23,8 @@ public final class ObjectFragment extends Fragment {
         // properly.
         View rootView = inflater.inflate(
                 R.layout.fragment_list, container, false);
-        Bundle args = getArguments();
+        args = getArguments();
+
 
         return rootView;
     }

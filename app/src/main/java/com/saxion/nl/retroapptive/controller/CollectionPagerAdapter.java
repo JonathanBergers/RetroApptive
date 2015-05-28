@@ -21,8 +21,10 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int i) {
         Fragment fragment = new ObjectFragment();
         Bundle args = new Bundle();
-        // Our object is just an integer :-P
-        args.putInt(ObjectFragment.ARG_OBJECT, i + 1);
+
+        args.putCharSequence(ObjectFragment.ARG_OBJECT, getTap(i));
+
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -34,6 +36,19 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "OBJECT " + (position + 1);
+        return getTap(position);
+    }
+
+    private String getTap(int i) {
+        if(i == 0){
+            // eerste tap
+           return "Notities";
+        } else if(i==1){
+            //tweede tap
+            return "User Stories";
+        } else {
+            return "iets anders";
+        }
+
     }
 }
