@@ -21,7 +21,8 @@ public class Model {
     private Link currentLink;
 
     public ArrayList<String> notesTestStrings = new ArrayList<>();
-  
+    public ArrayList<Notitie> notes = new ArrayList<>();
+
 
     private Map<String , ObjectMember> todoItemMembers;
 

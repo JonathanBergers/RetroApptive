@@ -133,7 +133,7 @@ class GetItemsTask extends IsisTask<ActionResult>{
 
             //TODO iets waardoor domainobjecten uit elkaar worden gehouden
             IsisConverter converter = new IsisConverter();
-            notities.add(converter.getNotitieFromDomainObject(domainObject));
+            Model.getInstance().notes.add(converter.getNotitieFromDomainObject(domainObject));
 
 
             //Recursion ;D
