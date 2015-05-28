@@ -1,23 +1,21 @@
 package com.saxion.nl.retroapptive.model;
 
-public class Reaction{
+public class Reaction extends Item{
 	
-	private int prioriteit;
-	private String description, summary;
-	
-	
-	public Reaction(int prioriteit, String description, String summary) {
-		this.prioriteit = prioriteit;
-		this.description = description;
-		this.summary = summary;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
+	private Integer priority;
 
+
+
+	public Reaction(Item item) {
+		super(item);
+
+	}
+
+	public Integer getPriority() {
+		return priority;
+	}
+
+	public void setPriority(Integer priority) {
+		this.priority = priority;
+	}
 }

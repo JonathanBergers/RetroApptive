@@ -5,13 +5,18 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
+import com.saxion.nl.retroapptive.MainActivity;
 import com.saxion.nl.retroapptive.view.ObjectFragment;
 
 /**
  * Created by falco on 28-5-15.
  */
 public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
-    public CollectionPagerAdapter(FragmentManager fm) {
+
+
+    MainActivity activity;
+
+    public CollectionPagerAdapter(FragmentManager fm, MainActivity activity ) {
         super(fm);
     }
 
