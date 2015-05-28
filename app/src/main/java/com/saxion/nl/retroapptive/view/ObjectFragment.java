@@ -1,22 +1,16 @@
 package com.saxion.nl.retroapptive.view;
 
 import android.app.Fragment;
-import android.app.ListFragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.saxion.nl.retroapptive.R;
-import com.saxion.nl.retroapptive.controller.ItemAdapter;
 import com.saxion.nl.retroapptive.controller.NoteAdapter;
 import com.saxion.nl.retroapptive.model.Model;
-import com.saxion.nl.retroapptive.model.Notitie;
-
-import java.util.List;
 
 /**
  * Created by falco on 28-5-15.
@@ -72,10 +66,11 @@ public final class ObjectFragment extends Fragment {
         switch (currentPosition){
 
 
-            case 0 : {   NoteAdapter noteAdapter = new NoteAdapter(container.getContext(), R.layout.fragment_list_item, Model.getInstance().notes);
+            case 0 : {    NoteAdapter noteAdapter = new NoteAdapter(container.getContext(), R.layout.fragment_list_item, Model.getInstance().notes);
                 listView.setAdapter(noteAdapter);}
+
             break;
-            case 1 : {  // TODO Item adapter voor acties
+            case 1 : {  // TODO ActieAdapter adapter voor acties
              }
 
             case 2 : {  // TODO item adapter voor user stories
