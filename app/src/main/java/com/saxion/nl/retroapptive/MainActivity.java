@@ -32,6 +32,7 @@ import com.saxion.nl.retroapptive.activities.DataRetrieverActivity;
 import com.saxion.nl.retroapptive.controller.CollectionPagerAdapter;
 import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.view.ListViewFragment;
+import com.saxion.nl.retroapptive.view.ObjectFragment;
 
 import java.util.ArrayList;
 
@@ -73,7 +74,7 @@ public class MainActivity extends FragmentActivity
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction fragmentTransaction) {
-                // show the given tab
+
             }
 
             @Override
