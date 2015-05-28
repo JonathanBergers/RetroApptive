@@ -103,11 +103,11 @@ public class DataRetrieverActivity extends Activity {
 
 
 
-
+//haalt de item lijst op
 class GetItemsTask extends IsisTask<ActionResult>{
     List<Link> links;
 
-
+//haalt de individuele items op
     class GetItemTask extends IsisTask<DomainObject>{
         public GetItemTask(Class<DomainObject> typeClass) {
             super(typeClass);
@@ -117,7 +117,7 @@ class GetItemsTask extends IsisTask<ActionResult>{
 
 
 
-
+        // post execute van ITEM
         @Override
         protected void onPostExecute(DomainObject domainObject) {
             Log.d("POST", domainObject.getTitle());
@@ -125,6 +125,8 @@ class GetItemsTask extends IsisTask<ActionResult>{
             Model.getInstance().notesTestStrings.add(domainObject.getTitle());
 
 
+
+            //Recursion ;D
             if(!links.isEmpty()){
 
                 Link linkToObject = links.remove(0);
@@ -145,7 +147,7 @@ class GetItemsTask extends IsisTask<ActionResult>{
     }
 
 
-
+    //post execute van ITEMSS
     @Override
     protected void onPostExecute(ActionResult actionResult) {
 
