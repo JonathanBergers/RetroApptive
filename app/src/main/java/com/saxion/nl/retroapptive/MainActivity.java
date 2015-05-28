@@ -69,6 +69,7 @@ public class MainActivity extends FragmentActivity
     ViewPager mViewPager;
 
 
+    protected     ListViewFragment lvf;
 
 
 
@@ -88,6 +89,8 @@ public class MainActivity extends FragmentActivity
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction fragmentTransaction) {
+
+
 
             }
 
@@ -112,11 +115,20 @@ public class MainActivity extends FragmentActivity
         }
 
 
+
+        FragmentManager fragmentManager = getFragmentManager();
+
+
+
+
+
         mCollectionPagerAdapter =
                 new CollectionPagerAdapter(getFragmentManager(), this);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCollectionPagerAdapter);
+
+
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -133,7 +145,8 @@ public class MainActivity extends FragmentActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
 
-        ListViewFragment lvf = (ListViewFragment) getFragmentManager().findFragmentById(R.id.listFragment);
+        //lvf = (ListViewFragment) getFragmentManager().findFragmentById(R.id.listFragment);
+
 
 
 
@@ -175,6 +188,10 @@ public class MainActivity extends FragmentActivity
         //Intent intent = new Intent(this, DataRetrieverActivity.class);
 
     }
+
+
+
+
 
 
 
@@ -268,9 +285,18 @@ private void getNotes(){
 
             }
 
+
+
+//            private int getType(DomainObject domainObject){
+//
+//
+//            }
+
             // post execute van ITEM
             @Override
             protected void onPostExecute(DomainObject domainObject) {
+
+
                 Log.d("POST", domainObject.getTitle());
                 domainObjects.add(domainObject);
                 Model.getInstance().notesTestStrings.add(domainObject.getTitle());
@@ -278,7 +304,9 @@ private void getNotes(){
 
                 //TODO iets waardoor domainobjecten uit elkaar worden gehouden
 
-                notities.add(IsisConverter.getInstance().getNotitieFromDomainObject(domainObject));
+                Model.getInstance().notes.add(IsisConverter.getInstance().getNotitieFromDomainObject(domainObject));
+                mCollectionPagerAdapter.notifyDataSetChanged();
+
 
 
                 //Recursion ;D
