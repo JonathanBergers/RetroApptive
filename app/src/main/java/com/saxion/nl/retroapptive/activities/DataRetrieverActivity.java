@@ -66,6 +66,10 @@ public class DataRetrieverActivity extends Activity {
         return true;
     }
 
+
+
+    //START MAIN ACTIVITY
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -101,7 +105,7 @@ public class DataRetrieverActivity extends Activity {
 
 
 class GetItemsTask extends IsisTask<ActionResult>{
-
+    List<Link> links;
 
 
     class GetItemTask extends IsisTask<DomainObject>{
@@ -116,11 +120,20 @@ class GetItemsTask extends IsisTask<ActionResult>{
 
         @Override
         protected void onPostExecute(DomainObject domainObject) {
+            Log.d("POST", domainObject.getTitle());
             domainObjects.add(domainObject);
             Model.getInstance().notesTestStrings.add(domainObject.getTitle());
 
-            System.out.println(domainObject.getTitle());
-            Log.d("POST", domainObject.getTitle());
+
+            if(!links.isEmpty()){
+
+                Link linkToObject = links.remove(0);
+                Log.d("TRY", linkToObject.getHref());
+                GetItemTask getItemTask = new GetItemTask(DomainObject.class);
+                getItemTask.execute(linkToObject);
+
+            }
+
 
 
 
@@ -138,13 +151,7 @@ class GetItemsTask extends IsisTask<ActionResult>{
 
 
 
-        List<Link> links = actionResult.getResult().getValueAsList();
-
-
-        Log.d("TRY", links.toString());
-
-
-
+        links = actionResult.getResult().getValueAsList();
 
         if(links == null){
 
@@ -166,19 +173,6 @@ class GetItemsTask extends IsisTask<ActionResult>{
         firstGetItemTask.execute(firstLink);
 
 
-
-
-        while(links.isEmpty() == false) {
-
-
-            Link linkToObject = links.remove(0);
-            Log.d("TRY", linkToObject.getHref());
-            GetItemTask getItemTask = new GetItemTask(DomainObject.class);
-            getItemTask.execute(linkToObject);
-
-
-
-        }
 
 
 

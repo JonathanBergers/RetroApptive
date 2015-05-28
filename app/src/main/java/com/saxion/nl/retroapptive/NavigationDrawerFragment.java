@@ -105,7 +105,13 @@ public class NavigationDrawerFragment extends Fragment {
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                Model.getInstance().notesTestStrings));
+
+                // HIER KOMT DE DATA VOOR DE DRAWER
+                //Model.getInstance().notesTestStrings)
+        new String[]{"Hardcoded project 1", "Hardcoded project2", "Hardcoded Project 3"}
+
+
+        ));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }

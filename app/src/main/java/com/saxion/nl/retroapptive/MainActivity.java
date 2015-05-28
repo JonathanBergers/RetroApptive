@@ -25,6 +25,9 @@ import android.widget.TextView;
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ScrollDirectionListener;
 import com.saxion.nl.retroapptive.activities.DataRetrieverActivity;
+import com.saxion.nl.retroapptive.model.Model;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends Activity
@@ -59,6 +62,10 @@ public class MainActivity extends Activity
 
         //mNavigationDrawerFragment.get
 
+
+//        ListViewFragment listViewFragment = (ListViewFragment)getFragmentManager().findFragmentById(R.id.listFragment);
+//
+//        listViewFragment.addData(Model.getInstance().notesTestStrings);
 
 
 
@@ -120,6 +127,8 @@ public class MainActivity extends Activity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+
             return true;
         }
 
@@ -127,15 +136,30 @@ public class MainActivity extends Activity
     }
 
 
-
+    /**DE LISTVIEW
+     *
+     *
+     *
+     */
     public static class ListViewFragment extends Fragment {
+
+        ListView list;
+        public void addData(ArrayList<String> data){
+
+            list.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, data));
+
+
+        }
 
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View root = inflater.inflate(R.layout.fragment_listview, container, false);
 
-            ListView list = (ListView) root.findViewById(android.R.id.list);
+            list = (ListView) root.findViewById(R.id.listViewItems);
+
+
+            addData(Model.getInstance().notesTestStrings);
 
 
             FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
