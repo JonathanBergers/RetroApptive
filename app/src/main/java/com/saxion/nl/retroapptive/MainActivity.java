@@ -78,6 +78,32 @@ public class MainActivity extends FragmentActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        ListViewFragment lvf = (ListViewFragment) getFragmentManager().findFragmentById(R.id.listFragment);
+        /*
+        fab.attachToListView(lvf.getListView(), new ScrollDirectionListener() {
+            @Override
+            public void onScrollDown() {
+                Log.d("ListViewFragment", "onScrollDown()");
+            }
+
+            @Override
+            public void onScrollUp() {
+                Log.d("ListViewFragment", "onScrollUp()");
+            }
+        }, new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                Log.d("ListViewFragment", "onScrollStateChanged()");
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                Log.d("ListViewFragment", "onScroll()");
+            }
+        });
+*/
+
         //mNavigationDrawerFragment.get
 
 

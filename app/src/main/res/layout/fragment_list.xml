@@ -13,7 +13,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:name="com.saxion.nl.retroapptive.view.ListViewFragment"
-        android:id="@+id/fragment"
+        android:id="@+id/Listfragment"
         android:layout_below="@+id/text1000"
         android:layout_centerHorizontal="true" />
 
