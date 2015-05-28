@@ -72,6 +72,7 @@ public class MainActivity extends FragmentActivity
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,6 +171,9 @@ public class MainActivity extends FragmentActivity
     }
 
 
+
+
+
     // kan volgens mij weg
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -233,7 +237,11 @@ public class MainActivity extends FragmentActivity
     }
 
 
+private void getNotes(){
 
+
+
+}
 
     //haalt de item lijst op
     class GetItemsTask extends IsisTask<ActionResult>{
@@ -263,8 +271,8 @@ public class MainActivity extends FragmentActivity
 
 
                 //TODO iets waardoor domainobjecten uit elkaar worden gehouden
-                IsisConverter converter = new IsisConverter();
-                notities.add(converter.getNotitieFromDomainObject(domainObject));
+
+                notities.add(IsisConverter.getInstance().getNotitieFromDomainObject(domainObject));
 
 
                 //Recursion ;D

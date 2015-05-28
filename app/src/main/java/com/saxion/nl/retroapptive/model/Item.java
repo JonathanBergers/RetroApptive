@@ -1,14 +1,22 @@
 package com.saxion.nl.retroapptive.model;
 
-public abstract class Item {
+public class Item {
 
 	private String description, summary;
-	private Sprint sprint;
+	private int sprintNumber;
 	
-	public Item(String description, String summary, Sprint sprint) {
+	public Item(String description, String summary, int sprintNumber) {
 		this.description = description;
 		this.summary = summary;
-		this.sprint = sprint;
+		this.sprintNumber = sprintNumber;
+	}
+
+	public Item(Item item){
+		this.description = item.getDescription();
+		this.summary = item.getSummary();
+		this.sprintNumber = item.getSprintNumber();
+
+
 	}
 
 	public String getDescription() {
@@ -19,8 +27,8 @@ public abstract class Item {
 		return summary;
 	}
 
-	public Sprint getSprint() {
-		return sprint;
+	public int getSprintNumber() {
+		return sprintNumber;
 	}
 
 	public void setDescription(String description) {
@@ -31,7 +39,7 @@ public abstract class Item {
 		this.summary = summary;
 	}
 	
-	
+
 	
 	
 	

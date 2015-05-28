@@ -1,13 +1,21 @@
 package com.saxion.nl.retroapptive.model;
 
-public class UserStorie extends Item {
+public class UserStory extends Item {
 	
-	private int points;
+	private Integer points;
 	private boolean isBurned = false; //standaard false
 
-	public UserStorie(String description, String summary, Sprint sprint, int points) {
-		super(description, summary, sprint);
+	public UserStory(Item item) {
+		super(item);
+
+	}
+
+	public void setPoints(Integer points) {
 		this.points = points;
+	}
+
+	public void setIsBurned(boolean isBurned) {
+		this.isBurned = isBurned;
 	}
 
 	public int getPoints() {

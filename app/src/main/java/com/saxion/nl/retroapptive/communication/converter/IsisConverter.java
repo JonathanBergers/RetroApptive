@@ -7,56 +7,81 @@ import android.util.Log;
 
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.DomainObject;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.ObjectMember;
+import com.saxion.nl.retroapptive.model.Item;
 import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.model.Project;
 import com.saxion.nl.retroapptive.model.Sprint;
 
 
-public class IsisConverter {
+public  class IsisConverter {
 
+    private static IsisConverter isisConverter;
 
+    public static IsisConverter getInstance(){
+        if(isisConverter == null){
 
-
-    public Notitie getNotitieFromDomainObject(DomainObject input){
-
-        //alle atributen van input
-        Map<String, ObjectMember> members = input.getMembers();
-        Set<String> keys = members.keySet();
-
-        /*
-        for(String key : keys){
-            Log.d("Notite", "NOTITIE key: "+key);
+            return new IsisConverter();
         }
-        */
+        return isisConverter;
 
-        //de valiues waar je iets aan hebt
-        String descreption = members.get("description").getValue().asText();
-        String summary = members.get("summary").getValue().asText();
-        String category = members.get("category").getValue().asText();
-        String sprintNumber = members.get("sprintNumber").getValue().asText();
-        String ispositive = members.get("isPositive").getValue().asText();
+    }
+
+    public Item getItemFromDomainObject(DomainObject domainObject){
 
 
+        Map<String, ObjectMember> members = domainObject.getMembers();
+        String description = members.get("description").getValue().getTextValue();
+        String summary = members.get("summary").getValue().getTextValue();
+        int sprintNumber = members.get("sprintNumber").getValue().getIntValue();
+
+        Item item = new Item(description, summary, sprintNumber);
+        return item;
 
 
-        Log.d("Notite", "NOTITIE descreption: "+descreption);
-        Log.d("Notite", "NOTITIE summary: "+summary);
-        Log.d("Notite", "NOTITIE category: "+category);
-        Log.d("Notite", "NOTITIE sprintNumber: "+sprintNumber);
-        Log.d("Notite", "NOTITIE isPositive: "+ispositive);
+    }
 
 
-        //TODO hier moet iets komen om de goeie sprint te koppelen
-        Project project = new Project("OK");
-        Sprint sprint = new Sprint(project);
 
-        Notitie notitie = new Notitie(descreption, summary, sprint, category, ispositive.equals("true"));
-        //Notitie notitie = new Notitie(description, summary, sprint, category, isPositive);
+    public Notitie getNotitieFromDomainObject(DomainObject domainObject){
+
+
+        Item item = getItemFromDomainObject(domainObject);
+
+
+        Notitie notitie = new Notitie(item);
+
+
+
+        Map<String, ObjectMember> members = domainObject.getMembers();
+
+        String category;
+        Boolean isPositive;
+
+        if(members.containsKey("category")){
+
+            category = members.get("category").getValue().getTextValue();
+            notitie.setCategory(category);
+        }
+
+        if(members.containsKey("isPositive")){
+
+            isPositive = members.get("isPositive").getValue().getBooleanValue();
+            notitie.setIsPositive(isPositive);
+        }
+
 
         return notitie;
 
 
     }
+
+
+
+
+
+
+
+
 
 
 
