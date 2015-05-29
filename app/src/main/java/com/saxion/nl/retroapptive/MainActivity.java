@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.ListView;
 
 import com.saxion.nl.retroapptive.communication.converter.IsisConverter;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.ROClient;
@@ -22,7 +23,10 @@ import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.repres
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.JsonRepr;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Link;
 import com.saxion.nl.retroapptive.controller.CollectionPagerAdapter;
+import com.saxion.nl.retroapptive.controller.ItemAdapter;
+import com.saxion.nl.retroapptive.controller.NoteAdapter;
 import com.saxion.nl.retroapptive.model.Notitie;
+import com.saxion.nl.retroapptive.view.ListViewFragment;
 
 
 import java.util.ArrayList;
@@ -46,6 +50,8 @@ public class MainActivity extends FragmentActivity
     // representing an object in the collection.
     CollectionPagerAdapter mCollectionPagerAdapter;
     ViewPager mViewPager;
+    FragmentManager fragmentManager;
+
 
 
 
@@ -59,6 +65,8 @@ public class MainActivity extends FragmentActivity
         setContentView(R.layout.activity_main);
 
         final ActionBar actionBar = getActionBar();
+
+
 
 
         // Specify that tabs should be displayed in the action bar.
@@ -95,7 +103,7 @@ public class MainActivity extends FragmentActivity
 
 
 
-        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager = getFragmentManager();
 
 
 
@@ -105,6 +113,7 @@ public class MainActivity extends FragmentActivity
                 new CollectionPagerAdapter(getFragmentManager(), this);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
+
         mViewPager.setAdapter(mCollectionPagerAdapter);
 
 
@@ -128,25 +137,25 @@ public class MainActivity extends FragmentActivity
 
 
         ROClient.getInstance().setCredential("todoapp-admin", "pass");
-        ROClient.getInstance().setHost("http://10.0.1.23:8080/restful");
+        ROClient.getInstance().setHost("http://192.168.2.10:8080/restful");
 
 
         Link link = new Link();
-        link.setHref("http://10.0.1.23:8080/restful/services/ToDoItems/actions/collectNotes/invoke");
+        link.setHref("http://192.168.2.10:8080/restful/services/ToDoItems/actions/collectNotes/invoke");
         link.setMethod("GET");
         //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
         GetItemsTask getItemsTask = new GetItemsTask(ActionResult.class);
 
         getItemsTask.execute(link);
 
-        link.setHref("http://10.0.1.23:8080/restful/services/ToDoItems/actions/collectActions/invoke");
-        link.setMethod("GET");
+        //link.setHref("http://192.168.2.10:8080/restful/services/ToDoItems/actions/collectActions/invoke");
+       // link.setMethod("GET");
         //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
         GetItemsTask jo = new GetItemsTask(ActionResult.class);
 
-        jo.execute(link);
+       // jo.execute(link);
 
-        mCollectionPagerAdapter.notifyDataSetChanged();
+        //mCollectionPagerAdapter.notifyDataSetChanged();
 
 
     }
@@ -268,17 +277,23 @@ private void getNotes(){
 
 
                 IsisConverter.getInstance().convertObject(domainObject);
-                mCollectionPagerAdapter.notifyDataSetChanged();
+
+                mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 10, false);
+                mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 10, false);
+
 
 
 
                 //Recursion ;D
-                if(!links.isEmpty()){
+                if(!links.isEmpty()) {
 
                     Link linkToObject = links.remove(0);
                     Log.d("TRY", linkToObject.getHref());
                     GetItemTask getItemTask = new GetItemTask(DomainObject.class);
                     getItemTask.execute(linkToObject);
+
+
+
 
                 }
 
@@ -302,8 +317,8 @@ private void getNotes(){
 
             links = actionResult.getResult().getValueAsList();
 
-            if(links == null){
-
+            if(links.isEmpty()){
+                Log.d("NIKS", "links is leeg");
                 return;
             }
 
@@ -320,17 +335,6 @@ private void getNotes(){
             Log.d("TRY", firstLink.getHref());
             GetItemTask firstGetItemTask = new GetItemTask(DomainObject.class);
             firstGetItemTask.execute(firstLink);
-
-
-
-
-
-
-
-
-
-
-
 
 
 

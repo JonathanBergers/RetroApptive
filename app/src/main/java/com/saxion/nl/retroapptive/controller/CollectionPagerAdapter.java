@@ -3,6 +3,8 @@ package com.saxion.nl.retroapptive.controller;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.ViewGroup;
 
 import com.saxion.nl.retroapptive.MainActivity;
 import com.saxion.nl.retroapptive.view.ListViewFragment;
@@ -30,7 +32,11 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
 
 
 
+
+
+
         return ListViewFragment.init(i);
+
 
     }
 
@@ -53,6 +59,7 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
     private String getTap(int i) {
         if(i == 0){
             // eerste tap
+
            return "Notities";
         } else if(i==1){
             //tweede tap
@@ -62,4 +69,5 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
         }
 
     }
+
 }

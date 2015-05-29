@@ -1,6 +1,7 @@
 package com.saxion.nl.retroapptive.controller;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,10 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
 
     private TextView category;
 
+    public ItemAdapter(Context context, int resource, List<T> objects) {
+        super(context, resource, objects);
+    }
+
     //private ....View sprint
     // private ...View points / priority
     // private ..View Attachment ?
@@ -34,11 +39,7 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
 
 
 
-    public ItemAdapter(Context context, int resource) {
-        super(context, resource);
 
-
-    }
 
 
     @Override

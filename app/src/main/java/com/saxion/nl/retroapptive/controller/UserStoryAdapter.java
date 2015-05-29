@@ -18,8 +18,9 @@ import java.util.List;
 public class UserStoryAdapter extends ItemAdapter<UserStory> {
 
 
-    public UserStoryAdapter(Context context, int resource) {
-        super(context, resource);
+    public UserStoryAdapter(Context context, int resource, List<UserStory> obejects) {
+
+        super(context, resource, obejects);
     }
 
     @Override

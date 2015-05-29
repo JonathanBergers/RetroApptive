@@ -7,6 +7,7 @@ import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.repres
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Observable;
 
 public class Model {
 
@@ -67,6 +68,8 @@ public class Model {
     }
 
 
-    
-    
+    public void addNote(Notitie note) {
+        notes.add(note);
+    }
+
 }

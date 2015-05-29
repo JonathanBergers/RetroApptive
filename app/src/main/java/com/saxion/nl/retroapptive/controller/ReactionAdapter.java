@@ -16,8 +16,8 @@ import java.util.List;
  * Created by jonathan on 28-5-15.
  */
 public class ReactionAdapter extends ItemAdapter<Reaction> {
-    public ReactionAdapter(Context context, int resource) {
-        super(context, resource);
+    public ReactionAdapter(Context context, int resource, List<Reaction> obejects) {
+        super(context, resource, obejects);
     }
 
 

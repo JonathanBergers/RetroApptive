@@ -2,10 +2,13 @@ package com.saxion.nl.retroapptive.view;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.saxion.nl.retroapptive.R;
@@ -13,6 +16,10 @@ import com.saxion.nl.retroapptive.controller.NoteAdapter;
 import com.saxion.nl.retroapptive.controller.ReactionAdapter;
 import com.saxion.nl.retroapptive.controller.UserStoryAdapter;
 import com.saxion.nl.retroapptive.model.Model;
+import com.saxion.nl.retroapptive.model.Notitie;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by falco on 28-5-15.
@@ -20,7 +27,9 @@ import com.saxion.nl.retroapptive.model.Model;
 public final class ListViewFragment extends Fragment {
     public static final String ARG_OBJECT = "object";
     public static Bundle args;
-
+    public ListView listView;
+    public static NoteAdapter noteAdapter;
+    public  ReactionAdapter reactionAdapter;
 
     int currentPosition;
 
@@ -39,7 +48,10 @@ public final class ListViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        currentPosition= getArguments() != null ? getArguments().getInt(ListViewFragment.ARG_OBJECT) : 1;
+        currentPosition= getArguments() != null ? getArguments().getInt(ListViewFragment.ARG_OBJECT) : 0;
+
+        noteAdapter = new NoteAdapter(getActivity(), R.layout.fragment_list_item, Model.getInstance().notes);
+        reactionAdapter = new ReactionAdapter(getActivity(), R.layout.fragment_list_item, Model.getInstance().reactions);
 
 
 
@@ -51,35 +63,67 @@ public final class ListViewFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         // The last two arguments ensure LayoutParams are inflated
         // properly.
+
+
         View rootView = inflater.inflate(
                 R.layout.list, container, false);
         args = getArguments();
 
+        listView = (ListView) rootView.findViewById(R.id.listView);
 
-        Log.d("INFLATE", "ONCREATEVIEW");
+        noteAdapter.notifyDataSetChanged();
+
+
+        return rootView;
+    }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+
 
         currentPosition = args.getInt(ListViewFragment.ARG_OBJECT);
         Log.d("Position", ("" + currentPosition));
 
-        ListView listView = (ListView) rootView.findViewById(R.id.listView);
-        listView.setSelection(currentPosition);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         switch (currentPosition){
 
 
-            case 0 : {    NoteAdapter noteAdapter = new NoteAdapter(container.getContext(), R.layout.fragment_list_item);
-                listView.setAdapter(noteAdapter);}
+            case 0 : {
+                Log.d("Position", "JAAAAAAAAAAAAAA");
+                listView.setAdapter(noteAdapter);
+
+
+
+            }
+
 
             break;
             case 1 : {
-                ReactionAdapter reactionAdapter = new ReactionAdapter(container.getContext(), R.layout.fragment_list_item);
+
                 listView.setAdapter(reactionAdapter);
-             }
+            }
 
             case 2 : {
-                UserStoryAdapter adapter = new UserStoryAdapter(container.getContext(), R.layout.fragment_list_item);
-             }
+                UserStoryAdapter adapter = new UserStoryAdapter(getActivity(), R.layout.fragment_list_item, null);
+            }
 
             break;
 
@@ -94,9 +138,16 @@ public final class ListViewFragment extends Fragment {
 
 
 
-        return rootView;
+
     }
 
 
 
+    public void updateListView() {
+        if(noteAdapter!=null){
+            noteAdapter.notifyDataSetChanged();
+        }
+
+
+    }
 }

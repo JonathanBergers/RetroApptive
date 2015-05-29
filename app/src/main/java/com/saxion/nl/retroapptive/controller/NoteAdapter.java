@@ -1,6 +1,7 @@
 package com.saxion.nl.retroapptive.controller;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,9 @@ public class NoteAdapter extends ItemAdapter<Notitie> {
 
     private TextView category;
 
-    public NoteAdapter(Context context, int resource) {
-        super(context, resource);
+    public NoteAdapter(Context context, int resource, List<Notitie> objects) {
+        super(context, resource, objects);
+
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.DomainObject;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.ObjectMember;
+import com.saxion.nl.retroapptive.controller.NoteAdapter;
 import com.saxion.nl.retroapptive.model.Item;
 import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.model.Notitie;
@@ -15,6 +16,7 @@ import com.saxion.nl.retroapptive.model.Project;
 import com.saxion.nl.retroapptive.model.Reaction;
 import com.saxion.nl.retroapptive.model.Sprint;
 import com.saxion.nl.retroapptive.model.UserStory;
+import com.saxion.nl.retroapptive.view.ListViewFragment;
 
 
 public  class IsisConverter {
@@ -43,24 +45,24 @@ public  class IsisConverter {
         if(type.equals("Note")){
             Log.d("CONVERTER", "NOTE CREATED");
 
-            Model.getInstance().notes.add(getNotitieFromDomainObject(domainObject));
-            return;
+            Model.getInstance().addNote(getNotitieFromDomainObject(domainObject));
+
         }
 
         if(type.equals("User Story")){
 
             Model.getInstance().userStories.add(getUserStoryFromDomainObject(domainObject));
-            return;
+
         }
 
         if(type.equals("Action")){
 
 
             Model.getInstance().reactions.add(getReactionFromDomainObject(domainObject));
-            return;
+
         }
 
-
+        return;
 
 
 
