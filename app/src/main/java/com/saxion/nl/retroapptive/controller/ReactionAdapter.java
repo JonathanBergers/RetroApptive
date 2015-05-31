@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.model.Model;
@@ -23,7 +22,7 @@ public class ReactionAdapter extends ItemAdapter<Reaction> {
 
     @Override
     public View inflateView(LayoutInflater inflater, View convertView, ViewGroup parent) {
-        return inflater.inflate(R.layout.fragment_list_item, parent, false);
+        return inflater.inflate(R.layout.fragment_list_item_note, parent, false);
     }
 
     @Override

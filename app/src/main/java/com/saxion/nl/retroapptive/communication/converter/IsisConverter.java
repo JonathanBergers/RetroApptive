@@ -128,22 +128,23 @@ public  class IsisConverter {
 
         UserStory userStory = new UserStory(item);
 
-        Boolean isBurned;
+        boolean isBurned;
 
             isBurned = members.get("isPositive").getValue().getBooleanValue();
             userStory.setIsBurned(isBurned);
 
 
-        Integer points = null;
+        double points = 0;
         if(members.get("points").getValue() !=null){
 
             String pointString = members.get("points").getValue().asText();
-            points= Integer.parseInt(pointString.substring(0,pointString.length() - 2));
+            points= Double.parseDouble(pointString.substring(0, pointString.length()));
 
 
 
         }
-        userStory.setPoints(points);
+        int i = (int) points;
+        userStory.setPoints(i);
 
 
 

@@ -46,6 +46,8 @@ public class MainActivity extends FragmentActivity
      */
     private CharSequence mTitle;
 
+    private boolean synced = false;
+
     // When requested, this adapter returns a DemoObjectFragment,
     // representing an object in the collection.
     CollectionPagerAdapter mCollectionPagerAdapter;
@@ -148,12 +150,9 @@ public class MainActivity extends FragmentActivity
 
         getItemsTask.execute(link);
 
-        //link.setHref("http://192.168.2.10:8080/restful/services/ToDoItems/actions/collectActions/invoke");
-       // link.setMethod("GET");
-        //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
-        GetItemsTask jo = new GetItemsTask(ActionResult.class);
 
-       // jo.execute(link);
+
+
 
         //mCollectionPagerAdapter.notifyDataSetChanged();
 
@@ -277,7 +276,7 @@ private void getNotes(){
 
 
                 IsisConverter.getInstance().convertObject(domainObject);
-                mCollectionPagerAdapter.notifyDataSetChanged();
+
 
 
 
@@ -293,10 +292,19 @@ private void getNotes(){
 
 
 
+                } else if(!synced){
+                    Log.d("USERSTORY", "SYNCING");
+                    synced=true;
+                    Link link2 = new Link();
+                    link2.setHref("http://192.168.2.10:8080/restful/services/ToDoItems/actions/collectUserStories/invoke");
+                    link2.setMethod("GET");
+                    //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
+                    GetItemsTask jo = new GetItemsTask(ActionResult.class);
+                    jo.execute(link2);
                 }
 
 
-
+                mCollectionPagerAdapter.notifyDataSetChanged();
 
             }
 

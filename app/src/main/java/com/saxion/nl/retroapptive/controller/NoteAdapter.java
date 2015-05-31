@@ -1,7 +1,6 @@
 package com.saxion.nl.retroapptive.controller;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ public class NoteAdapter extends ItemAdapter<Notitie> {
 
     @Override
     public View inflateView(LayoutInflater inflater, View convertView, ViewGroup parent) {
-        return inflater.inflate(R.layout.fragment_list_item, parent, false);
+        return inflater.inflate(R.layout.fragment_list_item_note, parent, false);
     }
 
     @Override
@@ -44,6 +43,6 @@ public class NoteAdapter extends ItemAdapter<Notitie> {
     @Override
     public void addViews(View convertedView, int position) {
 
-        category = (TextView) convertedView.findViewById(R.id.textViewNoteCategory);
+        category = (TextView) convertedView.findViewById(R.id.textViewListNoteCategory);
     }
 }

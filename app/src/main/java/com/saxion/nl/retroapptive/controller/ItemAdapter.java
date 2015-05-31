@@ -1,7 +1,6 @@
 package com.saxion.nl.retroapptive.controller;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.saxion.nl.retroapptive.R;
+import com.saxion.nl.retroapptive.view.ListViewFragment;
 
 
 import java.util.List;
@@ -25,6 +25,8 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
     protected TextView sprintNumber;
 
     private TextView category;
+
+    public int currentPosition = 0;
 
     public ItemAdapter(Context context, int resource, List<T> objects) {
         super(context, resource, objects);
@@ -57,10 +59,17 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
 
 
 
-        //DATA IS THE SAME FOR EVERY ITEM ??
-        title = (TextView) convertView.findViewById(R.id.textViewNoteTitle);
-        summary = (TextView) convertView.findViewById(R.id.textViewNotesummary);
-        //sprintNumber = (TextView) convertView.findViewById(R.id.textViewSprintNumber);
+        if(currentPosition == 0){
+            title = (TextView) convertView.findViewById(R.id.textViewListNoteTitle);
+            summary = (TextView) convertView.findViewById(R.id.textViewListNotesummary);
+        } else {
+            title = (TextView) convertView.findViewById(R.id.textViewListUserStoryTitle);
+            summary = (TextView) convertView.findViewById(R.id.textViewListUserStorySummary);
+        }
+
+
+
+
 
         addViews(convertView, position);
 
@@ -76,7 +85,11 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
 
     public  View inflateView(LayoutInflater inflater, View convertView, ViewGroup parent){
 
-        return inflater.inflate(R.layout.fragment_list_item, parent, false);
+
+            return inflater.inflate(R.layout.fragment_list_item_note, parent, false);
+
+
+
     }
 
 

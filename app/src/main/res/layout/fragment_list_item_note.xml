@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Title"
-            android:id="@+id/textViewNoteTitle"
+            android:id="@+id/textViewListNoteTitle"
             android:layout_gravity="center_horizontal" />
 
         <TextView
@@ -22,13 +22,13 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="description"
-            android:id="@+id/textViewNotesummary" />
+            android:id="@+id/textViewListNotesummary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Category"
-            android:id="@+id/textViewNoteCategory"
+            android:id="@+id/textViewListNoteCategory"
             android:layout_gravity="right" />
 
     </LinearLayout>

@@ -1,9 +1,8 @@
 package com.saxion.nl.retroapptive.view;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.saxion.nl.retroapptive.R;
+import com.saxion.nl.retroapptive.activities.DetailActivity;
 import com.saxion.nl.retroapptive.controller.NoteAdapter;
 import com.saxion.nl.retroapptive.controller.ReactionAdapter;
 import com.saxion.nl.retroapptive.controller.UserStoryAdapter;
 import com.saxion.nl.retroapptive.model.Model;
-import com.saxion.nl.retroapptive.model.Notitie;
-
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Created by falco on 28-5-15.
@@ -28,10 +24,11 @@ public final class ListViewFragment extends Fragment {
     public static final String ARG_OBJECT = "object";
     public static Bundle args;
     public ListView listView;
-    public static NoteAdapter noteAdapter;
+    public  NoteAdapter noteAdapter;
+    public UserStoryAdapter userStoryAdapter;
     public  ReactionAdapter reactionAdapter;
 
-    int currentPosition;
+    public  int currentPosition;
 
 
     public static ListViewFragment init(int value) {
@@ -50,8 +47,9 @@ public final class ListViewFragment extends Fragment {
 
         currentPosition= getArguments() != null ? getArguments().getInt(ListViewFragment.ARG_OBJECT) : 0;
 
-        noteAdapter = new NoteAdapter(getActivity(), R.layout.fragment_list_item, Model.getInstance().notes);
-        reactionAdapter = new ReactionAdapter(getActivity(), R.layout.fragment_list_item, Model.getInstance().reactions);
+        noteAdapter = new NoteAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().notes);
+        userStoryAdapter = new UserStoryAdapter(getActivity(), R.layout.fragment_list_item_user_story, Model.getInstance().userStories);
+        reactionAdapter = new ReactionAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().reactions);
 
 
 
@@ -71,7 +69,7 @@ public final class ListViewFragment extends Fragment {
 
         listView = (ListView) rootView.findViewById(R.id.listView);
 
-        noteAdapter.notifyDataSetChanged();
+
 
 
         return rootView;
@@ -86,6 +84,9 @@ public final class ListViewFragment extends Fragment {
 
 
         currentPosition = args.getInt(ListViewFragment.ARG_OBJECT);
+        noteAdapter.currentPosition = currentPosition;
+        userStoryAdapter.currentPosition = currentPosition;
+        reactionAdapter.currentPosition = currentPosition;
         Log.d("Position", ("" + currentPosition));
 
 
@@ -94,7 +95,22 @@ public final class ListViewFragment extends Fragment {
 
 
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                Intent detailsIntent = new Intent(getActivity(), DetailActivity.class);
+                detailsIntent.putExtra("position", i);
+                if (listView.getAdapter().equals(noteAdapter)) {
+                    detailsIntent.putExtra("list", DetailActivity.NOTES_LIST);
+                } else {
+                    detailsIntent.putExtra("list", DetailActivity.USERSTORIES_LIST);
+                }
+
+                getActivity().startActivity(detailsIntent);
+
+            }
+        });
 
 
 
@@ -107,7 +123,7 @@ public final class ListViewFragment extends Fragment {
 
 
             case 0 : {
-                Log.d("Position", "JAAAAAAAAAAAAAA");
+
                 listView.setAdapter(noteAdapter);
 
 
@@ -118,11 +134,12 @@ public final class ListViewFragment extends Fragment {
             break;
             case 1 : {
 
-                listView.setAdapter(reactionAdapter);
+                listView.setAdapter(userStoryAdapter);
             }
+            break;
 
             case 2 : {
-                UserStoryAdapter adapter = new UserStoryAdapter(getActivity(), R.layout.fragment_list_item, null);
+                UserStoryAdapter adapter = new UserStoryAdapter(getActivity(), R.layout.fragment_list_item_note, null);
             }
 
             break;
@@ -143,11 +160,5 @@ public final class ListViewFragment extends Fragment {
 
 
 
-    public void updateListView() {
-        if(noteAdapter!=null){
-            noteAdapter.notifyDataSetChanged();
-        }
 
-
-    }
 }
