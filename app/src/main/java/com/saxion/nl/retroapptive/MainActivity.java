@@ -139,11 +139,11 @@ public class MainActivity extends FragmentActivity
 
 
         ROClient.getInstance().setCredential("todoapp-admin", "pass");
-        ROClient.getInstance().setHost("http://192.168.2.10:8080/restful");
+        ROClient.getInstance().setHost("http://192.168.0.108:8080/restful");
 
 
         Link link = new Link();
-        link.setHref("http://192.168.2.10:8080/restful/services/ToDoItems/actions/collectNotes/invoke");
+        link.setHref("http://192.168.0.108:8080/restful/services/ToDoItems/actions/collectItems/invoke");
         link.setMethod("GET");
         //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
         GetItemsTask getItemsTask = new GetItemsTask(ActionResult.class);

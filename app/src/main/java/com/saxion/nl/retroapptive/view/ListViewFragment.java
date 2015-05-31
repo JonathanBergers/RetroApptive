@@ -139,7 +139,7 @@ public final class ListViewFragment extends Fragment {
             break;
 
             case 2 : {
-                UserStoryAdapter adapter = new UserStoryAdapter(getActivity(), R.layout.fragment_list_item_note, null);
+                listView.setAdapter(reactionAdapter);
             }
 
             break;
