@@ -277,9 +277,7 @@ private void getNotes(){
 
 
                 IsisConverter.getInstance().convertObject(domainObject);
-
-                mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 10, false);
-                mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 10, false);
+                mCollectionPagerAdapter.notifyDataSetChanged();
 
 
 
