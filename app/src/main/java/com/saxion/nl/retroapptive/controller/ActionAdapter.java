@@ -21,9 +21,7 @@ public class ActionAdapter extends ItemAdapter<Action> {
 
 
 
-    public View inflateView(LayoutInflater inflater, View convertView, ViewGroup parent) {
-        return inflater.inflate(R.layout.fragment_list_item_action, parent, false);
-    }
+
 
     @Override
     public void setData(View convertedView, int position) {

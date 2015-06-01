@@ -53,22 +53,28 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
 
             LayoutInflater inflater = (LayoutInflater) super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+
+            if(currentPosition == 0){
+                convertView = inflater.inflate(R.layout.fragment_list_item_note, parent, false);
+                title = (TextView) convertView.findViewById(R.id.textViewListNoteTitle);
+                summary = (TextView) convertView.findViewById(R.id.textViewListNotesummary);
+            } else if(currentPosition == 1){
+                convertView = inflater.inflate(R.layout.fragment_list_item_user_story, parent, false);
+                title = (TextView) convertView.findViewById(R.id.textViewListUserStoryTitle);
+                summary = (TextView) convertView.findViewById(R.id.textViewListUserStorySummary);
+            } else {
+                convertView = inflater.inflate(R.layout.fragment_list_item_action, parent, false);
+                title = (TextView) convertView.findViewById(R.id.textViewListActionTitel);
+                summary = (TextView) convertView.findViewById(R.id.textViewListActionSummary);
+            }
+
         }
 
 
 
 
 
-        if(currentPosition == 0){
-            title = (TextView) convertView.findViewById(R.id.textViewListNoteTitle);
-            summary = (TextView) convertView.findViewById(R.id.textViewListNotesummary);
-        } else if(currentPosition == 1){
-            title = (TextView) convertView.findViewById(R.id.textViewListUserStoryTitle);
-            summary = (TextView) convertView.findViewById(R.id.textViewListUserStorySummary);
-        } else {
-            title = (TextView) convertView.findViewById(R.id.textViewListActionTitel);
-            summary = (TextView) convertView.findViewById(R.id.textViewListActionSummary);
-        }
+
 
 
 

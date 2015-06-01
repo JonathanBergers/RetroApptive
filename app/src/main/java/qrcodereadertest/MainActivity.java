@@ -17,8 +17,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.sourceforge.zbar.Symbol;
-
 import scanner.ZBarConstants;
 import scanner.ZBarScannerActivity;
 
@@ -46,7 +44,7 @@ public class MainActivity extends Activity {
 		if (isCameraAvailable()) {
 			//BELNGRIJK
 			Intent intent = new Intent(this, ZBarScannerActivity.class);
-			intent.putExtra(ZBarConstants.SCAN_MODES, new int[] { Symbol.QRCODE });
+			intent.putExtra(ZBarConstants.SCAN_MODES, new int[] { 64 });
 			startActivityForResult(intent, ZBAR_QR_SCANNER_REQUEST);
 			//TOT HIER
 		} else {
