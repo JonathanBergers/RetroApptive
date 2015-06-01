@@ -86,7 +86,7 @@ public class Model {
         return actions.get(position);
     }
 
-    public Notitie getNode(int position) {
+    public Notitie getNote(int position) {
         return notes.get(position);
     }
 

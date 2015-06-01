@@ -1,9 +1,7 @@
 package com.saxion.nl.retroapptive.controller;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.saxion.nl.retroapptive.R;
@@ -30,9 +28,9 @@ public class NoteAdapter extends ItemAdapter<Notitie> {
     @Override
     public void setData(View convertedView, int position) {
 
-        title.setText(Model.getInstance().getNode(position).getDescription());
-        summary.setText(Model.getInstance().getNode(position).getSummary());
-        category.setText(Model.getInstance().getNode(position).getCategory());
+        title.setText(Model.getInstance().getNote(position).getDescription());
+        summary.setText(Model.getInstance().getNote(position).getSummary());
+        category.setText(Model.getInstance().getNote(position).getCategory());
     }
 
     @Override

@@ -37,11 +37,11 @@ public class DetailActivity extends Activity {
 
             Button edit = (Button) findViewById(R.id.button_noteDetailsEdit);
 
-            titel.setText(""+model.notes.get(getIntent().getIntExtra("position", 0)).getDescription());
+            titel.setText(""+model.getNote(getIntent().getIntExtra("position", 0)).getDescription());
             project.setText("Project: " + "niks");
-            sprint.setText("Sprint: "+model.notes.get(getIntent().getIntExtra("position", 0)).getSprintNumber());
-            summary.setText(""+ model.notes.get(getIntent().getIntExtra("position", 0)).getSummary());
-            category.setText(""+model.notes.get(getIntent().getIntExtra("position", 0)).getCategory());
+            sprint.setText("Sprint: "+model.getNote(getIntent().getIntExtra("position", 0)).getSprintNumber());
+            summary.setText(""+ model.getNote(getIntent().getIntExtra("position", 0)).getSummary());
+            category.setText(""+model.getNote(getIntent().getIntExtra("position", 0)).getCategory());
 
 
         } else if(getIntent().getIntExtra("list", -3)== USERSTORIES_LIST){
@@ -55,13 +55,13 @@ public class DetailActivity extends Activity {
 
             Button edit = (Button) findViewById(R.id.button_userStoryDetailsEdit);
 
-            titel.setText(""+model.userStories.get(getIntent().getIntExtra("position", 0)).getDescription());
+            titel.setText(""+model.getUserStory(getIntent().getIntExtra("position", 0)).getDescription());
             project.setText("Project: "+ "niks");
-            sprint.setText(""+model.userStories.get(getIntent().getIntExtra("position", 0)).getSprintNumber());
-            summary.setText("" + model.userStories.get(getIntent().getIntExtra("position", 0)).getSummary());
-            points.setText("Points: "+ model.userStories.get(getIntent().getIntExtra("position", 0)).getPoints());
+            sprint.setText(""+model.getUserStory(getIntent().getIntExtra("position", 0)).getSprintNumber());
+            summary.setText("" + model.getUserStory(getIntent().getIntExtra("position", 0)).getSummary());
+            points.setText("Points: "+ model.getUserStory(getIntent().getIntExtra("position", 0)).getPoints());
 
-            isburned.setChecked(model.userStories.get(getIntent().getIntExtra("position", 0)).isBurned());
+            isburned.setChecked(model.getUserStory(getIntent().getIntExtra("position", 0)).isBurned());
 
 
 
