@@ -36,7 +36,7 @@ dependencies {
     compile 'com.android.support:support-v13:22.1.1'
     compile 'me.dm7.barcodescanner:zbar:1.7.2'
     compile 'com.google.zxing:core:2.2'
-    compile 'com.embarkmobile:zxing-android-minimal:1.2.1@aar'
+
 
 
 }

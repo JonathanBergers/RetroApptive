@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		final Button scanButton = (Button) findViewById(R.id.button1);
+		final Button scanButton = (Button) findViewById(R.id.button_userStoryDetailsEdit);
 		scanButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -44,23 +44,24 @@ public class MainActivity extends Activity {
 	public void launchQRScanner(View v) {
 		Toast.makeText(this, "Dag vreindjes", Toast.LENGTH_SHORT).show();
 		if (isCameraAvailable()) {
+			//BELNGRIJK
 			Intent intent = new Intent(this, ZBarScannerActivity.class);
 			intent.putExtra(ZBarConstants.SCAN_MODES, new int[] { Symbol.QRCODE });
 			startActivityForResult(intent, ZBAR_QR_SCANNER_REQUEST);
+			//TOT HIER
 		} else {
 			Toast.makeText(this, "Rear Facing Camera Unavailable", Toast.LENGTH_SHORT).show();
 		}
 	}
 
+	//BELANGRIJK
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Toast.makeText(this, "DHALOO: " + resultCode + ":" + data, Toast.LENGTH_SHORT).show();
-
 		switch (requestCode) {
 			case ZBAR_SCANNER_REQUEST:
 			case ZBAR_QR_SCANNER_REQUEST:
 				if (resultCode == RESULT_OK) {
-					final TextView tv = (TextView) findViewById(R.id.textView1);
+					final TextView tv = (TextView) findViewById(R.id.button_userStoryDetailsEdit);
 					tv.setText("QRCodeMessage = " + data.getStringExtra(ZBarConstants.SCAN_RESULT));
 					Toast.makeText(this, "Scan Result = " + data.getStringExtra(ZBarConstants.SCAN_RESULT), Toast.LENGTH_SHORT).show();
 				} else if (resultCode == RESULT_CANCELED && data != null) {
@@ -77,6 +78,8 @@ public class MainActivity extends Activity {
 		PackageManager pm = getPackageManager();
 		return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA);
 	}
+	//TOT HIER
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
