@@ -26,7 +26,7 @@ public class DetailActivity extends Activity {
 
 
         Model model = Model.getInstance();
-        if(getIntent().getIntExtra("list", -1)== NOTES_LIST){
+        if(getIntent().getIntExtra("list", -3)== NOTES_LIST){
             setContentView(R.layout.activity_detail_note);
 
             TextView titel = (TextView) findViewById(R.id.textView_noteDetailsTitel);
@@ -44,7 +44,7 @@ public class DetailActivity extends Activity {
             category.setText(""+model.notes.get(getIntent().getIntExtra("position", 0)).getCategory());
 
 
-        } else {
+        } else if(getIntent().getIntExtra("list", -3)== ){
             setContentView(R.layout.activity_detail_user_story);
             TextView titel = (TextView) findViewById(R.id.textView_userStoryDetailsTitel);
             TextView project = (TextView) findViewById(R.id.textView_userStoryDetailsProject);
