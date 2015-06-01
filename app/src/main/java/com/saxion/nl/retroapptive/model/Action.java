@@ -1,12 +1,12 @@
 package com.saxion.nl.retroapptive.model;
 
-public class Reaction extends Item{
+public class Action extends Item{
 	
 	private Integer priority;
 
 
 
-	public Reaction(Item item) {
+	public Action(Item item) {
 		super(item);
 
 	}

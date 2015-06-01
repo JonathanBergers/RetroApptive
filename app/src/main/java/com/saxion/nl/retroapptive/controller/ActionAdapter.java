@@ -7,22 +7,22 @@ import android.view.ViewGroup;
 
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.model.Model;
-import com.saxion.nl.retroapptive.model.Reaction;
+import com.saxion.nl.retroapptive.model.Action;
 
 import java.util.List;
 
 /**
  * Created by jonathan on 28-5-15.
  */
-public class ReactionAdapter extends ItemAdapter<Reaction> {
-    public ReactionAdapter(Context context, int resource, List<Reaction> obejects) {
+public class ActionAdapter extends ItemAdapter<Action> {
+    public ActionAdapter(Context context, int resource, List<Action> obejects) {
         super(context, resource, obejects);
     }
 
 
-    @Override
+
     public View inflateView(LayoutInflater inflater, View convertView, ViewGroup parent) {
-        return inflater.inflate(R.layout.fragment_list_item_note, parent, false);
+        return inflater.inflate(R.layout.fragment_list_item_action, parent, false);
     }
 
     @Override
@@ -31,8 +31,8 @@ public class ReactionAdapter extends ItemAdapter<Reaction> {
 
 
 
-        title.setText(Model.getInstance().reactions.get(position).getDescription());
-        summary.setText(Model.getInstance().reactions.get(position).getSummary());
+        title.setText(Model.getInstance().actions.get(position).getDescription());
+        summary.setText(Model.getInstance().actions.get(position).getSummary());
 
     }
 

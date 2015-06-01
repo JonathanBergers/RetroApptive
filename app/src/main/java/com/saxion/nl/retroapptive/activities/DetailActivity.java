@@ -16,6 +16,7 @@ public class DetailActivity extends Activity {
 
     public static final int NOTES_LIST = -1;
     public static final int USERSTORIES_LIST = -2;
+    public static final int ACTIONS_LIST = -3;
 
 
     @Override

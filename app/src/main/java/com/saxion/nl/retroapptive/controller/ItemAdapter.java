@@ -52,7 +52,7 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
         if(convertView == null){
 
             LayoutInflater inflater = (LayoutInflater) super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflateView(inflater, convertView, parent);
+
         }
 
 
@@ -62,9 +62,12 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
         if(currentPosition == 0){
             title = (TextView) convertView.findViewById(R.id.textViewListNoteTitle);
             summary = (TextView) convertView.findViewById(R.id.textViewListNotesummary);
-        } else {
+        } else if(currentPosition == 1){
             title = (TextView) convertView.findViewById(R.id.textViewListUserStoryTitle);
             summary = (TextView) convertView.findViewById(R.id.textViewListUserStorySummary);
+        } else {
+            title = (TextView) convertView.findViewById(R.id.textViewListActionTitel);
+            summary = (TextView) convertView.findViewById(R.id.textViewListActionSummary);
         }
 
 
@@ -83,14 +86,7 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
 
 
 
-    public  View inflateView(LayoutInflater inflater, View convertView, ViewGroup parent){
 
-
-            return inflater.inflate(R.layout.fragment_list_item_note, parent, false);
-
-
-
-    }
 
 
     public   void setData(View convertedView, int position){

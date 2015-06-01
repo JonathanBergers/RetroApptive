@@ -7,7 +7,6 @@ import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.repres
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Observable;
 
 public class Model {
 
@@ -25,7 +24,7 @@ public class Model {
 
 
     public ArrayList<Notitie> notes = new ArrayList<>();
-    public ArrayList<Reaction> reactions = new ArrayList<>();
+    public ArrayList<Action> actions = new ArrayList<>();
     public ArrayList<UserStory> userStories = new ArrayList<>();
 
 

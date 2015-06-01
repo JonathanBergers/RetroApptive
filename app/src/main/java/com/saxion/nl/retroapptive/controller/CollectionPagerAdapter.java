@@ -68,7 +68,7 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
             //tweede tap
             return "User Stories";
         } else {
-            return "iets anders";
+            return "Acties";
         }
 
     }

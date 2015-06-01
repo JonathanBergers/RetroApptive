@@ -1,22 +1,16 @@
 package com.saxion.nl.retroapptive.communication.converter;
 
-import java.math.BigDecimal;
 import java.util.Map;
-import java.util.Set;
 
 import android.util.Log;
 
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.DomainObject;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.ObjectMember;
-import com.saxion.nl.retroapptive.controller.NoteAdapter;
 import com.saxion.nl.retroapptive.model.Item;
 import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.model.Notitie;
-import com.saxion.nl.retroapptive.model.Project;
-import com.saxion.nl.retroapptive.model.Reaction;
-import com.saxion.nl.retroapptive.model.Sprint;
+import com.saxion.nl.retroapptive.model.Action;
 import com.saxion.nl.retroapptive.model.UserStory;
-import com.saxion.nl.retroapptive.view.ListViewFragment;
 
 
 public  class IsisConverter {
@@ -58,7 +52,7 @@ public  class IsisConverter {
         if(type.equals("Action")){
 
 
-            Model.getInstance().reactions.add(getReactionFromDomainObject(domainObject));
+            Model.getInstance().actions.add(getReactionFromDomainObject(domainObject));
 
         }
 
@@ -158,12 +152,12 @@ public  class IsisConverter {
 
     }
 
-    public Reaction getReactionFromDomainObject(DomainObject domainObject){
+    public Action getReactionFromDomainObject(DomainObject domainObject){
 
         Item item = getItemFromDomainObject(domainObject);
         Map<String, ObjectMember> members = domainObject.getMembers();
 
-        Reaction reaction = new Reaction(item);
+        Action action = new Action(item);
 
         Integer priority = null;
         if(members.get("points").getValue() !=null){
@@ -174,12 +168,12 @@ public  class IsisConverter {
 
 
         }
-        reaction.setPriority(priority);
+        action.setPriority(priority);
 
 
 
         Log.d("CONVERTER", "REACTION CREATED");
-        return reaction;
+        return action;
 
 
     }

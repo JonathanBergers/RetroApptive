@@ -13,7 +13,7 @@ import android.widget.ListView;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.activities.DetailActivity;
 import com.saxion.nl.retroapptive.controller.NoteAdapter;
-import com.saxion.nl.retroapptive.controller.ReactionAdapter;
+import com.saxion.nl.retroapptive.controller.ActionAdapter;
 import com.saxion.nl.retroapptive.controller.UserStoryAdapter;
 import com.saxion.nl.retroapptive.model.Model;
 
@@ -26,7 +26,7 @@ public final class ListViewFragment extends Fragment {
     public ListView listView;
     public  NoteAdapter noteAdapter;
     public UserStoryAdapter userStoryAdapter;
-    public  ReactionAdapter reactionAdapter;
+    public ActionAdapter actionAdapter;
 
     public  int currentPosition;
 
@@ -49,7 +49,7 @@ public final class ListViewFragment extends Fragment {
 
         noteAdapter = new NoteAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().notes);
         userStoryAdapter = new UserStoryAdapter(getActivity(), R.layout.fragment_list_item_user_story, Model.getInstance().userStories);
-        reactionAdapter = new ReactionAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().reactions);
+        actionAdapter = new ActionAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().actions);
 
 
 
@@ -86,7 +86,7 @@ public final class ListViewFragment extends Fragment {
         currentPosition = args.getInt(ListViewFragment.ARG_OBJECT);
         noteAdapter.currentPosition = currentPosition;
         userStoryAdapter.currentPosition = currentPosition;
-        reactionAdapter.currentPosition = currentPosition;
+        actionAdapter.currentPosition = currentPosition;
         Log.d("Position", ("" + currentPosition));
 
 
@@ -103,8 +103,10 @@ public final class ListViewFragment extends Fragment {
                 detailsIntent.putExtra("position", i);
                 if (listView.getAdapter().equals(noteAdapter)) {
                     detailsIntent.putExtra("list", DetailActivity.NOTES_LIST);
-                } else {
+                } else if (listView.getAdapter().equals(userStoryAdapter)) {
                     detailsIntent.putExtra("list", DetailActivity.USERSTORIES_LIST);
+                } else {
+                    detailsIntent.putExtra("list", DetailActivity.ACTIONS_LIST);
                 }
 
                 getActivity().startActivity(detailsIntent);
@@ -139,7 +141,7 @@ public final class ListViewFragment extends Fragment {
             break;
 
             case 2 : {
-                UserStoryAdapter adapter = new UserStoryAdapter(getActivity(), R.layout.fragment_list_item_note, null);
+                listView.setAdapter(actionAdapter);
             }
 
             break;

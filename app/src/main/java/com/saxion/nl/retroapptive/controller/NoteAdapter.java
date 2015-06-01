@@ -24,7 +24,7 @@ public class NoteAdapter extends ItemAdapter<Notitie> {
 
     }
 
-    @Override
+
     public View inflateView(LayoutInflater inflater, View convertView, ViewGroup parent) {
         return inflater.inflate(R.layout.fragment_list_item_note, parent, false);
     }
