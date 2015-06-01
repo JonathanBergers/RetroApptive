@@ -10,53 +10,48 @@
 
     <!-- Email Label -->
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Login with your username and password\n"
-        android:textColor="#372c24"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Username"
-        android:textColor="#372c24" />
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dip"
-        android:layout_marginTop="5dip"
-        android:singleLine="true"
-        android:text="sven" />
     <!-- Password Label -->
 
-    <TextView
-        android:layout_width="fill_parent"
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Password"
-        android:textColor="#372c24" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dip"
-        android:password="true"
-        android:singleLine="true"
-        android:text="pass" />
+        android:id="@+id/textViewUsername"
+        android:hint="Username" />
 
     <!-- Login button -->
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editTextPassWordh"
+        android:hint="Password"/>
+
     <Button
-        android:id="@+id/login"
+        android:id="@+id/buttonLogin"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
         android:text="Login"
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarLogin"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Logging in.."
+        android:id="@+id/textViewLogging"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone" />
 
 </LinearLayout><!-- Login Form Ends -->
