@@ -2,6 +2,7 @@ package com.saxion.nl.retroapptive;
 
 import android.app.ActionBar;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,8 +11,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.melnykov.fab.FloatingActionButton;
+import com.saxion.nl.retroapptive.activities.ObjectActivity;
 import com.saxion.nl.retroapptive.communication.converter.IsisConverter;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.ROClient;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.RORequest;
@@ -150,6 +155,15 @@ public class MainActivity extends FragmentActivity
 
         getItemsTask.execute(link);
 
+        //setting de plus button
+        FloatingActionButton plusButton = (FloatingActionButton) findViewById(R.id.fab);
+        plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ObjectActivity.class);
+                startActivity(i);
+            }
+        });
 
 
 
@@ -200,6 +214,8 @@ public class MainActivity extends FragmentActivity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
+
+
 
 
     @Override
