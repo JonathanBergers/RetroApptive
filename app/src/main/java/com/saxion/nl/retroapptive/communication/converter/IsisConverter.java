@@ -45,14 +45,13 @@ public  class IsisConverter {
 
         if(type.equals("User Story")){
 
-            Model.getInstance().userStories.add(getUserStoryFromDomainObject(domainObject));
+            Model.getInstance().addUserStory(getUserStoryFromDomainObject(domainObject));
 
         }
 
         if(type.equals("Action")){
 
-
-            Model.getInstance().actions.add(getReactionFromDomainObject(domainObject));
+            Model.getInstance().addAction(getReactionFromDomainObject(domainObject));
 
         }
 
@@ -128,17 +127,17 @@ public  class IsisConverter {
             userStory.setIsBurned(isBurned);
 
 
-        double points = 0;
+        Integer points = 0;
         if(members.get("points").getValue() !=null){
 
             String pointString = members.get("points").getValue().asText();
-            points= Double.parseDouble(pointString.substring(0, pointString.length()));
+            points= Integer.parseInt(pointString.substring(0, pointString.length()-3));
 
 
 
         }
-        int i = (int) points;
-        userStory.setPoints(i);
+
+        userStory.setPoints(points);
 
 
 
@@ -163,7 +162,7 @@ public  class IsisConverter {
         if(members.get("points").getValue() !=null){
 
             String points = members.get("points").getValue().asText();
-            priority= Integer.parseInt(points.substring(0, points.length() -2));
+            priority= Integer.parseInt(points.substring(0, points.length()-3));
 
 
 

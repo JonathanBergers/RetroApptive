@@ -51,7 +51,8 @@ public class MainActivity extends FragmentActivity
      */
     private CharSequence mTitle;
 
-    private boolean synced = false;
+    private boolean userStoriesSynced = false;
+    private boolean actionsSynced = false;
 
     // When requested, this adapter returns a DemoObjectFragment,
     // representing an object in the collection.
@@ -151,9 +152,9 @@ public class MainActivity extends FragmentActivity
         link.setHref("http://145.76.103.97:8080/restful/services/ToDoItems/actions/collectNotes/invoke");
         link.setMethod("GET");
         //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
-        GetItemsTask getItemsTask = new GetItemsTask(ActionResult.class);
+        GetItemsTask getNoteTask = new GetItemsTask(ActionResult.class);
 
-        getItemsTask.execute(link);
+        getNoteTask.execute(link);
 
         //setting de plus button
         FloatingActionButton plusButton = (FloatingActionButton) findViewById(R.id.fab);
@@ -289,8 +290,6 @@ private void getNotes(){
                 Log.d("POST", domainObject.getTitle());
 
 
-
-
                 IsisConverter.getInstance().convertObject(domainObject);
 
 
@@ -309,15 +308,23 @@ private void getNotes(){
 
 
 
-                } else if(!synced){
+                } else if(!userStoriesSynced){
                     Log.d("USERSTORY", "SYNCING");
-                    synced=true;
+                    userStoriesSynced=true;
                     Link link2 = new Link();
                     link2.setHref("http://145.76.103.97:8080/restful/services/ToDoItems/actions/collectUserStories/invoke");
                     link2.setMethod("GET");
                     //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
-                    GetItemsTask jo = new GetItemsTask(ActionResult.class);
-                    jo.execute(link2);
+                    GetItemsTask getUserStoriesTask = new GetItemsTask(ActionResult.class);
+                    getUserStoriesTask.execute(link2);
+                } else if(!actionsSynced){
+                    Log.d("Actions", "SYNCING");
+                    actionsSynced = true;
+                    Link link3 = new Link();
+                    link3.setHref("http://145.76.103.97:8080/restful/services/ToDoItems/actions/collectActions/invoke");
+                    link3.setMethod("GET");
+                    GetItemsTask getActionsTask = new GetItemsTask(ActionResult.class);
+                    getActionsTask.execute(link3);
                 }
 
 

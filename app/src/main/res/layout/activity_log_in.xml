@@ -6,13 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dip" >
+    android:padding="10dip"
+    android:weightSum="1">
 
     <!-- Email Label -->
 
     <!-- Password Label -->
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_weight="5" />
+
     <AutoCompleteTextView
+        android:inputType="text"
+        android:imeOptions="actionNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textViewUsername"

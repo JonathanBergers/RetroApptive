@@ -2,6 +2,7 @@ package com.saxion.nl.retroapptive.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -12,11 +13,6 @@ import android.widget.TextView;
 
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.ROClient;
-
-
-
-
-
 
 /* Author - Dimuthu Upeksha*/
 
@@ -32,6 +28,10 @@ public class LogInActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+        View mainView = findViewById(R.id.buttonLogin);
+        View root = mainView.getRootView();
+        //root.setBackgroundColor(Color.BLUE);
+
         loginButton= (Button) findViewById(R.id.buttonLogin);
         loginButton.setOnClickListener(loginListener);
     }
