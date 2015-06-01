@@ -1,4 +1,4 @@
-package com.dm.zbar.android.scanner;
+package scanner;
 
 import android.app.Activity;
 import android.content.Intent;
