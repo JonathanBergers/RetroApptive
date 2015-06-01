@@ -45,14 +45,13 @@ public  class IsisConverter {
 
         if(type.equals("User Story")){
 
-            Model.getInstance().userStories.add(getUserStoryFromDomainObject(domainObject));
+            Model.getInstance().addUserStory(getUserStoryFromDomainObject(domainObject));
 
         }
 
         if(type.equals("Action")){
 
-
-            Model.getInstance().actions.add(getReactionFromDomainObject(domainObject));
+            Model.getInstance().addAction(getReactionFromDomainObject(domainObject));
 
         }
 

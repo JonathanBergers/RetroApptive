@@ -55,20 +55,12 @@ public class MainActivity extends FragmentActivity
     FragmentManager fragmentManager;
 
 
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         final ActionBar actionBar = getActionBar();
-
-
 
 
         // Specify that tabs should be displayed in the action bar.
@@ -78,7 +70,6 @@ public class MainActivity extends FragmentActivity
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction fragmentTransaction) {
-
 
 
             }
@@ -104,11 +95,7 @@ public class MainActivity extends FragmentActivity
         }
 
 
-
         fragmentManager = getFragmentManager();
-
-
-
 
 
         mCollectionPagerAdapter =
@@ -119,23 +106,15 @@ public class MainActivity extends FragmentActivity
         mViewPager.setAdapter(mCollectionPagerAdapter);
 
 
-
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
-
-
 
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
-
-
-
-
 
 
         ROClient.getInstance().setCredential("todoapp-admin", "pass");
@@ -151,9 +130,6 @@ public class MainActivity extends FragmentActivity
         getItemsTask.execute(link);
 
 
-
-
-
         //mCollectionPagerAdapter.notifyDataSetChanged();
 
 
@@ -163,21 +139,14 @@ public class MainActivity extends FragmentActivity
     //TODO OPHALEN VAN USER STORIES bij oncreate.
 
 
-
-
-
-
-
-
-
     // kan volgens mij weg
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         //FragmentManager fragmentManager = getFragmentManager();
         //fragmentManager.beginTransaction()
-               // .replace(R.id.container, new ListViewFragment())
-               // .commit();
+        // .replace(R.id.container, new ListViewFragment())
+        // .commit();
     }
 
     public void onSectionAttached(int number) {
@@ -232,16 +201,12 @@ public class MainActivity extends FragmentActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private void getNotes() {
 
-private void getNotes(){
-
-
-
-}
+    }
 
     //haalt de item lijst op
-    class GetItemsTask extends IsisTask<ActionResult>{
-
+    class GetItemsTask extends IsisTask<ActionResult> {
 
 
         //haalt de individuele items op
@@ -250,14 +215,14 @@ private void getNotes(){
         ArrayList<Notitie> notities = new ArrayList<>();
 
         List<Link> links;
-        class GetItemTask extends IsisTask<DomainObject>{
+
+        class GetItemTask extends IsisTask<DomainObject> {
 
             public GetItemTask(Class<DomainObject> typeClass) {
                 super(typeClass);
 
 
             }
-
 
 
 //            private int getType(DomainObject domainObject){
@@ -273,29 +238,20 @@ private void getNotes(){
                 Log.d("POST", domainObject.getTitle());
 
 
-
-
                 IsisConverter.getInstance().convertObject(domainObject);
 
 
-
-
-
-
                 //Recursion ;D
-                if(!links.isEmpty()) {
+                if (!links.isEmpty()) {
 
                     Link linkToObject = links.remove(0);
                     Log.d("TRY", linkToObject.getHref());
                     GetItemTask getItemTask = new GetItemTask(DomainObject.class);
                     getItemTask.execute(linkToObject);
 
-
-
-
-                } else if(!synced){
+                } else if (!synced) {
                     Log.d("USERSTORY", "SYNCING");
-                    synced=true;
+                    synced = true;
                     Link link2 = new Link();
                     link2.setHref("http://145.76.103.97:8080/restful/services/ToDoItems/actions/collectUserStories/invoke");
                     link2.setMethod("GET");
@@ -310,6 +266,7 @@ private void getNotes(){
             }
 
         }
+
         public GetItemsTask(Class<ActionResult> typeClass) {
             super(typeClass);
         }
@@ -320,22 +277,12 @@ private void getNotes(){
         protected void onPostExecute(ActionResult actionResult) {
 
 
-
-
             links = actionResult.getResult().getValueAsList();
 
-            if(links.isEmpty()){
+            if (links.isEmpty()) {
                 Log.d("NIKS", "links is leeg");
                 return;
             }
-
-
-
-
-
-
-
-
 
 
             Link firstLink = links.remove(0);
@@ -344,12 +291,8 @@ private void getNotes(){
             firstGetItemTask.execute(firstLink);
 
 
-
         }
     }
-
-
-
 
 
     class IsisTask<T extends JsonRepr> extends AsyncTask<Link, Void, T> {
