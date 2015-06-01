@@ -1,4 +1,4 @@
-package com.dm.zbar.android.scanner;
+package scanner;
 
 public interface ZBarConstants {
     public static final String SCAN_MODES = "SCAN_MODES";

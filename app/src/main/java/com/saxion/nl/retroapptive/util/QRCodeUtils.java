@@ -1,6 +1,12 @@
-package nl.topicus.util.qr;
+package com.saxion.nl.retroapptive.util;
 
-import java.awt.image.BufferedImage;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -10,13 +16,6 @@ import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.Hashtable;
-
-import javax.imageio.ImageIO;
-
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.*;
 
 /**
  * 
@@ -30,8 +29,8 @@ public class QRCodeUtils {
 
 	public static void main(String[] args) {
 		try {
-			final BufferedImage qrCodeImage = generateQRCode("testmessage123", 512, 512);
-			ImageIO.write(qrCodeImage, "PNG", new File("qrcode.png"));
+			final Bitmap qrCodeImage = generateQRCode("testmessage123", 512, 512);
+			//ImageIO.write(qrCodeImage, "PNG", new File("qrcode.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -42,11 +41,11 @@ public class QRCodeUtils {
 	 * 
 	 * @param message
 	 *            message to store in the QR code
-	 * @return returns a BufferedImage of the generated QR code, or null if an
+	 * @return returns a Bitmap of the generated QR code, or null if an
 	 *         error occured during the QR code generation
 	 * @throws IOException
 	 */
-	public static BufferedImage generateQRCode(final String message) throws IOException {
+	public static Bitmap generateQRCode(final String message) throws IOException {
 		return generateQRCode(message, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	}
 
@@ -59,11 +58,11 @@ public class QRCodeUtils {
 	 *            width in pixels of the generated QR code
 	 * @param height
 	 *            height in pixels of the generated QR code
-	 * @return returns a BufferedImage of the generated QR code, or null if an
+	 * @return returns a Bitmap of the generated QR code, or null if an
 	 *         error occured during the QR code generation
 	 * @throws IOException
 	 */
-	public static BufferedImage generateQRCode(final String message, final int width, final int height) throws IOException {
+	public static Bitmap generateQRCode(final String message, final int width, final int height) throws IOException {
 		final Charset charset = Charset.forName("UTF-8");
 		final CharsetEncoder encoder = charset.newEncoder();
 		byte[] b = null;
@@ -93,8 +92,13 @@ public class QRCodeUtils {
 				e.printStackTrace();
 				return null;
 			}
-			final BufferedImage qrCode = MatrixToImageWriter.toBufferedImage(matrix);
-			return qrCode;
+			final Bitmap qrCodeBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+			for (int x = 0; x < width; x++){
+				for (int y = 0; y < height; y++){
+					qrCodeBitmap.setPixel(x, y, matrix.get(x,y) ? Color.BLACK : Color.WHITE);
+				}
+			}
+			return qrCodeBitmap;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			// should never happen, all java implementations support UTF-8

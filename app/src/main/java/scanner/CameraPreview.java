@@ -1,4 +1,4 @@
-package com.dm.zbar.android.scanner;
+package scanner;
 
 import android.content.Context;
 import android.hardware.Camera;

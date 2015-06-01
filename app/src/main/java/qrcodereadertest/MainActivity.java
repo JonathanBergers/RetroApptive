@@ -1,13 +1,11 @@
-package com.example.qrcodereadertest;
+package qrcodereadertest;
 
-import net.sourceforge.zbar.Symbol;
 
-import com.dm.zbar.android.scanner.ZBarConstants;
-import com.dm.zbar.android.scanner.ZBarScannerActivity;
 
-import android.support.v7.app.ActionBarActivity;
+import com.saxion.nl.retroapptive.R;
+
+import android.app.Activity;
 import android.text.TextUtils;
-import android.R.integer;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -19,7 +17,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends ActionBarActivity {
+import net.sourceforge.zbar.Symbol;
+
+import scanner.ZBarConstants;
+import scanner.ZBarScannerActivity;
+
+public class MainActivity extends Activity {
 
 	private static final int ZBAR_SCANNER_REQUEST = 0;
 	private static final int ZBAR_QR_SCANNER_REQUEST = 1;
