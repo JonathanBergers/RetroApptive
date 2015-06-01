@@ -46,13 +46,20 @@ public class MainActivity extends FragmentActivity
      */
     private CharSequence mTitle;
 
-    private boolean synced = false;
+    private boolean userStoriesSynced = false;
+    private boolean actionsSynced = false;
 
     // When requested, this adapter returns a DemoObjectFragment,
     // representing an object in the collection.
     CollectionPagerAdapter mCollectionPagerAdapter;
     ViewPager mViewPager;
     FragmentManager fragmentManager;
+
+
+
+
+
+
 
 
     @Override
@@ -63,6 +70,8 @@ public class MainActivity extends FragmentActivity
         final ActionBar actionBar = getActionBar();
 
 
+
+
         // Specify that tabs should be displayed in the action bar.
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -70,6 +79,7 @@ public class MainActivity extends FragmentActivity
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction fragmentTransaction) {
+
 
 
             }
@@ -95,7 +105,11 @@ public class MainActivity extends FragmentActivity
         }
 
 
+
         fragmentManager = getFragmentManager();
+
+
+
 
 
         mCollectionPagerAdapter =
@@ -106,15 +120,23 @@ public class MainActivity extends FragmentActivity
         mViewPager.setAdapter(mCollectionPagerAdapter);
 
 
+
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
+
+
 
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
+
+
+
 
 
         ROClient.getInstance().setCredential("todoapp-admin", "pass");
@@ -125,9 +147,12 @@ public class MainActivity extends FragmentActivity
         link.setHref("http://145.76.103.97:8080/restful/services/ToDoItems/actions/collectNotes/invoke");
         link.setMethod("GET");
         //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
-        GetItemsTask getItemsTask = new GetItemsTask(ActionResult.class);
+        GetItemsTask getNoteTask = new GetItemsTask(ActionResult.class);
 
-        getItemsTask.execute(link);
+        getNoteTask.execute(link);
+
+
+
 
 
         //mCollectionPagerAdapter.notifyDataSetChanged();
@@ -139,14 +164,21 @@ public class MainActivity extends FragmentActivity
     //TODO OPHALEN VAN USER STORIES bij oncreate.
 
 
+
+
+
+
+
+
+
     // kan volgens mij weg
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         //FragmentManager fragmentManager = getFragmentManager();
         //fragmentManager.beginTransaction()
-        // .replace(R.id.container, new ListViewFragment())
-        // .commit();
+               // .replace(R.id.container, new ListViewFragment())
+               // .commit();
     }
 
     public void onSectionAttached(int number) {
@@ -201,12 +233,16 @@ public class MainActivity extends FragmentActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void getNotes() {
 
-    }
+private void getNotes(){
+
+
+
+}
 
     //haalt de item lijst op
-    class GetItemsTask extends IsisTask<ActionResult> {
+    class GetItemsTask extends IsisTask<ActionResult>{
+
 
 
         //haalt de individuele items op
@@ -215,14 +251,14 @@ public class MainActivity extends FragmentActivity
         ArrayList<Notitie> notities = new ArrayList<>();
 
         List<Link> links;
-
-        class GetItemTask extends IsisTask<DomainObject> {
+        class GetItemTask extends IsisTask<DomainObject>{
 
             public GetItemTask(Class<DomainObject> typeClass) {
                 super(typeClass);
 
 
             }
+
 
 
 //            private int getType(DomainObject domainObject){
@@ -241,23 +277,38 @@ public class MainActivity extends FragmentActivity
                 IsisConverter.getInstance().convertObject(domainObject);
 
 
+
+
+
+
                 //Recursion ;D
-                if (!links.isEmpty()) {
+                if(!links.isEmpty()) {
 
                     Link linkToObject = links.remove(0);
                     Log.d("TRY", linkToObject.getHref());
                     GetItemTask getItemTask = new GetItemTask(DomainObject.class);
                     getItemTask.execute(linkToObject);
 
-                } else if (!synced) {
+
+
+
+                } else if(!userStoriesSynced){
                     Log.d("USERSTORY", "SYNCING");
-                    synced = true;
+                    userStoriesSynced=true;
                     Link link2 = new Link();
                     link2.setHref("http://145.76.103.97:8080/restful/services/ToDoItems/actions/collectUserStories/invoke");
                     link2.setMethod("GET");
                     //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
-                    GetItemsTask jo = new GetItemsTask(ActionResult.class);
-                    jo.execute(link2);
+                    GetItemsTask getUserStoriesTask = new GetItemsTask(ActionResult.class);
+                    getUserStoriesTask.execute(link2);
+                } else if(!actionsSynced){
+                    Log.d("Actions", "SYNCING");
+                    actionsSynced = true;
+                    Link link3 = new Link();
+                    link3.setHref("http://145.76.103.97:8080/restful/services/ToDoItems/actions/collectActions/invoke");
+                    link3.setMethod("GET");
+                    GetItemsTask getActionsTask = new GetItemsTask(ActionResult.class);
+                    getActionsTask.execute(link3);
                 }
 
 
@@ -266,7 +317,6 @@ public class MainActivity extends FragmentActivity
             }
 
         }
-
         public GetItemsTask(Class<ActionResult> typeClass) {
             super(typeClass);
         }
@@ -277,12 +327,22 @@ public class MainActivity extends FragmentActivity
         protected void onPostExecute(ActionResult actionResult) {
 
 
+
+
             links = actionResult.getResult().getValueAsList();
 
-            if (links.isEmpty()) {
+            if(links.isEmpty()){
                 Log.d("NIKS", "links is leeg");
                 return;
             }
+
+
+
+
+
+
+
+
 
 
             Link firstLink = links.remove(0);
@@ -291,8 +351,12 @@ public class MainActivity extends FragmentActivity
             firstGetItemTask.execute(firstLink);
 
 
+
         }
     }
+
+
+
 
 
     class IsisTask<T extends JsonRepr> extends AsyncTask<Link, Void, T> {

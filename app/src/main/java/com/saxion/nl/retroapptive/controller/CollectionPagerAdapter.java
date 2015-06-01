@@ -24,23 +24,14 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
-
     @Override
     public Fragment getItem(int i) {
-
-
-
-
-
-
 
 
         return ListViewFragment.init(i);
 
 
     }
-
-
 
 
     @Override
@@ -60,11 +51,11 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     private String getTap(int i) {
-        if(i == 0){
+        if (i == 0) {
             // eerste tap
 
-           return "Notities";
-        } else if(i==1){
+            return "Notities";
+        } else if (i == 1) {
             //tweede tap
             return "User Stories";
         } else {
