@@ -25,7 +25,7 @@ public class UserStoryAdapter extends ItemAdapter<UserStory> {
         super(context, resource, obejects);
     }
 
-    @Override
+
     public View inflateView(LayoutInflater inflater, View convertView, ViewGroup parent) {
         return inflater.inflate(R.layout.fragment_list_item_user_story, parent, false);
     }
