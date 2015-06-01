@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.saxion.nl.retroapptive.MainActivity;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.ROClient;
 
@@ -41,6 +42,8 @@ public class LogInActivity extends Activity {
             username = (AutoCompleteTextView) findViewById(R.id.textViewUsername);
             password = (EditText) findViewById(R.id.editTextPassWordh);
 
+            ROClient.getInstance().setCredential(username.getText().toString(), password.getText().toString());
+
             loginProgressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
             loggingTextView = (TextView) findViewById(R.id.textViewLogging);
 
@@ -54,8 +57,8 @@ public class LogInActivity extends Activity {
 
             //ROClient.getInstance().setCredential(username.getText().toString(), password.getText().toString());
 
-            //Intent intent = new Intent(LogInActivity.this, CommunicationActivity.class);
-           // startActivity(intent);
+            Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+            startActivity(intent);
         }
     };
 
