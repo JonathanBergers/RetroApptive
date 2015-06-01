@@ -14,11 +14,6 @@ import android.widget.TextView;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.ROClient;
 
-
-
-
-
-
 /* Author - Dimuthu Upeksha*/
 
 public class LogInActivity extends Activity {
@@ -35,7 +30,7 @@ public class LogInActivity extends Activity {
         setContentView(R.layout.activity_log_in);
         View mainView = findViewById(R.id.buttonLogin);
         View root = mainView.getRootView();
-        root.setBackgroundColor(Color.BLUE);
+        //root.setBackgroundColor(Color.BLUE);
 
         loginButton= (Button) findViewById(R.id.buttonLogin);
         loginButton.setOnClickListener(loginListener);

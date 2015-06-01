@@ -12,7 +12,7 @@ import java.util.Map;
 public class Model {
 
     private static Model instance;
-    static final Object lock = new Object();
+    private static final Object lock = new Object();
     /* The Model */
     private Homepage homePage;
 
@@ -86,7 +86,7 @@ public class Model {
         return actions.get(position);
     }
 
-    public Notitie getNode(int position) {
+    public Notitie getNote(int position) {
         return notes.get(position);
     }
 
