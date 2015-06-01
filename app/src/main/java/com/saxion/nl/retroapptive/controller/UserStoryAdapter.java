@@ -33,12 +33,9 @@ public class UserStoryAdapter extends ItemAdapter<UserStory> {
     @Override
     public void setData(View convertedView, int position) {
 
-
-
-
-        title.setText(Model.getInstance().userStories.get(position).getDescription());
-        summary.setText(Model.getInstance().userStories.get(position).getSummary());
-        isBurned.setChecked(Model.getInstance().userStories.get(position).isBurned());
+        title.setText(Model.getInstance().getUserStory(position).getDescription());
+        summary.setText(Model.getInstance().getUserStory(position).getSummary());
+        isBurned.setChecked(Model.getInstance().getUserStory(position).isBurned());
 
     }
 

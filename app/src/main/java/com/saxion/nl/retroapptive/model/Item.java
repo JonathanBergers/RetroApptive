@@ -15,8 +15,6 @@ public class Item {
 		this.description = item.getDescription();
 		this.summary = item.getSummary();
 		this.sprintNumber = item.getSprintNumber();
-
-
 	}
 
 	public String getDescription() {

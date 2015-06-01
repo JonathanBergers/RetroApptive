@@ -47,9 +47,9 @@ public final class ListViewFragment extends Fragment {
 
         currentPosition= getArguments() != null ? getArguments().getInt(ListViewFragment.ARG_OBJECT) : 0;
 
-        noteAdapter = new NoteAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().notes);
-        userStoryAdapter = new UserStoryAdapter(getActivity(), R.layout.fragment_list_item_user_story, Model.getInstance().userStories);
-        actionAdapter = new ActionAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().actions);
+        noteAdapter = new NoteAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().getNotes());
+        userStoryAdapter = new UserStoryAdapter(getActivity(), R.layout.fragment_list_item_user_story, Model.getInstance().getUserStories());
+        actionAdapter = new ActionAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().getActions());
 
 
 

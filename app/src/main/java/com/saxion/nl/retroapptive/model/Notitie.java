@@ -1,32 +1,30 @@
 package com.saxion.nl.retroapptive.model;
 
 public class Notitie extends Item {
-	
-	private String category; // of Category category
-	private Boolean isPositive;
 
-	
-	//TODO attachment, blob ofzo
-	
-	public Notitie(Item item) {
-		super(item);
+    private String category; // of Category category
+    private Boolean isPositive;
 
-	}
+    //TODO attachment, blob ofzo
 
-	public void setIsPositive(Boolean isPositive) {
-		this.isPositive = isPositive;
-	}
+    public Notitie(Item item) {
+        super(item);
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    }
 
+    public void setIsPositive(Boolean isPositive) {
+        this.isPositive = isPositive;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	public Boolean isPositive() {
-		return isPositive;
-	}
+    public String getCategory() {
+        return category;
+    }
+
+    public Boolean isPositive() {
+        return isPositive;
+    }
 }

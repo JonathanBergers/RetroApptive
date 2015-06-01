@@ -30,12 +30,9 @@ public class NoteAdapter extends ItemAdapter<Notitie> {
     @Override
     public void setData(View convertedView, int position) {
 
-
-
-
-        title.setText(Model.getInstance().notes.get(position).getDescription());
-        summary.setText(Model.getInstance().notes.get(position).getSummary());
-        category.setText(Model.getInstance().notes.get(position).getCategory());
+        title.setText(Model.getInstance().getNode(position).getDescription());
+        summary.setText(Model.getInstance().getNode(position).getSummary());
+        category.setText(Model.getInstance().getNode(position).getCategory());
     }
 
     @Override

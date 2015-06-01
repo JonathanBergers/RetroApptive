@@ -7,9 +7,8 @@ import android.app.Activity;
  */
 public abstract class UpdateAbleActivity extends Activity {
 
+	public void update(Object o) {
 
-    public void update(Object o){
-
-    }
+	}
 
 }
