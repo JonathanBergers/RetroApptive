@@ -50,6 +50,7 @@ public class DetailActivity extends Activity {
             TextView project = (TextView) findViewById(R.id.textView_userStoryDetailsProject);
             TextView sprint = (TextView) findViewById(R.id.textView_userStoryDetailsSprint);
             TextView summary = (TextView) findViewById(R.id.textView_userStoryDetailsSummary);
+            TextView points = (TextView) findViewById(R.id.textView_userStoryDetailsPoints);
             CheckBox isburned = (CheckBox) findViewById(R.id.checkBox_userStoryDetailsBurned);
 
             Button edit = (Button) findViewById(R.id.button_userStoryDetailsEdit);
@@ -58,6 +59,7 @@ public class DetailActivity extends Activity {
             project.setText("Project: "+ "niks");
             sprint.setText(""+model.userStories.get(getIntent().getIntExtra("position", 0)).getSprintNumber());
             summary.setText("" + model.userStories.get(getIntent().getIntExtra("position", 0)).getSummary());
+            points.setText("Points: "+ model.userStories.get(getIntent().getIntExtra("position", 0)).getPoints());
 
             isburned.setChecked(model.userStories.get(getIntent().getIntExtra("position", 0)).isBurned());
 
@@ -65,6 +67,8 @@ public class DetailActivity extends Activity {
 
 
 
+
+        } else {
 
         }
 

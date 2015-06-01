@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.model.Model;
@@ -18,6 +19,7 @@ import java.util.List;
 public class UserStoryAdapter extends ItemAdapter<UserStory> {
 
     private CheckBox isBurned;
+
 
 
     public UserStoryAdapter(Context context, int resource, List<UserStory> obejects) {
@@ -42,6 +44,8 @@ public class UserStoryAdapter extends ItemAdapter<UserStory> {
 
     @Override
     public void addViews(View convertedView, int position) {
+
+
 
         isBurned = (CheckBox) convertedView.findViewById(R.id.checkListUserStoryBurned);
         isBurned.setFocusable(false);
