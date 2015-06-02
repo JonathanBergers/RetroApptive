@@ -7,7 +7,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextTitle"
+        android:id="@+id/editTextNewObjectTitle"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
@@ -16,7 +16,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextDescription"
+        android:id="@+id/editTextNewObjectSummary"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
@@ -25,17 +25,32 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextCategory"
+        android:id="@+id/editTextNewObjectCategory"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:hint="Category" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Positive"
+        android:id="@+id/checkBoxNewObject"
+        android:layout_gravity="center_horizontal"
+        android:checked="false" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:id="@+id/buttonSave"
+        android:id="@+id/buttonNewObjectSave"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel"
+        android:id="@+id/buttonNewObjectCancel"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

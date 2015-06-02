@@ -39,7 +39,7 @@ import java.util.List;
 public class MainActivity extends FragmentActivity
 		implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-	private static final String HOST = "http://145.76.103.97:8080";
+	private static final String HOST = "http://192.168.2.10:8080";
 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -133,13 +133,25 @@ public class MainActivity extends FragmentActivity
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(MainActivity.this, ObjectActivity.class);
-				startActivity(i);
+				i.putExtra("item", (mViewPager.getCurrentItem()));
+				Log.d("Item", ""+mViewPager.getCurrentItem());
+				startActivityForResult(i, 100);
 			}
 		});
 
 	}
 
 	//TODO OPHALEN VAN USER STORIES bij oncreate.
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == 100 && requestCode == RESULT_OK){
+			mCollectionPagerAdapter.notifyDataSetChanged();
+
+		}
+
+	}
 
 	// kan volgens mij weg
 	@Override
@@ -275,6 +287,11 @@ public class MainActivity extends FragmentActivity
 		//post execute van ITEMSS
 		@Override
 		protected void onPostExecute(ActionResult actionResult) {
+
+			if(actionResult == null){
+				Log.d("NIKS", "result is null");
+				return;
+			}
 
 			links = actionResult.getResult().getValueAsList();
 
