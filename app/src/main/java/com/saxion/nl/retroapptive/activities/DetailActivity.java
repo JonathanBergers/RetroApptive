@@ -92,6 +92,23 @@ public class DetailActivity extends Activity {
                 startActivityForResult(i, 101);
             }
         });
+        Button delete = (Button) findViewById(R.id.button_DetailsDelete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int item = getIntent().getIntExtra("list", 0);
+                if(item == 0){
+                    Model.getInstance().getNotes().remove(getIntent().getIntExtra("position", 0));
+                } else if(item == 1){
+                    Model.getInstance().getUserStories().remove(getIntent().getIntExtra("position", 0));
+                } else {
+                    Model.getInstance().getActions().remove(getIntent().getIntExtra("position", 0));
+                }
+
+                setResult(RESULT_OK);
+                finish();
+            }
+        });
 
 
 
@@ -104,8 +121,9 @@ public class DetailActivity extends Activity {
 
         if(requestCode == 101 && resultCode == RESULT_OK){
 
+
             setResult(RESULT_OK);
-           this.finish();
+            this.finish();
 
         }
 
