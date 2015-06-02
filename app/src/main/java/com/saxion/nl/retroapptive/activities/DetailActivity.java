@@ -1,7 +1,11 @@
 package com.saxion.nl.retroapptive.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -14,9 +18,11 @@ import com.saxion.nl.retroapptive.model.Model;
  */
 public class DetailActivity extends Activity {
 
-    public static final int NOTES_LIST = -1;
-    public static final int USERSTORIES_LIST = -2;
-    public static final int ACTIONS_LIST = -3;
+    public static final int NOTES_LIST = 0;
+    public static final int USERSTORIES_LIST = 1;
+    public static final int ACTIONS_LIST = 2;
+
+
 
 
     @Override
@@ -26,7 +32,10 @@ public class DetailActivity extends Activity {
 
 
         Model model = Model.getInstance();
-        if(getIntent().getIntExtra("list", -3)== NOTES_LIST){
+
+
+
+        if(getIntent().getIntExtra("list", 0)== NOTES_LIST){
             setContentView(R.layout.activity_detail_note);
 
             TextView titel = (TextView) findViewById(R.id.textView_noteDetailsTitel);
@@ -35,7 +44,7 @@ public class DetailActivity extends Activity {
             TextView summary = (TextView) findViewById(R.id.textView_noteDetailsSummary);
             TextView category = (TextView) findViewById(R.id.textView_noteDetailsCategory);
 
-            Button edit = (Button) findViewById(R.id.button_noteDetailsEdit);
+
 
             titel.setText(""+model.getNote(getIntent().getIntExtra("position", 0)).getDescription());
             project.setText("Project: " + "niks");
@@ -44,7 +53,7 @@ public class DetailActivity extends Activity {
             category.setText(""+model.getNote(getIntent().getIntExtra("position", 0)).getCategory());
 
 
-        } else if(getIntent().getIntExtra("list", -3)== USERSTORIES_LIST){
+        } else if(getIntent().getIntExtra("list", 0)== USERSTORIES_LIST){
             setContentView(R.layout.activity_detail_user_story);
             TextView titel = (TextView) findViewById(R.id.textView_userStoryDetailsTitel);
             TextView project = (TextView) findViewById(R.id.textView_userStoryDetailsProject);
@@ -53,7 +62,7 @@ public class DetailActivity extends Activity {
             TextView points = (TextView) findViewById(R.id.textView_userStoryDetailsPoints);
             CheckBox isburned = (CheckBox) findViewById(R.id.checkBox_userStoryDetailsBurned);
 
-            Button edit = (Button) findViewById(R.id.button_userStoryDetailsEdit);
+
 
             titel.setText(""+model.getUserStory(getIntent().getIntExtra("position", 0)).getDescription());
             project.setText("Project: "+ "niks");
@@ -72,9 +81,51 @@ public class DetailActivity extends Activity {
 
         }
 
+        Button edit = (Button) findViewById(R.id.button_DetailsEdit);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DetailActivity.this, ObjectActivity.class);
+                i.putExtra("item", (getIntent().getIntExtra("list", 0)));
+                i.putExtra("edit", true);
+                i.putExtra("position", getIntent().getIntExtra("position", 0));
+                startActivityForResult(i, 101);
+            }
+        });
+        Button delete = (Button) findViewById(R.id.button_DetailsDelete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int item = getIntent().getIntExtra("list", 0);
+                if(item == 0){
+                    Model.getInstance().getNotes().remove(getIntent().getIntExtra("position", 0));
+                } else if(item == 1){
+                    Model.getInstance().getUserStories().remove(getIntent().getIntExtra("position", 0));
+                } else {
+                    Model.getInstance().getActions().remove(getIntent().getIntExtra("position", 0));
+                }
+
+                setResult(RESULT_OK);
+                finish();
+            }
+        });
 
 
 
+
+
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == 101 && resultCode == RESULT_OK){
+
+
+            setResult(RESULT_OK);
+            this.finish();
+
+        }
 
 
     }
