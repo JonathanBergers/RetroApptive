@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.saxion.nl.retroapptive.MainActivity;
 import com.saxion.nl.retroapptive.R;
@@ -27,6 +28,10 @@ public class ObjectActivity extends Activity {
 		//setting de header to a new making a new item
 		setTitle("Making a new item:");
 
+		//setting de views
+		titleEditText = (EditText) findViewById(R.id.editTextTitle);
+		decriptionEditText = (EditText) findViewById(R.id.editTextDescription);
+		categoryEditText = (EditText) findViewById(R.id.editTextCategory);
 		save = (Button) findViewById(R.id.buttonSave);
 
 		save.setOnClickListener(new View.OnClickListener() {
@@ -35,17 +40,28 @@ public class ObjectActivity extends Activity {
 				//getting de values
 				String title, description, category;
 
-				title = "" + titleEditText.getText();
-				description = "" + decriptionEditText.getText();
-				category = "" + categoryEditText.getText();
+				//kijken of alle waardes iets hebben
+				if ("".equals(""+titleEditText.getText())||"".equals(""+decriptionEditText.getText())||"".equals(""+categoryEditText.getText())){
+					Toast.makeText(getApplicationContext(),"One of the fields is not filled",Toast.LENGTH_LONG).show();
+				}else{
+					//dit is wel zo dus alle waarden toewijzen
+					title = "" + titleEditText.getText();
+					description = "" + decriptionEditText.getText();
+					category = "" + categoryEditText.getText();
 
-				//new object van user story of note
-				//new Object(title, description,category);
-				//waardes title description, catergory
+					//TODO new object aanmaken met de waardes
+					//new object van user story of note
+					//new Object(title, description,category);
+					//waardes title description, catergory
 
-				//terug gaan naar de main view
-				Intent i = new Intent(ObjectActivity.this, MainActivity.class);
-				startActivity(i);
+					//terug gaan naar de main view
+					Intent i = new Intent(ObjectActivity.this, MainActivity.class);
+					startActivity(i);
+				}
+
+
+
+
 			}
 		});
 	}
