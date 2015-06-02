@@ -109,7 +109,7 @@ public final class ListViewFragment extends Fragment {
                     detailsIntent.putExtra("list", DetailActivity.ACTIONS_LIST);
                 }
 
-                getActivity().startActivity(detailsIntent);
+                getActivity().startActivityForResult(detailsIntent, 102);
 
             }
         });

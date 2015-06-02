@@ -145,8 +145,8 @@ public class MainActivity extends FragmentActivity
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if(requestCode == 100 && requestCode == RESULT_OK){
+
+		if(resultCode == RESULT_OK){
 			mCollectionPagerAdapter.notifyDataSetChanged();
 
 		}

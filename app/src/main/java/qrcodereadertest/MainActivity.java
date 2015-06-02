@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		final Button scanButton = (Button) findViewById(R.id.button_userStoryDetailsEdit);
+		final Button scanButton = (Button) findViewById(R.id.button_DetailsEdit);
 		scanButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
 			case ZBAR_SCANNER_REQUEST:
 			case ZBAR_QR_SCANNER_REQUEST:
 				if (resultCode == RESULT_OK) {
-					final TextView tv = (TextView) findViewById(R.id.button_userStoryDetailsEdit);
+					final TextView tv = (TextView) findViewById(R.id.button_DetailsEdit);
 					tv.setText("QRCodeMessage = " + data.getStringExtra(ZBarConstants.SCAN_RESULT));
 					Toast.makeText(this, "Scan Result = " + data.getStringExtra(ZBarConstants.SCAN_RESULT), Toast.LENGTH_SHORT).show();
 				} else if (resultCode == RESULT_CANCELED && data != null) {
