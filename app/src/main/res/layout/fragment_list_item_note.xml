@@ -1,36 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Title"
-            android:id="@+id/textViewListNoteTitle"
-            android:layout_gravity="center_horizontal" />
+            android:id="@+id/textViewItemTitle"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="description"
-            android:id="@+id/textViewListNotesummary" />
+            android:text="Category"
+            android:id="@+id/textViewItemCategory"
+             />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Category"
-            android:id="@+id/textViewListNoteCategory"
-            android:layout_gravity="right" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textViewPositiveNegative"
+            android:text="Positve/negative:"
+            android:layout_alignBottom="@+id/imageViewPostiveNegative"
+            android:layout_toStartOf="@+id/imageViewPostiveNegative" />
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageViewPostiveNegative"
+            android:src="@drawable/vink"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
 </LinearLayout>

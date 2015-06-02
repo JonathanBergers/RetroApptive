@@ -8,8 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Titel"
-        android:id="@+id/textViewListActionTitel"
-        android:layout_gravity="center_horizontal" />
+        android:id="@+id/textViewListActionTitel" />
 
     <TextView
         android:layout_width="wrap_content"
