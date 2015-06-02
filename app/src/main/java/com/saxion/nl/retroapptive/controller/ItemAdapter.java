@@ -23,15 +23,13 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
     protected TextView title;
     protected TextView summary;
     protected TextView sprintNumber;
-    private int layout;
 
     private TextView category;
 
     public int currentPosition = 0;
 
-    public ItemAdapter(Context context, int resource, List<T> objects, int layout) {
+    public ItemAdapter(Context context, int resource, List<T> objects) {
         super(context, resource, objects);
-        this.layout= layout;
     }
 
     //private ....View sprint
@@ -59,7 +57,7 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
             if(currentPosition == 0){
                 convertView = inflater.inflate(R.layout.fragment_list_item_note, parent, false);
                 title = (TextView) convertView.findViewById(R.id.textViewItemTitle);
-                summary = (TextView) convertView.findViewById(R.id.textViewItemDescription);
+                summary = (TextView) convertView.findViewById(R.id.textViewItemCategory);
             } else if(currentPosition == 1){
                 convertView = inflater.inflate(R.layout.fragment_list_item_user_story, parent, false);
                 title = (TextView) convertView.findViewById(R.id.textViewListUserStoryTitle);

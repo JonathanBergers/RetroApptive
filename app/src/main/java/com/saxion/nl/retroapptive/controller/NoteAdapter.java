@@ -36,6 +36,6 @@ public class NoteAdapter extends ItemAdapter<Notitie> {
     @Override
     public void addViews(View convertedView, int position) {
 
-        category = (TextView) convertedView.findViewById(R.id.textViewListNoteCategory);
+        category = (TextView) convertedView.findViewById(R.id.textViewItemCategory);
     }
 }

@@ -39,7 +39,7 @@ import java.util.List;
 public class MainActivity extends FragmentActivity
 		implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-	private static final String HOST = "http://192.168.2.10:8080";
+	private static final String HOST = "http://192.168.2.22:8080";
 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
