@@ -1,4 +1,4 @@
-package com.saxion.nl.retroapptive;
+package com.saxion.nl.retroapptive.controller.sprintselector;
 
 
 import android.app.Activity;
@@ -18,18 +18,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.model.Model;
+import com.saxion.nl.retroapptive.model.Project;
+import com.saxion.nl.retroapptive.model.Sprint;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class SprintSelectorFragment extends Fragment {
 
     /**
      * Remember the position of the selected item.
@@ -60,7 +65,15 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
-    public NavigationDrawerFragment() {
+    private Sprint selectedSprint = null;
+
+    private SprintSelectionAdapter projectsArrayAdapter;
+
+    public SprintSelectorFragment() {
+    }
+
+    public Sprint getSelectedSprint() {
+        return selectedSprint;
     }
 
     @Override
@@ -77,8 +90,56 @@ public class NavigationDrawerFragment extends Fragment {
             mFromSavedInstanceState = true;
         }
 
+        final List<Item> items = new ArrayList<>();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final List<Project> projects = Model.getInstance().getProjects();
+
+                    items.clear();
+
+                    selectedSprint = null;
+
+                    for (Project project : projects) {
+                        items.add(new ProjectItem(project));
+                        final List<Sprint> sprints = Model.getInstance().getSprints(project);
+                        for (Sprint sprint : sprints) {
+                            items.add(new SprintItem(sprint));
+                            selectedSprint = sprint;
+                            mCurrentSelectedPosition = items.size() - 1;
+                        }
+                    }
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            projectsArrayAdapter.notifyDataSetChanged();
+                            if (selectedSprint != null){
+                                selectItem(mCurrentSelectedPosition);
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        projectsArrayAdapter = new SprintSelectionAdapter(getActionBar().getThemedContext(), items);/*-new ArrayAdapter<Project>(
+                getActionBar().getThemedContext(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,
+
+                // HIER KOMT DE DATA VOOR DE DRAWER
+                //Model.getInstance().notesTestStrings)
+                projects
+
+        );*/
+
         // Select either the default item (0) or the last selected item.
-        selectItem(mCurrentSelectedPosition);
+        //selectItem(mCurrentSelectedPosition);
     }
 
     @Override
@@ -100,19 +161,9 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-
-                // HIER KOMT DE DATA VOOR DE DRAWER
-                //Model.getInstance().notesTestStrings)
-        new String[]{"Hardcoded project 1", "Hardcoded project2", "Hardcoded Project 3"}
-
-
-        ));
+        mDrawerListView.setAdapter(projectsArrayAdapter);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
         return mDrawerListView;
     }
 
@@ -195,6 +246,12 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
+        Item item = projectsArrayAdapter.getItem(position);
+        if (!(item instanceof SprintItem)) {
+            return;
+        }
+        final SprintItem sprintItem = (SprintItem) item;
+        selectedSprint = sprintItem.getSprint();//projectsArrayAdapter.getItem(position);
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);

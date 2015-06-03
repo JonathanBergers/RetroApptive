@@ -5,7 +5,7 @@ public class Action extends Item{
 	private Integer priority;
 
 	public Action(Item item) {
-		super(item);
+		super(item.getSprint(), item.getDescription(), item.getSummary());
 
 	}
 

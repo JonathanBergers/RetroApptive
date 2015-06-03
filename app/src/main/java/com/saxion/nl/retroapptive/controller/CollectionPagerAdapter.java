@@ -3,40 +3,49 @@ package com.saxion.nl.retroapptive.controller;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.ViewGroup;
 
 import com.saxion.nl.retroapptive.MainActivity;
+import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.view.ListViewFragment;
+import com.saxion.nl.retroapptive.view.NotesListViewFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by falco on 28-5-15.
  */
 public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
 
-
-    MainActivity activity;
+    private String[] pageTitles = new String[] {"Notities"};//, "User stories", "Acties"};
+    private MainActivity activity;
+    private List<Notitie> notities = new ArrayList<>();
 
     public CollectionPagerAdapter(FragmentManager fm, MainActivity activity) {
-
         super(fm);
         this.activity = activity;
     }
 
+    public List<Notitie> getNotities() {
+        return notities;
+    }
 
-    @Override
-    public Fragment getItem(int i) {
-
-
-        return ListViewFragment.init(i);
-
+    public void notifyNoteChanges() {
 
     }
 
+    @Override
+    public Fragment getItem(int i) {
+        switch(i){
+            case 0:
+                return NotesListViewFragment.newInstance(notities);
+        }
+        return null;
+    }
 
     @Override
     public int getCount() {
-        return 3;
+        return pageTitles.length;
     }
 
     @Override
@@ -44,24 +53,9 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
         return POSITION_NONE;
     }
 
-
     @Override
     public CharSequence getPageTitle(int position) {
-        return getTap(position);
-    }
-
-    private String getTap(int i) {
-        if (i == 0) {
-            // eerste tap
-
-            return "Notities";
-        } else if (i == 1) {
-            //tweede tap
-            return "User Stories";
-        } else {
-            return "Acties";
-        }
-
+        return pageTitles[position];
     }
 
 }

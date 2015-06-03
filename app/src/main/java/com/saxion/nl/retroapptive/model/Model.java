@@ -1,96 +1,69 @@
 package com.saxion.nl.retroapptive.model;
 
-
-import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Homepage;
-import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Link;
-import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.ObjectMember;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Model {
+import com.saxion.nl.retroapptive.communication.data.gatherer.DataGatherer;
+import com.saxion.nl.retroapptive.communication.data.gatherer.isis.ApacheIsisDataGatherer;
+import com.saxion.nl.retroapptive.communication.login.LoginCredentials;
+
+public class Model implements DataGatherer {
 
     private static Model instance;
-    private static final Object lock = new Object();
-    /* The Model */
-    private Homepage homePage;
 
-    private Link currentLink;
+    private DataGatherer dataGathererImpl;
 
-    private List<String> notesTestStrings = new ArrayList<>();
-    private List<Notitie> notes = new ArrayList<>();
-    private List<Action> actions = new ArrayList<>();
-    private List<UserStory> userStories = new ArrayList<>();
-
-    private Map<String, ObjectMember> todoItemMembers;
-
-    public Map<String, ObjectMember> getTodoItemMembers() {
-        return todoItemMembers;
-    }
-
-    public void setTodoItemMembers(Map<String, ObjectMember> todoItemMembers) {
-        this.todoItemMembers = todoItemMembers;
-    }
-
-    public Link getCurrentLink() {
-        return currentLink;
-    }
-
-    public void setCurrentLink(Link currentLink) {
-        this.currentLink = currentLink;
+    public Model(final DataGatherer dataGatherer) {
+        this.dataGathererImpl = dataGatherer;
     }
 
     public static Model getInstance() {
-        synchronized (lock) {
-            if (instance == null) {
-                instance = new Model();
-            }
-            return instance;
+        if (instance == null) {
+            instance = new Model(new ApacheIsisDataGatherer(ApacheIsisDataGatherer.HOST));
         }
+        return instance;
     }
 
-    public Homepage getHomePage() {
-        return homePage;
+    public int login(final LoginCredentials loginCredentials) {
+        return dataGathererImpl.login(loginCredentials);
     }
 
-    public void setHomePage(Homepage homePage) {
-        this.homePage = homePage;
+    public Profiel getLocalProfile() {
+        return new Profiel("LocalProfileTemp");
     }
 
-    public void addNote(Notitie note) {
-        notes.add(note);
+    @Override
+    public List<Project> getProjects() throws Exception {
+        return dataGathererImpl.getProjects();
     }
 
-    public List<Notitie> getNotes() {
-        return notes;
+    @Override
+    public List<Sprint> getSprints(Project project) throws Exception {
+        return dataGathererImpl.getSprints(project);
     }
 
-    public List<Action> getActions() {
-        return actions;
+    @Override
+    public List<Item> getItems(Sprint sprint) throws Exception {
+        return dataGathererImpl.getItems(sprint);
     }
 
-    public List<UserStory> getUserStories() {
-        return userStories;
+    @Override
+    public Map<Sprint, List<Item>> getItems(Project project) throws Exception {
+        return dataGathererImpl.getItems(project);
     }
 
-    public void addAction(Action action) {
-        actions.add(action);
+    @Override
+    public List<String> getPossibleNoteSubcategories(Sprint sprint) throws Exception {
+        return dataGathererImpl.getPossibleNoteSubcategories(sprint);
     }
 
-    public void addUserStory(UserStory userStory) {
-        userStories.add(userStory);
+    @Override
+    public Notitie createNote(Sprint sprint, String description, String summary, boolean positive, String subcategory) throws Exception {
+        return dataGathererImpl.createNote(sprint, description, summary, positive, subcategory);
     }
 
-    public Action getAction(int position) {
-        return actions.get(position);
-    }
-
-    public Notitie getNote(int position) {
-        return notes.get(position);
-    }
-
-    public UserStory getUserStory(int position) {
-        return userStories.get(position);
+    @Override
+    public void deleteNote(Notitie note) throws Exception {
+        dataGathererImpl.deleteNote(note);
     }
 }

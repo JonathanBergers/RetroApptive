@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.saxion.nl.retroapptive.MainActivity;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.model.Action;
 import com.saxion.nl.retroapptive.model.Item;
@@ -22,238 +23,217 @@ import com.saxion.nl.retroapptive.model.UserStory;
  */
 public class ObjectActivity extends Activity {
 
-	private EditText titleEditText, summaryEditText, categoryEditText;
-	private Button save, cancel;
-	private CheckBox isPositive;
+    private EditText titleEditText, summaryEditText, categoryEditText;
+    private Button save, cancel;
+    private CheckBox isPositive;
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_new_object);
+
+        titleEditText = (EditText) findViewById(R.id.editTextNewObjectTitle);
+        summaryEditText = (EditText) findViewById(R.id.editTextNewObjectSummary);
+        categoryEditText = (EditText) findViewById(R.id.editTextNewObjectCategory);
 
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_object);
+        save = (Button) findViewById(R.id.buttonNewObjectSave);
+        cancel = (Button) findViewById(R.id.buttonNewObjectCancel);
 
-		titleEditText = (EditText) findViewById(R.id.editTextNewObjectTitle);
-		summaryEditText = (EditText) findViewById(R.id.editTextNewObjectSummary);
-		categoryEditText = (EditText) findViewById(R.id.editTextNewObjectCategory);
+        isPositive = (CheckBox) findViewById(R.id.checkBoxNewObject);
+
+        final int item = getIntent().getIntExtra("item", 0);
 
 
-		save = (Button) findViewById(R.id.buttonNewObjectSave);
-		cancel = (Button) findViewById(R.id.buttonNewObjectCancel);
-
-		isPositive = (CheckBox) findViewById(R.id.checkBoxNewObject);
-
-		final int item = getIntent().getIntExtra("item", 0);
+        if (getIntent().getBooleanExtra("edit", false)) {
+            final int currentItemPos = getIntent().getIntExtra("position", 0);
 
 
-		if(getIntent().getBooleanExtra("edit", false)){
-			final int currentItemPos = getIntent().getIntExtra("position", 0);
+            if (item == 0) {
+                setTitle("Editing note:");
+
+				/*titleEditText.setText(Model.getInstance().getNote(currentItemPos).getDescription());
+                summaryEditText.setText(Model.getInstance().getNote(currentItemPos).getSummary());
+				categoryEditText.setText(Model.getInstance().getNote(currentItemPos).getSubcategory());
+				isPositive.setChecked(Model.getInstance().getNote(currentItemPos).isPositive());*/
 
 
+            } else if (item == 1) {
+                setTitle("Editing UserStory:");
+                categoryEditText.setHint("Points");
+                categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                isPositive.setText("Burned");
 
-			if(item == 0){
-				setTitle("Editing note:");
-
-				titleEditText.setText(Model.getInstance().getNote(currentItemPos).getDescription());
-				summaryEditText.setText(Model.getInstance().getNote(currentItemPos).getSummary());
-				categoryEditText.setText(Model.getInstance().getNote(currentItemPos).getCategory());
-				isPositive.setChecked(Model.getInstance().getNote(currentItemPos).isPositive());
-
-
-			} else if(item == 1){
-				setTitle("Editing UserStory:");
-				categoryEditText.setHint("Points");
-				categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-				isPositive.setText("Burned");
-
-				titleEditText.setText(Model.getInstance().getUserStory(currentItemPos).getDescription());
+				/*titleEditText.setText(Model.getInstance().getUserStory(currentItemPos).getDescription());
 				summaryEditText.setText(Model.getInstance().getUserStory(currentItemPos).getSummary());
 				categoryEditText.setText("" + Model.getInstance().getUserStory(currentItemPos).getPoints());
-				isPositive.setChecked(Model.getInstance().getUserStory(currentItemPos).isBurned());
+				isPositive.setChecked(Model.getInstance().getUserStory(currentItemPos).isBurned());*/
 
 
+            } else {
+                setTitle("Editing Action:");
+                categoryEditText.setHint("Priority");
+                categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                isPositive.setVisibility(View.INVISIBLE);
 
-
-
-			} else {
-				setTitle("Editing Action:");
-				categoryEditText.setHint("Priority");
-				categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-				isPositive.setVisibility(View.INVISIBLE);
-
-				titleEditText.setText(Model.getInstance().getAction(currentItemPos).getDescription());
+				/*titleEditText.setText(Model.getInstance().getAction(currentItemPos).getDescription());
 				summaryEditText.setText(Model.getInstance().getAction(currentItemPos).getSummary());
-				categoryEditText.setText("" + Model.getInstance().getAction(currentItemPos).getPriority());
+				categoryEditText.setText("" + Model.getInstance().getAction(currentItemPos).getPriority());*/
 
 
+            }
 
-			}
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-			save.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
+                    String title, summary, category;
+                    int p;
+                    boolean ispositive;
 
-					String title, summary, category;
-					int p;
-					boolean ispositive;
+                    title = titleEditText.getText().toString();
+                    summary = summaryEditText.getText().toString();
 
-					title = titleEditText.getText().toString();
-					summary = summaryEditText.getText().toString();
+                    if (item == 0) {
+                        category = categoryEditText.getText().toString();
+                        ispositive = isPositive.isChecked();
 
-					if(item == 0){
-						category = categoryEditText.getText().toString();
-						ispositive = isPositive.isChecked();
 
+                        //Model.getInstance().getNote(currentItemPos).setDescription(title);
+                        //Model.getInstance().getNote(currentItemPos).setSummary(summary);
+                        //Model.getInstance().getNote(currentItemPos).setCategory(category);
+                        //Model.getInstance().getNote(currentItemPos).setIsPositive(ispositive);
 
-						Model.getInstance().getNote(currentItemPos).setDescription(title);
-						Model.getInstance().getNote(currentItemPos).setSummary(summary);
-						Model.getInstance().getNote(currentItemPos).setCategory(category);
-						Model.getInstance().getNote(currentItemPos).setIsPositive(ispositive);
 
+                    } else if (item == 1) {
+                        p = Integer.parseInt(categoryEditText.getText().toString());
+                        ispositive = isPositive.isChecked();
 
+                        //Model.getInstance().getUserStory(currentItemPos).setDescription(title);
+                        //Model.getInstance().getUserStory(currentItemPos).setSummary(summary);
+                        //Model.getInstance().getUserStory(currentItemPos).setPoints(p);
+                        //Model.getInstance().getUserStory(currentItemPos).setIsBurned(ispositive);
 
-					} else if(item == 1) {
-						p = Integer.parseInt(categoryEditText.getText().toString());
-						ispositive = isPositive.isChecked();
 
-						Model.getInstance().getUserStory(currentItemPos).setDescription(title);
-						Model.getInstance().getUserStory(currentItemPos).setSummary(summary);
-						Model.getInstance().getUserStory(currentItemPos).setPoints(p);
-						Model.getInstance().getUserStory(currentItemPos).setIsBurned(ispositive);
+                    } else {
+                        p = Integer.parseInt(categoryEditText.getText().toString());
 
+                        //Model.getInstance().getAction(currentItemPos).setDescription(title);
+                        //Model.getInstance().getAction(currentItemPos).setSummary(summary);
+                        //Model.getInstance().getAction(currentItemPos).setPriority(p);
 
-					} else {
-						p = Integer.parseInt(categoryEditText.getText().toString());
 
-						Model.getInstance().getAction(currentItemPos).setDescription(title);
-						Model.getInstance().getAction(currentItemPos).setSummary(summary);
-						Model.getInstance().getAction(currentItemPos).setPriority(p);
+                    }
 
+                    setResult(RESULT_OK, getIntent());
+                    finish();
 
 
+                }
+            });
 
-					}
 
-					setResult(RESULT_OK, getIntent());
-					finish();
+        } else {
+            //setting data
 
+            if (item == 0) {
+                setTitle("Making a new note:");
+            } else if (item == 1) {
+                setTitle("Making a new UserStory:");
+                categoryEditText.setHint("Points");
+                categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                isPositive.setVisibility(View.INVISIBLE);
+            } else {
+                setTitle("Making a new Action:");
+                categoryEditText.setHint("Priority");
+                categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                isPositive.setVisibility(View.INVISIBLE);
+            }
 
 
-				}
-			});
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //getting de values
+                    final String title, summary, category;
+                    int p;
+                    final boolean ispositive;
 
+                    title = titleEditText.getText().toString();
+                    summary = summaryEditText.getText().toString();
 
 
+                    if (item == 0) {
+                        category = categoryEditText.getText().toString();
+                        ispositive = isPositive.isChecked();
 
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Model.getInstance().createNote(MainActivity.currentSprint, title, summary, ispositive, category);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                MainActivity.instance.loadNotes(MainActivity.currentSprint);
+                            }
+                        }).start();
 
+                        //Notitie n = new Notitie(new Item(title, summary, 0 ));
+                        //n.setCategory(category);
+                        //n.setIsPositive(ispositive);
+                        //Model.getInstance().addNote(n);
 
-		} else {
-			//setting data
 
-			if(item == 0){
-				setTitle("Making a new note:");
+                    } else if (item == 1) {
+                        p = Integer.parseInt(categoryEditText.getText().toString());
+                        //UserStory u =  new UserStory(new Item(title, summary, 0));
+                        //u.setPoints(p);
+                        //Model.getInstance().addUserStory(u);
 
+                    } else {
+                        p = Integer.parseInt(categoryEditText.getText().toString());
+                        //Action a = new Action(new Item(title, summary, 0));
+                        //	a.setPriority(p);
+                        //Model.getInstance().addAction(a);
 
 
-			} else if(item == 1){
-				setTitle("Making a new UserStory:");
-				categoryEditText.setHint("Points");
-				categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-				isPositive.setVisibility(View.INVISIBLE);
+                    }
 
 
+                    //new object van user story of note
+                    //new Object(title, description,category);
+                    //waardes title description, catergory
 
 
+                    //terug gaan naar de main view
 
-			} else {
-				setTitle("Making a new Action:");
-				categoryEditText.setHint("Priority");
-				categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-				isPositive.setVisibility(View.INVISIBLE);
+                    setResult(RESULT_OK, getIntent());
+                    finish();
 
-			}
 
+                    //Intent i = new Intent(ObjectActivity.this, MainActivity.class);
+                    //startActivity(i);
+                }
+            });
 
 
+        }
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                setResult(RESULT_CANCELED, getIntent());
+                finish();
+            }
+        });
+    }
 
 
-
-
-
-			save.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					//getting de values
-					String title, summary, category;
-					int p;
-					boolean ispositive;
-
-					title = titleEditText.getText().toString();
-					summary = summaryEditText.getText().toString();
-
-
-					if(item == 0){
-						category = categoryEditText.getText().toString();
-						ispositive = isPositive.isChecked();
-
-						Notitie n = new Notitie(new Item(title, summary, 0 ));
-						n.setCategory(category);
-						n.setIsPositive(ispositive);
-						Model.getInstance().addNote(n);
-
-
-
-					} else if(item == 1) {
-						p = Integer.parseInt(categoryEditText.getText().toString());
-						UserStory u =  new UserStory(new Item(title, summary, 0));
-						u.setPoints(p);
-						Model.getInstance().addUserStory(u);
-
-					} else {
-						p = Integer.parseInt(categoryEditText.getText().toString());
-						Action a = new Action(new Item(title, summary, 0));
-						a.setPriority(p);
-						Model.getInstance().addAction(a);
-
-
-					}
-
-
-					//new object van user story of note
-					//new Object(title, description,category);
-					//waardes title description, catergory
-
-
-					//terug gaan naar de main view
-
-					setResult(RESULT_OK, getIntent());
-					finish();
-
-
-					//Intent i = new Intent(ObjectActivity.this, MainActivity.class);
-					//startActivity(i);
-				}
-			});
-
-
-		}
-
-		cancel.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-
-				setResult(RESULT_CANCELED, getIntent());
-				finish();
-			}
-		});
-	}
-
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return super.onCreateOptionsMenu(menu);
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
 }
