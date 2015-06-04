@@ -32,6 +32,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ObjectActivity" />
+        <activity android:name=".DrawerActivity" />
     </application>
 
 </manifest>
