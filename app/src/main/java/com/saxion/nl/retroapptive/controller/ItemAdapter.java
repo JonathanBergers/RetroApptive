@@ -16,8 +16,7 @@ import java.util.List;
 /**
  * Created by falco on 28-5-15.
  */
-public  class ItemAdapter<T> extends ArrayAdapter<T>{
-
+public class ItemAdapter<T> extends ArrayAdapter<T> {
 
 
     protected TextView title;
@@ -37,28 +36,20 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
     // private ..View Attachment ?
 
 
-
-
-
-
-
-
-
     @Override
-     public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
 
-
-        if(convertView == null){
+        if (convertView == null) {
 
             LayoutInflater inflater = (LayoutInflater) super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
-            if(currentPosition == 0){
+            if (currentPosition == 0) {
                 convertView = inflater.inflate(R.layout.fragment_list_item_note, parent, false);
                 title = (TextView) convertView.findViewById(R.id.textViewItemTitle);
                 summary = (TextView) convertView.findViewById(R.id.textViewItemCategory);
-            } else if(currentPosition == 1){
+            } else if (currentPosition == 1) {
                 convertView = inflater.inflate(R.layout.fragment_list_item_user_story, parent, false);
                 title = (TextView) convertView.findViewById(R.id.textViewListUserStoryTitle);
                 summary = (TextView) convertView.findViewById(R.id.textViewListUserStorySummary);
@@ -71,17 +62,7 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
         }
 
 
-
-
-
-
-
-
-
-
-
         addViews(convertView, position);
-
 
 
         setData(convertView, position);
@@ -91,25 +72,18 @@ public  class ItemAdapter<T> extends ArrayAdapter<T>{
     }
 
 
-
-
-
-
-    public   void setData(View convertedView, int position){
+    public void setData(View convertedView, int position) {
 
 //OVERIDE
-
-
 
 
     }
 
 
-    public   void addViews(View convertedView, int position){
+    public void addViews(View convertedView, int position) {
 //OVERIDE
 
     }
-
 
 
 }

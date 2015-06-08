@@ -2,13 +2,20 @@ package com.saxion.nl.retroapptive.model;
 
 public class Sprint {
 
-    private Project project;
-    private int sprintNummer;
+    private final Project project;
+    private final int sprintID;
 
-    public Sprint(Project project) {
+    public Sprint(final Project project, final int id) {
         this.project = project;
+        this.sprintID = id;
+    }
 
-        //TODO Sprint nummer ophalen
+    public Project getProject() {
+        return project;
+    }
+
+    public int getSprintID() {
+        return sprintID;
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Action extends JsonRepr {
     private String id;
-    private transient List<Map<String, JsonNode>> parameters;
+    private transient Map<String, Map<String, JsonNode>> parameters;
     private Map<String, Object> args = null;
 
     private String memberType;
@@ -41,11 +41,11 @@ public class Action extends JsonRepr {
         this.id = id;
     }
 
-    public List<Map<String, JsonNode>> getParameters() {
+    public Map<String, Map<String, JsonNode>> getParameters() {
         return parameters;
     }
 
-    public void setParameters(List<Map<String, JsonNode>> parameters) {
+    public void setParameters(Map<String, Map<String, JsonNode>> parameters) {
         this.parameters = parameters;
     }
 

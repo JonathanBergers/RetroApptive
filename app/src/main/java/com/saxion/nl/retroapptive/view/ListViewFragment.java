@@ -21,14 +21,15 @@ import com.saxion.nl.retroapptive.model.Model;
  * Created by falco on 28-5-15.
  */
 public final class ListViewFragment extends Fragment {
+
     public static final String ARG_OBJECT = "object";
     public static Bundle args;
     public ListView listView;
-    public  NoteAdapter noteAdapter;
+    public NoteAdapter noteAdapter;
     public UserStoryAdapter userStoryAdapter;
     public ActionAdapter actionAdapter;
 
-    public  int currentPosition;
+    public int currentPosition;
 
 
     public static ListViewFragment init(int value) {
@@ -45,13 +46,11 @@ public final class ListViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        currentPosition= getArguments() != null ? getArguments().getInt(ListViewFragment.ARG_OBJECT) : 0;
+        currentPosition = getArguments() != null ? getArguments().getInt(ListViewFragment.ARG_OBJECT) : 0;
 
-        noteAdapter = new NoteAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().getNotes());
-        userStoryAdapter = new UserStoryAdapter(getActivity(), R.layout.fragment_list_item_user_story, Model.getInstance().getUserStories());
-        actionAdapter = new ActionAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().getActions());
-
-
+       // noteAdapter = new NoteAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().getNotes());
+        //userStoryAdapter = new UserStoryAdapter(getActivity(), R.layout.fragment_list_item_user_story, Model.getInstance().getUserStories());
+        //actionAdapter = new ActionAdapter(getActivity(), R.layout.fragment_list_item_note, Model.getInstance().getActions());
 
 
     }
@@ -70,8 +69,6 @@ public final class ListViewFragment extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.listView);
 
 
-
-
         return rootView;
     }
 
@@ -81,18 +78,11 @@ public final class ListViewFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-
-
         currentPosition = args.getInt(ListViewFragment.ARG_OBJECT);
         noteAdapter.currentPosition = currentPosition;
         userStoryAdapter.currentPosition = currentPosition;
         actionAdapter.currentPosition = currentPosition;
         Log.d("Position", ("" + currentPosition));
-
-
-
-
-
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -115,52 +105,35 @@ public final class ListViewFragment extends Fragment {
         });
 
 
+        switch (currentPosition) {
 
 
-
-
-
-
-        switch (currentPosition){
-
-
-            case 0 : {
+            case 0: {
 
                 listView.setAdapter(noteAdapter);
-
 
 
             }
 
 
             break;
-            case 1 : {
+            case 1: {
 
                 listView.setAdapter(userStoryAdapter);
             }
             break;
 
-            case 2 : {
+            case 2: {
                 listView.setAdapter(actionAdapter);
             }
 
             break;
 
 
-
         }
 
 
-
-
-
-
-
-
-
     }
-
-
 
 
 }

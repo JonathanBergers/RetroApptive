@@ -2,19 +2,22 @@ package com.saxion.nl.retroapptive.model;
 
 public class Item {
 
-	private String description, summary;
-	private int sprintNumber;
-	
-	public Item(String description, String summary, int sprintNumber) {
+	private final Sprint sprint;
+	private final String description;
+	private final String summary;
+
+	public Item(final Sprint sprint, final String description, final String summary) {
 		this.description = description;
 		this.summary = summary;
-		this.sprintNumber = sprintNumber;
+		this.sprint = sprint;
 	}
 
-	public Item(Item item){
-		this.description = item.getDescription();
-		this.summary = item.getSummary();
-		this.sprintNumber = item.getSprintNumber();
+	public Project getProject() {
+		return getSprint().getProject();
+	}
+
+	public Sprint getSprint() {
+		return sprint;
 	}
 
 	public String getDescription() {
@@ -25,20 +28,4 @@ public class Item {
 		return summary;
 	}
 
-	public int getSprintNumber() {
-		return sprintNumber;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public void setSummary(String summary) {
-		this.summary = summary;
-	}
-	
-
-	
-	
-	
 }

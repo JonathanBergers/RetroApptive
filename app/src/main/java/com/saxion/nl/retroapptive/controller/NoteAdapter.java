@@ -15,22 +15,19 @@ import java.util.List;
  */
 public class NoteAdapter extends ItemAdapter<Notitie> {
 
+    private List<Notitie> notities;
     private TextView category;
 
     public NoteAdapter(Context context, int resource, List<Notitie> objects) {
         super(context, resource, objects);
-
+        this.notities = objects;
     }
-
-
-
 
     @Override
     public void setData(View convertedView, int position) {
-
-        title.setText(Model.getInstance().getNote(position).getDescription());
-        summary.setText(Model.getInstance().getNote(position).getSummary());
-        category.setText(Model.getInstance().getNote(position).getCategory());
+        title.setText(notities.get(position).getDescription());
+        summary.setText(notities.get(position).getSummary());
+        category.setText(notities.get(position).getSubcategory());
     }
 
     @Override
