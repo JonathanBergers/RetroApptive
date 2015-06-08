@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.saxion.nl.retroapptive.BaseActivity;
 import com.saxion.nl.retroapptive.MainActivity;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.model.Model;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * Created by falco on 31-5-15.
  */
-public class DetailActivity extends Activity {
+public class DetailActivity extends BaseActivity {
 
     public static final int NOTES_LIST = 0;
     public static final int USERSTORIES_LIST = 1;
@@ -37,7 +38,7 @@ public class DetailActivity extends Activity {
 
 
         if (getIntent().getIntExtra("list", 0) == NOTES_LIST) {
-            setContentView(R.layout.activity_detail_note);
+            getLayoutInflater().inflate(R.layout.activity_detail_note, drawer);
 
             TextView titel = (TextView) findViewById(R.id.textView_noteDetailsTitel);
             TextView project = (TextView) findViewById(R.id.textView_noteDetailsProject);

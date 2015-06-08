@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.saxion.nl.retroapptive.BaseActivity;
 import com.saxion.nl.retroapptive.MainActivity;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.model.Action;
@@ -21,7 +22,7 @@ import com.saxion.nl.retroapptive.model.UserStory;
 /**
  * Created by Jelle on 1-6-2015.
  */
-public class ObjectActivity extends Activity {
+public class ObjectActivity extends BaseActivity {
 
     private EditText titleEditText, summaryEditText, categoryEditText;
     private Button save, cancel;
@@ -31,7 +32,7 @@ public class ObjectActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_object);
+        getLayoutInflater().inflate(R.layout.activity_new_object, drawer);
 
         titleEditText = (EditText) findViewById(R.id.editTextNewObjectTitle);
         summaryEditText = (EditText) findViewById(R.id.editTextNewObjectSummary);
