@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
 
-    private String[] pageTitles = new String[] {"Notities"};//, "User stories", "Acties"};
+    private String[] pageTitles = new String[] {"Notities"};//"User stories", "Acties"};
     private MainActivity activity;
     private List<Notitie> notities = new ArrayList<>();
 

@@ -25,10 +25,9 @@ import com.saxion.nl.retroapptive.view.NotesListViewFragment;
 
 import java.util.List;
 
-public class MainActivity extends FragmentActivity
-        implements SprintSelectorFragment.NavigationDrawerCallbacks {
+public class MainActivity extends BaseActivity{
 
-    private static final String HOST = "http://192.168.2.22:8080";
+    private static final String HOST = "http://topicus.apps.gedge.nl/todoapp/";
 
     public static MainActivity instance = null;
 
@@ -57,7 +56,7 @@ public class MainActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         instance = this;
-        setContentView(R.layout.activity_main);
+        getLayoutInflater().inflate(R.layout.activity_main, drawer);
 
         final ActionBar actionBar = getActionBar();
 
@@ -99,14 +98,6 @@ public class MainActivity extends FragmentActivity
 
         mViewPager.setAdapter(mCollectionPagerAdapter);
 
-        mSprintSelectorFragment = (SprintSelectorFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
-
-        // Set up the drawer.
-        mSprintSelectorFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
         //link.setHref("http://145.76.115.243:8080/restful/objects/TODO/1");
         //GetItemsTask getNoteTask = new GetItemsTask(ActionResult.class);
 
@@ -140,42 +131,6 @@ public class MainActivity extends FragmentActivity
 
     }
 
-    // kan volgens mij weg,
-    // Reactie: kan niet weg, dit wordt called als project wordt selected - Thomas
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        final Sprint sprint = mSprintSelectorFragment.getSelectedSprint();
-        currentSprint = sprint;
-        System.out.println("SELECTED SPRINT: " + sprint.getProject().getName() + ":" + sprint.getSprintID());
-        loadNotes(sprint);
-    }
-
-    public void loadNotes(final Sprint sprint) {
-        final List<Notitie> oldNotes = NotesListViewFragment.instance.getNotes();
-        oldNotes.clear();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final List<Item> items = Model.getInstance().getItems(sprint);
-                    for (Item item : items) {
-                        if (item instanceof  Notitie) {
-                            oldNotes.add((Notitie)item);
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        NotesListViewFragment.instance.getNoteAdapter().notifyDataSetChanged();
-                    }
-                });
-            }
-        }).start();
-    }
-
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
@@ -188,26 +143,6 @@ public class MainActivity extends FragmentActivity
                 mTitle = getString(R.string.title_section3);
                 break;
         }
-    }
-
-    public void restoreActionBar() {
-        ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mSprintSelectorFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
-            restoreActionBar();
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
