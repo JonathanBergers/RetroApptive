@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,8 @@ import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.model.UserStory;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Jelle on 1-6-2015.
@@ -245,8 +248,12 @@ public class ObjectActivity extends BaseActivity {
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Calendar c = Calendar.getInstance();
+                String currentTime = c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DATE)+","+c.get(Calendar.HOUR)+":"+c.get(Calendar.MINUTE)+"."+c.get(Calendar.SECOND)+".jpg";
+
                 Intent photoIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-                File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "picture.jpg");
+                File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), currentTime);
+                Log.d("DEBUG",currentTime);
                 imageUri = Uri.fromFile(photo);
                 photoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(photoIntent, 1);
@@ -258,6 +265,7 @@ public class ObjectActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("DEBUG", "Deze wordt aangeroepen");
 
         if(resultCode == Activity.RESULT_OK){
             ContentResolver cr = getContentResolver();
@@ -265,11 +273,12 @@ public class ObjectActivity extends BaseActivity {
             cr.notifyChange(selectedImage,null);
 
             photoView = (ImageView)findViewById(R.id.imageViewPhoto);
-
+            Log.d("DEBUG","Zo ver komt die ook");
             Bitmap bitmapPhoto;
 
             try{
                 bitmapPhoto = MediaStore.Images.Media.getBitmap(cr, selectedImage);
+                Log.d("DEBUG","Zelfs hier komt die");
                 photoView.setImageBitmap(bitmapPhoto);
 
             }catch(Exception e){

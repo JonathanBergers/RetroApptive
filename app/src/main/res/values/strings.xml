@@ -15,4 +15,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_data_retriever">DataRetrieverActivity</string>
+    
+    <string name="image">This is a generic content description</string>
 </resources>
