@@ -3,6 +3,8 @@
     package="com.saxion.nl.retroapptive" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -32,7 +34,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ObjectActivity" />
-        <activity android:name=".DrawerActivity" />
     </application>
 
 </manifest>

@@ -19,7 +19,9 @@ import java.util.List;
 
 /**
  * Created by Jelle on 8-6-2015.
+ * Deze activity zorgt dat de navigation drawer op elke
  */
+
 public class BaseActivity extends FragmentActivity implements SprintSelectorFragment.NavigationDrawerCallbacks {
 
     private SprintSelectorFragment mNavigationDrawerFragment;

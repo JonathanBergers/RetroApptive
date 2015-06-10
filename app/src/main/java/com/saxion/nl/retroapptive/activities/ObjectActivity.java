@@ -1,14 +1,20 @@
 package com.saxion.nl.retroapptive.activities;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.saxion.nl.retroapptive.BaseActivity;
 import com.saxion.nl.retroapptive.MainActivity;
@@ -19,14 +25,18 @@ import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.model.UserStory;
 
+import java.io.File;
+
 /**
  * Created by Jelle on 1-6-2015.
  */
 public class ObjectActivity extends BaseActivity {
 
     private EditText titleEditText, summaryEditText, categoryEditText;
-    private Button save, cancel;
+    private Button save, cancel, takePhoto;
     private CheckBox isPositive;
+    private Uri imageUri;
+    private ImageView photoView;
 
 
     @Override
@@ -41,6 +51,7 @@ public class ObjectActivity extends BaseActivity {
 
         save = (Button) findViewById(R.id.buttonNewObjectSave);
         cancel = (Button) findViewById(R.id.buttonNewObjectCancel);
+        takePhoto = (Button) findViewById(R.id.buttonNewPhoto);
 
         isPositive = (CheckBox) findViewById(R.id.checkBoxNewObject);
 
@@ -230,8 +241,42 @@ public class ObjectActivity extends BaseActivity {
                 finish();
             }
         });
+
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+                File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "picture.jpg");
+                imageUri = Uri.fromFile(photo);
+                photoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(photoIntent, 1);
+
+            }
+        });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_OK){
+            ContentResolver cr = getContentResolver();
+            Uri selectedImage = imageUri;
+            cr.notifyChange(selectedImage,null);
+
+            photoView = (ImageView)findViewById(R.id.imageViewPhoto);
+
+            Bitmap bitmapPhoto;
+
+            try{
+                bitmapPhoto = MediaStore.Images.Media.getBitmap(cr, selectedImage);
+                photoView.setImageBitmap(bitmapPhoto);
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
