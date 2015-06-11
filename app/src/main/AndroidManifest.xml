@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.write_external_storage"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,19 +24,24 @@
             android:name=".activities.DetailActivity"
             android:label="@string/app_name" >
         </activity>
-        <activity android:name=".activities.LogInActivity" />
+        <activity android:name=".activities.LogInActivity">
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <action android:name="com.saxion.nl.retroapptive.activities.LoginActivity"/>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+        </activity>
 
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="com.saxion.nl.retroapptive.activities.MainActivity"/>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activities.ObjectActivity" />
+
+
+
     </application>
 
 </manifest>

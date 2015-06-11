@@ -27,7 +27,7 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity{
 
-    private static final String HOST = "http://topicus.apps.gedge.nl/todoapp/";
+    private static final String HOST = "http://topicus.apps.gedge.nl/simpleapp/";
 
     public static MainActivity instance = null;
 
