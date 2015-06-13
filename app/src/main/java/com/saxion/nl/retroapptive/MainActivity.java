@@ -117,6 +117,9 @@ public class MainActivity extends BaseActivity{
             }
         });
 
+
+
+
     }
 
     //TODO OPHALEN VAN USER STORIES bij oncreate.

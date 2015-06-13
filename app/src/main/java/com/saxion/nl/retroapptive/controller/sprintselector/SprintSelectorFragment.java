@@ -142,6 +142,13 @@ public class SprintSelectorFragment extends Fragment {
         //selectItem(mCurrentSelectedPosition);
     }
 
+
+    private void loadSprints(){
+
+
+
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -245,8 +252,10 @@ public class SprintSelectorFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+
+    //TODO changed position -1
     private void selectItem(int position) {
-        Item item = projectsArrayAdapter.getItem(position);
+        Item item = projectsArrayAdapter.getItem(position -1);
         if (!(item instanceof SprintItem)) {
             return;
         }
