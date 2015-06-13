@@ -39,7 +39,7 @@ import org.codehaus.jackson.JsonNode;
 
 public class ApacheIsisDataGatherer implements DataGatherer {
 
-	public static final String HOST = "http://192.168.2.27:8080/restful/";
+	public static final String HOST = "http://topicus.apps.gedge.nl/simpleapp/restful/";
 
 	public static void main(String[] args) {
 		Model model = Model.getInstance();
