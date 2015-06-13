@@ -36,6 +36,7 @@ public final class NotesListViewFragment extends Fragment {
         final NotesListViewFragment notesListViewFragment = new NotesListViewFragment();
         notesListViewFragment.setArguments(new Bundle());
         notesListViewFragment.notes = notes;
+        Log.d("NOTELISTVIEWFR" , "NEWINSTANCE");
         return notesListViewFragment;
     }
 
@@ -52,6 +53,9 @@ public final class NotesListViewFragment extends Fragment {
         super.onCreate(savedInstanceState);
         noteAdapter = new NoteAdapter(getActivity(), R.layout.fragment_list_item_note, notes);
         instance = this;
+
+
+        Log.d("NOTELISTVIEWFR" , "CREATED");
     }
 
     @Override

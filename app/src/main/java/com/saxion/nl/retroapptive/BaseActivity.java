@@ -16,6 +16,7 @@ import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.model.Sprint;
 import com.saxion.nl.retroapptive.view.NotesListViewFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,7 +54,10 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
     }
 
     public void loadNotes(final Sprint sprint) {
+        NotesListViewFragment.newInstance(new ArrayList<Notitie>());
         final List<Notitie> oldNotes = NotesListViewFragment.instance.getNotes();
+        Log.d("BASEACTIVITTY", "OLDNOTES SIZE: " + oldNotes.size());
+
         oldNotes.clear();
         new Thread(new Runnable() {
             @Override
@@ -72,6 +76,7 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         NotesListViewFragment.instance.getNoteAdapter().notifyDataSetChanged();
                     }
                 });

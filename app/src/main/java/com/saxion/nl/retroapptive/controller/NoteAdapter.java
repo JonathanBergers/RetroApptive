@@ -35,4 +35,6 @@ public class NoteAdapter extends ItemAdapter<Notitie> {
 
         category = (TextView) convertedView.findViewById(R.id.textViewItemCategory);
     }
+
+
 }

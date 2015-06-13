@@ -144,11 +144,7 @@ public class SprintSelectorFragment extends Fragment {
     }
 
 
-    private void loadSprints(){
 
-
-
-    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -263,6 +259,8 @@ public class SprintSelectorFragment extends Fragment {
         final SprintItem sprintItem = (SprintItem) item;
         selectedSprint = sprintItem.getSprint();//projectsArrayAdapter.getItem(position);
         mCurrentSelectedPosition = position;
+
+
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
         }
@@ -272,6 +270,7 @@ public class SprintSelectorFragment extends Fragment {
         if (mCallbacks != null) {
             mCallbacks.onNavigationDrawerItemSelected(position);
         }
+
     }
 
     @Override
