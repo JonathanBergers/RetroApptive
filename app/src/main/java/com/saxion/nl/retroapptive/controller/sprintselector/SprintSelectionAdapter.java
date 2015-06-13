@@ -27,7 +27,7 @@ public class SprintSelectionAdapter extends ArrayAdapter<Item> {
 
     @Override
     public int getViewTypeCount() {
-        return 2;//project en sprint
+        return 1;//project en sprint
     }
 
     @Override
