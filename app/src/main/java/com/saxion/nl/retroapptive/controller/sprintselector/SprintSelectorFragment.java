@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -253,12 +254,12 @@ public class SprintSelectorFragment extends Fragment {
     }
 
 
-    //TODO changed position -1
     private void selectItem(int position) {
-        Item item = projectsArrayAdapter.getItem(position -1);
+        Item item = projectsArrayAdapter.getItem(position);
         if (!(item instanceof SprintItem)) {
             return;
         }
+
         final SprintItem sprintItem = (SprintItem) item;
         selectedSprint = sprintItem.getSprint();//projectsArrayAdapter.getItem(position);
         mCurrentSelectedPosition = position;
