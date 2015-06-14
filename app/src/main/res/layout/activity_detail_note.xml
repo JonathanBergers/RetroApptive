@@ -52,4 +52,19 @@
         android:text="Delete"
         android:id="@+id/button_DetailsDelete"
         android:layout_gravity="center_horizontal" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_preview"
+        android:layout_gravity="center_horizontal" />
+
+    <view
+        class="com.melnykov.fab.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add_white_24dp" />
 </LinearLayout>

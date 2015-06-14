@@ -7,6 +7,7 @@ import com.saxion.nl.retroapptive.model.Project;
 import com.saxion.nl.retroapptive.model.Sprint;
 
 import java.io.IOException;
+import java.sql.Blob;
 import java.util.List;
 import java.util.Map;
 
@@ -51,4 +52,5 @@ public interface DataGatherer {
 	
 	public abstract void deleteNote(final Notitie note) throws Exception;
 
+	public abstract void addAttachment(Notitie note, byte[] attachment) throws IOException;
 }

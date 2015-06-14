@@ -1,5 +1,6 @@
 package com.saxion.nl.retroapptive.model;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -65,5 +66,10 @@ public class Model implements DataGatherer {
     @Override
     public void deleteNote(Notitie note) throws Exception {
         dataGathererImpl.deleteNote(note);
+    }
+
+    @Override
+    public void addAttachment(Notitie note, byte[] attachment) throws IOException {
+        dataGathererImpl.addAttachment(note, attachment);
     }
 }

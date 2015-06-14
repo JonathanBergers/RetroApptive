@@ -251,4 +251,19 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 		httpClient.executeGET(deleteNoteURL);
 	}
 
+	@Override
+	public void addAttachment(Notitie note, byte[] attachment) throws IOException {
+
+		if (!(note instanceof IsisNotitie)) {
+			throw new IllegalArgumentException("Note must be an instance of IsisNote, else we can't find the note URL");
+		}
+		final IsisNotitie isisSprint = (IsisNotitie) note;
+		final String noteURL = isisSprint.getNotitieURL();
+		final String addAttachmentURL = noteURL + "/actions/updateAttachment";
+		final Map<String, Object> postArgs = new HashMap<>();
+		postArgs.put("blob", attachment);
+		httpClient.executePOST(addAttachmentURL, postArgs);
+
+	}
+
 }
