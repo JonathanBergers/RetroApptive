@@ -9,10 +9,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.widget.FrameLayout;
 
+import com.saxion.nl.retroapptive.controller.sprintselector.ProjectItem;
+import com.saxion.nl.retroapptive.controller.sprintselector.SprintItem;
 import com.saxion.nl.retroapptive.controller.sprintselector.SprintSelectorFragment;
 import com.saxion.nl.retroapptive.model.Item;
 import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.model.Notitie;
+import com.saxion.nl.retroapptive.model.Project;
 import com.saxion.nl.retroapptive.model.Sprint;
 import com.saxion.nl.retroapptive.view.NotesListViewFragment;
 
@@ -42,15 +45,47 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
         mNavigationDrawerFragment.setUp(
 				R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-
+        loadProjects();
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        final Sprint sprint = mNavigationDrawerFragment.getSelectedSprint();
-        currentSprint = sprint;
-        System.out.println("SELECTED SPRINT: " + sprint.getProject().getName() + ":" + sprint.getSprintID());
-        loadNotes(sprint);
+    public void loadProjects() {
+        final List<com.saxion.nl.retroapptive.controller.sprintselector.Item> items = mNavigationDrawerFragment.getItems();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.d("LOADING", "LOADING");
+                    final List<Project> projects = Model.getInstance().getProjects();
+
+                    Log.d("LOADING2", "LOADING2");
+                    items.clear();
+
+                    mNavigationDrawerFragment.setSelectedSprint(null);
+
+                    for (Project project : projects) {
+                        items.add(new ProjectItem(project));
+                        final List<Sprint> sprints = Model.getInstance().getSprints(project);
+                        for (Sprint sprint : sprints) {
+                            items.add(new SprintItem(sprint));
+                            mNavigationDrawerFragment.setSelectedSprint(sprint);
+                            mNavigationDrawerFragment.setCurrentSelectedPosition(items.size() - 1);
+                        }
+                    }
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mNavigationDrawerFragment.getProjectsArrayAdapter().notifyDataSetChanged();
+                            if (mNavigationDrawerFragment.getSelectedSprint() != null) {
+                                mNavigationDrawerFragment.selectItem(mNavigationDrawerFragment.getCurrentSelectedPosition());
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public void loadNotes(final Sprint sprint) {
@@ -82,6 +117,14 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
                 });
             }
         }).start();
+    }
+
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+        final Sprint sprint = mNavigationDrawerFragment.getSelectedSprint();
+        currentSprint = sprint;
+        System.out.println("SELECTED SPRINT: " + sprint.getProject().getName() + ":" + sprint.getSprintID());
+        loadNotes(sprint);
     }
 
     protected boolean isDrawerOpen(){

@@ -34,11 +34,6 @@ public class MainActivity extends BaseActivity{
     public static Sprint currentSprint = null;
 
     /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
-    private SprintSelectorFragment mSprintSelectorFragment;
-
-    /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;

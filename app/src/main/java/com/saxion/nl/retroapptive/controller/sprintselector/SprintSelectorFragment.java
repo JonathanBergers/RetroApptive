@@ -66,6 +66,8 @@ public class SprintSelectorFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
+    private List<Item> items;
+
     private Sprint selectedSprint = null;
 
     private SprintSelectionAdapter projectsArrayAdapter;
@@ -76,6 +78,27 @@ public class SprintSelectorFragment extends Fragment {
     public Sprint getSelectedSprint() {
         return selectedSprint;
     }
+
+    public void setSelectedSprint(Sprint selectedSprint) {
+        this.selectedSprint = selectedSprint;
+    }
+
+
+    public List<Item> getItems() {
+        return items;
+    }
+    public int getCurrentSelectedPosition() {
+        return mCurrentSelectedPosition;
+    }
+
+    public void setCurrentSelectedPosition(int currentSelectedPosition) {
+        this.mCurrentSelectedPosition = currentSelectedPosition;
+    }
+
+    public SprintSelectionAdapter getProjectsArrayAdapter() {
+        return projectsArrayAdapter;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,42 +114,7 @@ public class SprintSelectorFragment extends Fragment {
             mFromSavedInstanceState = true;
         }
 
-        final List<Item> items = new ArrayList<>();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final List<Project> projects = Model.getInstance().getProjects();
-
-                    items.clear();
-
-                    selectedSprint = null;
-
-                    for (Project project : projects) {
-                        items.add(new ProjectItem(project));
-                        final List<Sprint> sprints = Model.getInstance().getSprints(project);
-                        for (Sprint sprint : sprints) {
-                            items.add(new SprintItem(sprint));
-                            selectedSprint = sprint;
-                            mCurrentSelectedPosition = items.size() - 1;
-                        }
-                    }
-
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            projectsArrayAdapter.notifyDataSetChanged();
-                            if (selectedSprint != null){
-                                selectItem(mCurrentSelectedPosition);
-                            }
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        items = new ArrayList<>();
 
         projectsArrayAdapter = new SprintSelectionAdapter(getActionBar().getThemedContext(), items);/*-new ArrayAdapter<Project>(
                 getActionBar().getThemedContext(),
@@ -250,7 +238,7 @@ public class SprintSelectorFragment extends Fragment {
     }
 
 
-    private void selectItem(int position) {
+    public void selectItem(int position) {
         Item item = projectsArrayAdapter.getItem(position);
         if (!(item instanceof SprintItem)) {
             return;
