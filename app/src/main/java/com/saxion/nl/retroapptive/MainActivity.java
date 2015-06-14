@@ -25,7 +25,7 @@ import com.saxion.nl.retroapptive.view.NotesListViewFragment;
 
 import java.util.List;
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity {
 
     private static final String HOST = "http://topicus.apps.gedge.nl/simpleapp/";
 
@@ -46,6 +46,8 @@ public class MainActivity extends BaseActivity{
     CollectionPagerAdapter mCollectionPagerAdapter;
     ViewPager mViewPager;
     FragmentManager fragmentManager;
+
+    private static final int NEW_NOTE_REQUEST = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,25 +110,21 @@ public class MainActivity extends BaseActivity{
                 Intent i = new Intent(MainActivity.this, ObjectActivity.class);
                 i.putExtra("item", (mViewPager.getCurrentItem()));
                 Log.d("Item", "" + mViewPager.getCurrentItem());
-                startActivityForResult(i, 100);
+                startActivityForResult(i, NEW_NOTE_REQUEST);
             }
         });
 
 
-
-
     }
-
-    //TODO OPHALEN VAN USER STORIES bij oncreate.
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (resultCode == RESULT_OK) {
-            mCollectionPagerAdapter.notifyDataSetChanged();
-
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == NEW_NOTE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                mCollectionPagerAdapter.notifyDataSetChanged();
+            }
         }
-
     }
 
     public void onSectionAttached(int number) {

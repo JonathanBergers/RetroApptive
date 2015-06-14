@@ -2,12 +2,17 @@ package com.saxion.nl.retroapptive;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.saxion.nl.retroapptive.controller.sprintselector.ProjectItem;
 import com.saxion.nl.retroapptive.controller.sprintselector.SprintItem;
@@ -19,8 +24,12 @@ import com.saxion.nl.retroapptive.model.Project;
 import com.saxion.nl.retroapptive.model.Sprint;
 import com.saxion.nl.retroapptive.view.NotesListViewFragment;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import scanner.ZBarConstants;
+import scanner.ZBarScannerActivity;
 
 /**
  * Created by Jelle on 8-6-2015.
@@ -43,8 +52,8 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
         mNavigationDrawerFragment = (SprintSelectorFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mNavigationDrawerFragment.setUp(
-				R.id.navigation_drawer,
-				(DrawerLayout) findViewById(R.id.drawer_layout));
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
         loadProjects();
     }
 
@@ -54,10 +63,8 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
             @Override
             public void run() {
                 try {
-                    Log.d("LOADING", "LOADING");
                     final List<Project> projects = Model.getInstance().getProjects();
 
-                    Log.d("LOADING2", "LOADING2");
                     items.clear();
 
                     mNavigationDrawerFragment.setSelectedSprint(null);
@@ -100,9 +107,9 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
                 try {
                     final List<Item> items = Model.getInstance().getItems(sprint);
                     for (Item item : items) {
-                        if (item instanceof  Notitie) {
-                            oldNotes.add((Notitie)item);
-                            Log.d("BASEACTIVITTY", item.getDescription() + ": ADDED" );
+                        if (item instanceof Notitie) {
+                            oldNotes.add((Notitie) item);
+                            Log.d("BASEACTIVITTY", item.getDescription() + ": ADDED");
                         }
                     }
                 } catch (Exception e) {
@@ -119,15 +126,100 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
         }).start();
     }
 
+    /**
+     * v1 format:
+     * v1:type:projectIdentifier
+     * type = isis only now
+     * projectIdentifier = identifier for the data gatherer to use to load the project
+     *
+     * For isis:
+     * Project link: http://topicus.apps.gedge.nl/simpleapp/restful/objects/domainapp.dom.data.project.Project/L_1
+     * would give the following projectIdentifier:
+     * objects/domainapp.dom.data.project.Project/L_1
+     *
+     * We do not include the first part of the url, so if the server changes address the QR code will still work.
+     */
+    private void joinProject(final String qrCode) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (qrCode.startsWith("v1:")) {
+                    final String[] args = qrCode.split(":");
+                    try {
+                        final String type = args[1];
+                        final String projectIdentifier = args[2];
+                        Model.getInstance().joinProject(projectIdentifier);
+                    } catch (Exception e) {
+                        final String msg;
+                        if (e instanceof  IOException) { //not a seperate catch clause to avoid boilerplate code
+                            msg = "Error connecting to server";
+                        } else {
+                            msg = "Could not join project (malformed QR code?)";
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(BaseActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+                loadProjects();
+            }
+        }).start();
+    }
+
+    private static final int ZBAR_SCANNER_REQUEST = 0;
+    private static final int ZBAR_QR_SCANNER_REQUEST = 1;
+
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        if (position == 0) {//join project
+            if (isCameraAvailable()) {
+                //BELNGRIJK
+                Intent intent = new Intent(this, ZBarScannerActivity.class);
+                intent.putExtra(ZBarConstants.SCAN_MODES, new int[]{64});
+                startActivityForResult(intent, ZBAR_QR_SCANNER_REQUEST);
+                //TOT HIER
+            } else {
+                Toast.makeText(this, "Rear Facing Camera Unavailable", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
         final Sprint sprint = mNavigationDrawerFragment.getSelectedSprint();
         currentSprint = sprint;
         System.out.println("SELECTED SPRINT: " + sprint.getProject().getName() + ":" + sprint.getSprintID());
         loadNotes(sprint);
     }
 
-    protected boolean isDrawerOpen(){
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case ZBAR_SCANNER_REQUEST:
+            case ZBAR_QR_SCANNER_REQUEST:
+                if (resultCode == RESULT_OK) {
+                    final String qrCode = data.getStringExtra(ZBarConstants.SCAN_RESULT);
+                    if (qrCode.startsWith("joinProject:")) {
+                        joinProject(qrCode.substring(qrCode.indexOf(":") + 1));
+                    }
+                    Log.d("QR CODE", qrCode);
+                    Toast.makeText(this, "Scan Result = " + qrCode, Toast.LENGTH_SHORT).show();
+                } else if (resultCode == RESULT_CANCELED && data != null) {
+                    String error = data.getStringExtra(ZBarConstants.ERROR_INFO);
+                    if (!TextUtils.isEmpty(error)) {
+                        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+        }
+    }
+
+    public boolean isCameraAvailable() {
+        PackageManager pm = getPackageManager();
+        return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA);
+    }
+
+    protected boolean isDrawerOpen() {
         return mNavigationDrawerFragment.isDrawerOpen();
     }
 

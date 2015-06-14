@@ -15,6 +15,8 @@ public interface DataGatherer {
 	
 	public abstract int login(final LoginCredentials loginCredentials);
 
+	public abstract void joinProject(final String projectIdentifier) throws Exception;
+
 	/**
 	 * Blocking method, gets all projects
 	 * 

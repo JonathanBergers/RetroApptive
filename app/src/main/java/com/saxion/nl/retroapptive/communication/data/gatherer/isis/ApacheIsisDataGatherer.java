@@ -93,6 +93,13 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 	}
 
 	@Override
+	public void joinProject(final String projectIdentifier) throws IOException {
+		final String projectURL = getHost() + projectIdentifier;
+		final String joinProjectURL = projectURL + "/actions/neemDeel";
+		httpClient.executeGET(joinProjectURL);
+	}
+
+	@Override
 	public List<Project> getProjects() throws IOException, JsonParseException {
 		final ActionResult ar = httpClient.executeT(ActionResult.class, HttpMethod.GET, host + "/services/RetroApptiveService/actions/collectProjects/invoke");
 		final List<Link> links = ar.getResult().getValueAsList();

@@ -114,7 +114,17 @@ public class SprintSelectorFragment extends Fragment {
             mFromSavedInstanceState = true;
         }
 
-        items = new ArrayList<>();
+        items = new ArrayList<Item>(){
+
+            //make sure Join Project is always available
+            @Override
+            public void clear() {
+                super.clear();
+                items.add(new JoinProjectItem());
+            }
+        };
+
+        items.clear();
 
         projectsArrayAdapter = new SprintSelectionAdapter(getActionBar().getThemedContext(), items);/*-new ArrayAdapter<Project>(
                 getActionBar().getThemedContext(),
@@ -241,6 +251,9 @@ public class SprintSelectorFragment extends Fragment {
     public void selectItem(int position) {
         Item item = projectsArrayAdapter.getItem(position);
         if (!(item instanceof SprintItem)) {
+            if (mCallbacks != null) {
+                mCallbacks.onNavigationDrawerItemSelected(position);
+            }
             return;
         }
 
