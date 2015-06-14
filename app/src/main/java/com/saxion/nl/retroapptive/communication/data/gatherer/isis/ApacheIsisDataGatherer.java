@@ -1,20 +1,16 @@
 package com.saxion.nl.retroapptive.communication.data.gatherer.isis;
 
 import com.saxion.nl.retroapptive.communication.data.gatherer.DataGatherer;
-import com.saxion.nl.retroapptive.communication.data.gatherer.isis.ExtendedHttpClient;
-import com.saxion.nl.retroapptive.communication.data.gatherer.isis.HttpMethod;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.exceptions.JsonParseException;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Action;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.ActionResult;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Collection;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.CollectionValue;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.DomainObject;
-import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.DomainTypeAction;
-import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.JsonRepr;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Link;
 import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.ObjectMember;
-import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Service;
 import com.saxion.nl.retroapptive.communication.login.LoginCredentials;
+import com.saxion.nl.retroapptive.model.Actie;
 import com.saxion.nl.retroapptive.model.Item;
 import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.model.Notitie;
@@ -32,7 +28,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.JsonNode;
@@ -169,6 +164,8 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 				Item item = null;
 				if (category.equalsIgnoreCase("Note")) {
 					item = getNoteFromItem(sprint, link);
+				} else if (category.equalsIgnoreCase("Actie")) {
+					item = getActionFromItem(sprint, link);
 				}
 				if (item != null) {
 					itemList.add(item);
@@ -197,6 +194,29 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 		}
 		final Profiel profile = new IsisProfiel(profileName, profileURL);
 		return new IsisNotitie(sprint, description, summary, profile, isPositive, subcategory, link.getHref());
+	}
+
+	private Actie getActionFromItem(final Sprint sprint, final Link link) {
+		final Map<String, Map<String, JsonNode>> arguments = link.getArguments();
+		final String description = arguments.get("description").get("value").getTextValue();
+		final String summary = arguments.get("summary").get("value").getTextValue();
+		//final JsonNode categoryNode = arguments.get("subcategory").get("value");
+		//final String subcategory = categoryNode == null ? "Other" : categoryNode.getTextValue();
+		//final boolean isPositive = arguments.get("isPositive").get("value").getBooleanValue();
+
+		final int priority = arguments.get("points").get("value").getIntValue();
+
+		final JsonNode profileData = arguments.get("profiel").get("value");
+		final String profileURL = profileData.get("href").getTextValue();
+		final String profileTitle = profileData.get("title").getTextValue();
+		final String profileName;
+		if (profileTitle.contains(":")) {
+			profileName = profileTitle.substring(profileTitle.indexOf(":") + 1).trim();
+		} else {
+			profileName = profileTitle;
+		}
+		final Profiel profile = new IsisProfiel(profileName, profileURL);
+		return new IsisActie(sprint, description, summary, profile, priority, link.getHref());
 	}
 
 	@Override

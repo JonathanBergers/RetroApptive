@@ -10,7 +10,7 @@
 //
 //import com.saxion.nl.retroapptive.R;
 //import com.saxion.nl.retroapptive.communication.data.gatherer.IsisTask;
-//import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Action;
+//import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Actie;
 //import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.ActionResult;
 //import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.ActionResultItem;
 //import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.DomainObject;
@@ -162,9 +162,9 @@
 //
 //        }
 //
-//        if(o instanceof Action){
+//        if(o instanceof Actie){
 //
-//            Action r = (Action) o;
+//            Actie r = (Actie) o;
 //            links = r.getLinks();
 //        }
 //
@@ -240,7 +240,7 @@
 //
 //    private void getAction(){
 //
-//        isisTask = new IsisTask<Action>(this, Action.class);
+//        isisTask = new IsisTask<Actie>(this, Actie.class);
 //        executeLink();
 //    }
 //

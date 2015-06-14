@@ -64,7 +64,7 @@ public class DetailActivity extends BaseActivity {
 
         } else {
 
-            // Action
+            // Actie
 
         }
 //setting de plusbutton

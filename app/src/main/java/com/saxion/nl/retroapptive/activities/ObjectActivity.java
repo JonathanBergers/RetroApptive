@@ -20,15 +20,10 @@ import android.widget.ImageView;
 import com.saxion.nl.retroapptive.BaseActivity;
 import com.saxion.nl.retroapptive.MainActivity;
 import com.saxion.nl.retroapptive.R;
-import com.saxion.nl.retroapptive.model.Action;
-import com.saxion.nl.retroapptive.model.Item;
 import com.saxion.nl.retroapptive.model.Model;
-import com.saxion.nl.retroapptive.model.Notitie;
-import com.saxion.nl.retroapptive.model.UserStory;
 
 import java.io.File;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Jelle on 1-6-2015.
@@ -87,7 +82,7 @@ public class ObjectActivity extends BaseActivity {
 
 
             } else {
-                setTitle("Editing Action:");
+                setTitle("Editing Actie:");
                 categoryEditText.setHint("Priority");
                 categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 isPositive.setVisibility(View.INVISIBLE);
@@ -160,7 +155,7 @@ public class ObjectActivity extends BaseActivity {
                 categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 isPositive.setVisibility(View.INVISIBLE);
             } else {
-                setTitle("Making a new Action:");
+                setTitle("Making a new Actie:");
                 categoryEditText.setHint("Priority");
                 categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 isPositive.setVisibility(View.INVISIBLE);
@@ -209,7 +204,7 @@ public class ObjectActivity extends BaseActivity {
 
                     } else {
                         p = Integer.parseInt(categoryEditText.getText().toString());
-                        //Action a = new Action(new Item(title, summary, 0));
+                        //Actie a = new Actie(new Item(title, summary, 0));
                         //	a.setPriority(p);
                         //Model.getInstance().addAction(a);
 
