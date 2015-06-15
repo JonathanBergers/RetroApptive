@@ -3,6 +3,7 @@ package com.saxion.nl.retroapptive.communication.data.gatherer;
 import com.saxion.nl.retroapptive.communication.login.LoginCredentials;
 import com.saxion.nl.retroapptive.model.Item;
 import com.saxion.nl.retroapptive.model.Notitie;
+import com.saxion.nl.retroapptive.model.Profiel;
 import com.saxion.nl.retroapptive.model.Project;
 import com.saxion.nl.retroapptive.model.Sprint;
 
@@ -23,6 +24,8 @@ public interface DataGatherer {
 	 * @return
 	 */
 	public abstract List<Project> getProjects() throws Exception;
+
+	public abstract List<Profiel> getMembers(final Project project) throws Exception;
 
 	/**
 	 * Blocking method
