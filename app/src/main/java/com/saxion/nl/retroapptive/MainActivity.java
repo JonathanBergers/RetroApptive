@@ -160,5 +160,8 @@ public class MainActivity extends BaseActivity {
     private void getNotes() {
 
     }
+    public CollectionPagerAdapter getmCollectionPagerAdapter(){
+        return mCollectionPagerAdapter;
+    }
 
 }

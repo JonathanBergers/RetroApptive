@@ -44,6 +44,11 @@ public class Model implements DataGatherer {
     }
 
     @Override
+    public List<Profiel> getMembers(Project project) throws Exception {
+        return dataGathererImpl.getMembers(project);
+    }
+
+    @Override
     public List<Sprint> getSprints(Project project) throws Exception {
         return dataGathererImpl.getSprints(project);
     }

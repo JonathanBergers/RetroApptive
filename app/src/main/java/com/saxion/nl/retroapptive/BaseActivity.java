@@ -122,6 +122,7 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
                     public void run() {
 
                         NotesListViewFragment.instance.getNoteAdapter().notifyDataSetChanged();
+                        MainActivity.instance.getmCollectionPagerAdapter().notifyDataSetChanged();
                     }
                 });
             }
