@@ -10,10 +10,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.saxion.nl.retroapptive.activities.ProfileActivity;
 import com.saxion.nl.retroapptive.controller.sprintselector.ProjectItem;
 import com.saxion.nl.retroapptive.controller.sprintselector.SprintItem;
 import com.saxion.nl.retroapptive.controller.sprintselector.SprintSelectorFragment;
@@ -226,6 +228,16 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(getTitle());
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        if(item.getItemId()== R.id.action_logout){
+            this.finish();
+        } else {
+            startActivity(new Intent(this, ProfileActivity.class));
+        }
+        return super.onMenuItemSelected(featureId, item);
     }
 
     @Override
