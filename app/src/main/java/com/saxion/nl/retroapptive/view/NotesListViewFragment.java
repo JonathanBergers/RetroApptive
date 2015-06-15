@@ -13,7 +13,6 @@ import android.widget.ListView;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.activities.DetailActivity;
 import com.saxion.nl.retroapptive.controller.NoteAdapter;
-import com.saxion.nl.retroapptive.controller.ActionAdapter;
 import com.saxion.nl.retroapptive.controller.UserStoryAdapter;
 import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.model.Notitie;
@@ -24,11 +23,10 @@ import java.util.List;
 /**
  * @Author Thomas
  */
-public final class NotesListViewFragment extends Fragment {
+public final class NotesListViewFragment extends ListViewFragment {
 
     public static NotesListViewFragment instance = null;
 
-    private ListView listView;
     private NoteAdapter noteAdapter;
     private List<Notitie> notes;
 
@@ -58,16 +56,7 @@ public final class NotesListViewFragment extends Fragment {
         Log.d("NOTELISTVIEWFR" , "CREATED");
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        // The last two arguments ensure LayoutParams are inflated
-        // properly.
-        View rootView = inflater.inflate(
-                R.layout.list, container, false);
-        listView = (ListView) rootView.findViewById(R.id.listView);
-        return rootView;
-    }
+
 
 
     @Override

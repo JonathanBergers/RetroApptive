@@ -5,7 +5,9 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.saxion.nl.retroapptive.MainActivity;
+import com.saxion.nl.retroapptive.model.Actie;
 import com.saxion.nl.retroapptive.model.Notitie;
+import com.saxion.nl.retroapptive.view.ActiesListViewFragment;
 import com.saxion.nl.retroapptive.view.ListViewFragment;
 import com.saxion.nl.retroapptive.view.NotesListViewFragment;
 
@@ -17,9 +19,10 @@ import java.util.List;
  */
 public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
 
-    private String[] pageTitles = new String[] {"Notities"};//"User stories", "Acties"};
+    private String[] pageTitles = new String[] {"Notities", "Acties"};//"User stories", "Acties"};
     private MainActivity activity;
     private List<Notitie> notities = new ArrayList<>();
+    private List<Actie> acties = new ArrayList<>();
 
     public CollectionPagerAdapter(FragmentManager fm, MainActivity activity) {
         super(fm);
@@ -30,6 +33,8 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
         return notities;
     }
 
+    public List<Actie> getActies() { return acties; }
+
     public void notifyNoteChanges() {
 
     }
@@ -39,6 +44,8 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
         switch(i){
             case 0:
                 return NotesListViewFragment.newInstance(notities);
+            case 1:
+                return ActiesListViewFragment.newInstance(acties);
         }
         return null;
     }
