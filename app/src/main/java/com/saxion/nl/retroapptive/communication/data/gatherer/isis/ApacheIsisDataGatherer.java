@@ -90,8 +90,8 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 	@Override
 	public void joinProject(final String projectIdentifier) throws IOException {
 		final String projectURL = getHost() + projectIdentifier;
-		final String joinProjectURL = projectURL + "/actions/neemDeel";
-		httpClient.executeGET(joinProjectURL);
+		final String joinProjectURL = projectURL + "/actions/neemDeel/invoke";
+		httpClient.executePOST(joinProjectURL);
 	}
 
 	@Override

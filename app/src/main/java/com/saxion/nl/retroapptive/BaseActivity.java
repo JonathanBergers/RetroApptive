@@ -202,8 +202,6 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
                     if (qrCode.startsWith("joinProject:")) {
                         joinProject(qrCode.substring(qrCode.indexOf(":") + 1));
                     }
-                    Log.d("QR CODE", qrCode);
-                    Toast.makeText(this, "Scan Result = " + qrCode, Toast.LENGTH_SHORT).show();
                 } else if (resultCode == RESULT_CANCELED && data != null) {
                     String error = data.getStringExtra(ZBarConstants.ERROR_INFO);
                     if (!TextUtils.isEmpty(error)) {

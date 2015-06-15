@@ -30,12 +30,12 @@ public final class NotesListViewFragment extends Fragment {
 
     private ListView listView;
     private NoteAdapter noteAdapter;
-    private List<Notitie> notes;
+    private static List<Notitie> notes;
 
     public static NotesListViewFragment newInstance(final List<Notitie> notes) {
         final NotesListViewFragment notesListViewFragment = new NotesListViewFragment();
         notesListViewFragment.setArguments(new Bundle());
-        notesListViewFragment.notes = notes;
+        NotesListViewFragment.notes = notes;
         Log.d("NOTELISTVIEWFR" , "NEWINSTANCE");
         return notesListViewFragment;
     }
@@ -84,6 +84,7 @@ public final class NotesListViewFragment extends Fragment {
                 getActivity().startActivityForResult(detailsIntent, 102);
             }
         });
+        Log.d("ADAPTERx", ":" + noteAdapter);
         listView.setAdapter(noteAdapter);
     }
 
