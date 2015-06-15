@@ -110,6 +110,30 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 	}
 
 	@Override
+	public List<Profiel> getMembers(final Project project) throws IOException, JsonParseException {
+		if (!(project instanceof IsisProject)) {
+			throw new IllegalArgumentException("Project must be an instance of IsisProject, else we can't find the project URL");
+		}
+		final IsisProject isisProject = (IsisProject) project;
+		final String projectURL = isisProject.getProjectURL();
+		final String membersFetchURL = projectURL + "/collections/collectLeden";
+		final Collection sprintsCollection = httpClient.executeT(Collection.class, HttpMethod.GET, membersFetchURL);
+		final List<CollectionValue> values = sprintsCollection.getValue();
+		final List<Profiel> profileList = new ArrayList<>(values.size());
+		for (CollectionValue collectionValue : values) {
+			final String title = collectionValue.getTitle();
+			String name = title;
+			if (title.contains(":")) {
+				name = title.substring(title.indexOf(":") + 1).trim();
+			}
+			final Profiel profile = new IsisProfiel(name, collectionValue.getHref());
+			System.out.println("SPRINT URL: " + collectionValue.getHref());
+			profileList.add(profile);
+		}
+		return profileList;
+	}
+
+	@Override
 	public List<Sprint> getSprints(final Project project) throws IOException, JsonParseException {
 		if (!(project instanceof IsisProject)) {
 			throw new IllegalArgumentException("Project must be an instance of IsisProject, else we can't find the project URL");
@@ -280,17 +304,18 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 
 	@Override
 	public void addAttachment(Notitie note, byte[] attachment) throws IOException {
-
 		if (!(note instanceof IsisNotitie)) {
 			throw new IllegalArgumentException("Note must be an instance of IsisNote, else we can't find the note URL");
 		}
 		final IsisNotitie isisSprint = (IsisNotitie) note;
 		final String noteURL = isisSprint.getNotitieURL();
-		final String addAttachmentURL = noteURL + "/actions/updateAttachment";
+		final String addAttachmentURL = noteURL + "/actions/updateAttachment/invoke";
 		final Map<String, Object> postArgs = new HashMap<>();
 		postArgs.put("blob", attachment);
 		httpClient.executePOST(addAttachmentURL, postArgs);
-
 	}
+
+
+
 
 }
