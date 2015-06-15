@@ -22,9 +22,6 @@ public class ActionAdapter extends ItemAdapter<Actie> {
     @Override
     public void setData(View convertedView, int position) {
 
-        //title.setText(Model.getInstance().getAction(position).getDescription());
-        //summary.setText(Model.getInstance().getAction(position).getSummary());
-
     }
 
     @Override
