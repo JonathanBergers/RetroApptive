@@ -28,7 +28,7 @@
         app:met_floatingLabel="normal"
         app:met_floatingLabelText="Gebruikersnaam"
         android:hint="Gebruikersnaam"
-        app:met_primaryColor="#ff565aff"
+        app:met_primaryColor="#ffffeb3b"
         />
 
     <!-- Login button -->
@@ -41,16 +41,18 @@
         android:id="@+id/editTextPassWordh"
         app:met_floatingLabel="normal"
         app:met_floatingLabelText="Wachtwoord"
-        app:met_primaryColor="#ff565aff"
+        app:met_primaryColor="#ffffeb3b"
         android:hint="Wachtwoord"/>
 
-    <Button
+    <com.gc.materialdesign.views.ButtonRectangle
         android:id="@+id/buttonLogin"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
         android:text="Login"
-        android:textColor="#FFFFFF"
+        android:textColor="#ffe4e8ff"
+        android:textSize="12dp"
+        android:background="#ffffeb10"
         android:textStyle="bold" />
 
     <ProgressBar

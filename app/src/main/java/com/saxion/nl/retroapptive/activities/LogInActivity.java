@@ -12,8 +12,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.saxion.nl.retroapptive.R;
+import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.ROClient;
 import com.saxion.nl.retroapptive.communication.login.LoginCredentials;
 import com.saxion.nl.retroapptive.model.Model;
 
@@ -23,7 +25,7 @@ public class LogInActivity extends Activity {
 
     private MaterialEditText username;
     private MaterialEditText password;
-    private Button loginButton;
+    private ButtonRectangle loginButton;
     private ProgressBar loginProgressBar;
     private TextView loggingTextView;
 
@@ -35,7 +37,7 @@ public class LogInActivity extends Activity {
 
 
 
-        loginButton = (Button) findViewById(R.id.buttonLogin);
+        loginButton = (ButtonRectangle) findViewById(R.id.buttonLogin);
         loginButton.setOnClickListener(loginListener);
 
         username = (MaterialEditText) findViewById(R.id.textViewUsername);
@@ -59,8 +61,7 @@ public class LogInActivity extends Activity {
 
             loginProgressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
             loggingTextView = (TextView) findViewById(R.id.textViewLogging);
-            username.setText("jonathan");
-            password.setText("pass");
+
 
             //Set Visiblity
             username.setVisibility(View.GONE);
@@ -81,18 +82,18 @@ public class LogInActivity extends Activity {
                             new Runnable() {
                                 @Override
                                 public void run() {
-//                                    username.setVisibility(View.VISIBLE);
-//                                    password.setVisibility(View.VISIBLE);
-//                                    loginButton.setVisibility(View.VISIBLE);
-//
-//                                    loginProgressBar.setVisibility(View.GONE);
-//                                    loggingTextView.setVisibility(View.GONE);
+                                    username.setVisibility(View.VISIBLE);
+                                    password.setVisibility(View.VISIBLE);
+                                    loginButton.setVisibility(View.VISIBLE);
+
+                                    loginProgressBar.setVisibility(View.GONE);
+                                    loggingTextView.setVisibility(View.GONE);
                                 }
                             }
                     ));
 
                     if (loginCode == 200) {
-                        //ROClient.getInstance().setCredential(username.getText().toString(), password.getText().toString());
+                        ROClient.getInstance().setCredential(username.getText().toString(), password.getText().toString());
 
                         Intent intent = new Intent(LogInActivity.this, MainActivity.class);
                         startActivity(intent);
@@ -107,6 +108,7 @@ public class LogInActivity extends Activity {
                                                 Toast.makeText(LogInActivity.this, "Incorrect login, error code: " + loginCode, Toast.LENGTH_LONG).show();
                                                 username.setPrimaryColor(Color.RED);
                                                 password.setPrimaryColor(Color.RED);
+
                                             }
                                         }
                                 )

@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:materialdesign="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:paddingTop="@dimen/abc_text_size_small_material">
 
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textViewProject"
+            android:drawableLeft="@drawable/project_icon"
+            android:layout_weight="1"
+            android:paddingStart="@dimen/abc_text_size_small_material"
+            android:textSize="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textViewAccount"
+            android:drawableLeft="@drawable/account_user"
+            android:layout_weight="0"
+            android:paddingRight="@dimen/abc_text_size_small_material"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textViewSprint"
+        android:drawableLeft="@drawable/sprint"
+        android:paddingStart="@dimen/abc_text_size_small_material"
+        android:textSize="16dp"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="match_parent"
@@ -12,7 +51,12 @@
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        />
+        app:met_floatingLabelText="Titel"
+        app:met_floatingLabel="normal"
+        app:met_primaryColor="@color/primary"
+        app:met_floatingLabelTextSize="16dp"
+        android:hint="Titel"
+        android:paddingLeft="@dimen/abc_text_size_small_material" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="match_parent"
@@ -20,7 +64,13 @@
         android:id="@+id/editTextItem2"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        app:met_floatingLabel="normal"
+        app:met_floatingLabelText="Beschrijving"
+        app:met_primaryColor="@color/primary"
+        android:hint="Beschrijving"
+        app:met_floatingLabelTextSize="16dp"
+        android:paddingLeft="@dimen/abc_text_size_small_material" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,26 +84,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerCat"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="@dimen/abc_text_size_small_material" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Punten"
+        android:id="@+id/textViewPointsTitle"
         android:layout_gravity="center_horizontal" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="match_parent"
+    <com.gc.materialdesign.views.Slider
+        android:id="@+id/slider_item"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextItem3"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editTextItem4"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:hint="Title"
-        android:layout_gravity="right" />
-
+        android:background="#ffffeb3b"
+        materialdesign:max="100"
+        materialdesign:min="0"
+        materialdesign:showNumberIndicator="true"
+        android:paddingLeft="@dimen/abc_text_size_small_material" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,10 +112,23 @@
         android:contentDescription="@string/image"
         android:layout_gravity="center_horizontal" />
 
-    <Button
+    <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonItem"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" />
+
+    <com.gc.materialdesign.views.ButtonFloat
+        android:id="@+id/buttonFloat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="24dp"
+        android:background="#ffffeb3b"
+        materialdesign:animate="true"
+        materialdesign:iconDrawable="@drawable/attachment"
+        android:layout_weight="0"
+        android:layout_marginBottom="24dp" />
+
 
 </LinearLayout>

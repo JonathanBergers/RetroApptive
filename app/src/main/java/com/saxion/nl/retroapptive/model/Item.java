@@ -5,6 +5,7 @@ public class Item {
 	private final Sprint sprint;
 	private final String description;
 	private final String summary;
+	private  Profiel profiel;
 
 	public Item(final Sprint sprint, final String description, final String summary) {
 		this.description = description;
@@ -28,4 +29,9 @@ public class Item {
 		return summary;
 	}
 
+	public Profiel getProfiel() {
+		//TODO
+		return new Profiel(Profiel.ProfielType.USER, "voornaam");
+		//return profiel;
+	}
 }

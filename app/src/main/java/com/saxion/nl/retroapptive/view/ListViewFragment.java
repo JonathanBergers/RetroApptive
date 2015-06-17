@@ -55,7 +55,7 @@ public class ListViewFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Model.getInstance().setCurrentItem((Item)listView.getSelectedItem());
+                Model.getInstance().setCurrentItem((Item)listView.getItemAtPosition(i));
 
 
                 Intent intent = new Intent(getActivity(), ItemDetailActivity.class);
