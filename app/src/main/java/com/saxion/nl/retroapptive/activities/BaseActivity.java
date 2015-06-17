@@ -39,7 +39,6 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
 
     private SprintSelectorFragment mNavigationDrawerFragment;
     protected FrameLayout drawer;
-    private Sprint currentSprint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,7 +186,7 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
             return;
         }
         final Sprint sprint = mNavigationDrawerFragment.getSelectedSprint();
-        currentSprint = sprint;
+        MainActivity.currentSprint = sprint;
         System.out.println("SELECTED SPRINT: " + sprint.getProject().getName() + ":" + sprint.getSprintID());
         loadNotes(sprint);
     }
