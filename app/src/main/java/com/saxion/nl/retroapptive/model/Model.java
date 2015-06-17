@@ -26,9 +26,10 @@ public class Model implements DataGatherer {
     }
 
     public Profiel getLocalProfile() {
-        return new Profiel("LocalProfileTemp");
+        return new Profiel(Profiel.ProfielType.USER, "LocalProfileTemp");
     }
 
+    @Override
     public int login(final LoginCredentials loginCredentials) {
         return dataGathererImpl.login(loginCredentials);
     }
