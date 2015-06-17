@@ -1,29 +1,18 @@
-package com.saxion.nl.retroapptive;
+package com.saxion.nl.retroapptive.activities;
 
 import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 
 import com.melnykov.fab.FloatingActionButton;
-import com.saxion.nl.retroapptive.activities.ObjectActivity;
+import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.controller.CollectionPagerAdapter;
-import com.saxion.nl.retroapptive.controller.sprintselector.SprintSelectorFragment;
-import com.saxion.nl.retroapptive.model.Item;
-import com.saxion.nl.retroapptive.model.Model;
-import com.saxion.nl.retroapptive.model.Notitie;
-import com.saxion.nl.retroapptive.model.Project;
 import com.saxion.nl.retroapptive.model.Sprint;
-import com.saxion.nl.retroapptive.view.NotesListViewFragment;
-
-import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
