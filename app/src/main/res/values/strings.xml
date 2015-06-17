@@ -18,4 +18,5 @@
     
     <string name="image">This is a generic content description</string>
     <string name="select_picture">Select Picture</string>
+    <string name="title_activity_create_item">CreateItemActivity</string>
 </resources>

@@ -3,6 +3,7 @@
 <!-- Login Form -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -18,23 +19,30 @@
         android:layout_height="160dp"
         android:layout_weight="5" />
 
-    <AutoCompleteTextView
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:inputType="text"
         android:imeOptions="actionNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textViewUsername"
-        android:hint="Username" />
+        app:met_floatingLabel="normal"
+        app:met_floatingLabelText="Gebruikersnaam"
+        android:hint="Gebruikersnaam"
+        app:met_primaryColor="#ff565aff"
+        />
 
     <!-- Login button -->
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editTextPassWordh"
-        android:hint="Password"/>
+        app:met_floatingLabel="normal"
+        app:met_floatingLabelText="Wachtwoord"
+        app:met_primaryColor="#ff565aff"
+        android:hint="Wachtwoord"/>
 
     <Button
         android:id="@+id/buttonLogin"

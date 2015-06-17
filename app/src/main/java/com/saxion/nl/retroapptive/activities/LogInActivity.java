@@ -2,6 +2,7 @@ package com.saxion.nl.retroapptive.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -11,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.communication.login.LoginCredentials;
 import com.saxion.nl.retroapptive.model.Model;
@@ -19,33 +21,46 @@ import com.saxion.nl.retroapptive.model.Model;
 
 public class LogInActivity extends Activity {
 
-    private AutoCompleteTextView username;
-    private EditText password;
+    private MaterialEditText username;
+    private MaterialEditText password;
     private Button loginButton;
     private ProgressBar loginProgressBar;
     private TextView loggingTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        View mainView = findViewById(R.id.buttonLogin);
-        View root = mainView.getRootView();
-        //root.setBackgroundColor(Color.BLUE);
+
+
 
         loginButton = (Button) findViewById(R.id.buttonLogin);
         loginButton.setOnClickListener(loginListener);
+
+        username = (MaterialEditText) findViewById(R.id.textViewUsername);
+        password = (MaterialEditText) findViewById(R.id.editTextPassWordh);
+
+
+
+
     }
+
+
 
     private View.OnClickListener loginListener = new View.OnClickListener() {
         public void onClick(View v) {
-            username = (AutoCompleteTextView) findViewById(R.id.textViewUsername);
-            password = (EditText) findViewById(R.id.editTextPassWordh);
+
+
+
+
 
             //ROClient.getInstance().setCredential(username.getText().toString(), password.getText().toString());
 
             loginProgressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
             loggingTextView = (TextView) findViewById(R.id.textViewLogging);
+            username.setText("jonathan");
+            password.setText("pass");
 
             //Set Visiblity
             username.setVisibility(View.GONE);
@@ -84,10 +99,14 @@ public class LogInActivity extends Activity {
                     } else {
 
                         runOnUiThread(new Thread(
+
                                         new Runnable() {
                                             @Override
                                             public void run() {
+
                                                 Toast.makeText(LogInActivity.this, "Incorrect login, error code: " + loginCode, Toast.LENGTH_LONG).show();
+                                                username.setPrimaryColor(Color.RED);
+                                                password.setPrimaryColor(Color.RED);
                                             }
                                         }
                                 )
