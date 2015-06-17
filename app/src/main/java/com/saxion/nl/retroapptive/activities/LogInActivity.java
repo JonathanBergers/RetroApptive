@@ -66,12 +66,12 @@ public class LogInActivity extends Activity {
                             new Runnable() {
                                 @Override
                                 public void run() {
-                                    username.setVisibility(View.VISIBLE);
-                                    password.setVisibility(View.VISIBLE);
-                                    loginButton.setVisibility(View.VISIBLE);
-
-                                    loginProgressBar.setVisibility(View.GONE);
-                                    loggingTextView.setVisibility(View.GONE);
+//                                    username.setVisibility(View.VISIBLE);
+//                                    password.setVisibility(View.VISIBLE);
+//                                    loginButton.setVisibility(View.VISIBLE);
+//
+//                                    loginProgressBar.setVisibility(View.GONE);
+//                                    loggingTextView.setVisibility(View.GONE);
                                 }
                             }
                     ));

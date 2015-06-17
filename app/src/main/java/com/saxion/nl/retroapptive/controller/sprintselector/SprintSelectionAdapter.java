@@ -72,6 +72,12 @@ public class SprintSelectionAdapter extends ArrayAdapter<Item> {
                     joinProjectTextView.setText(builder);
                     joinProjectTextView.setTextColor(Color.rgb(51, 181, 229));
                     break;
+                case RetrospectiveItem.VIEW_TYPE:
+                    final RetrospectiveItem retrospectiveItem = (RetrospectiveItem) getItem(position);
+                    convertView = mInflater.inflate(android.R.layout.simple_list_item_activated_1, null);
+                    final TextView retrospectiveTextView = (TextView) convertView.findViewById(android.R.id.text1);
+                    retrospectiveTextView.setText("    Retrospective");
+                    break;
             }
             convertView.setTag(holder);
         } else {
