@@ -4,11 +4,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
-import com.saxion.nl.retroapptive.MainActivity;
+import com.saxion.nl.retroapptive.activities.MainActivity;
 import com.saxion.nl.retroapptive.model.Actie;
 import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.view.ActiesListViewFragment;
-import com.saxion.nl.retroapptive.view.ListViewFragment;
 import com.saxion.nl.retroapptive.view.NotesListViewFragment;
 
 import java.util.ArrayList;

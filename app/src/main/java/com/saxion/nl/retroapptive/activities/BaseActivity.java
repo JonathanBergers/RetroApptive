@@ -1,7 +1,6 @@
-package com.saxion.nl.retroapptive;
+package com.saxion.nl.retroapptive.activities;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -12,10 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.saxion.nl.retroapptive.activities.ProfileActivity;
+import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.controller.sprintselector.ProjectItem;
 import com.saxion.nl.retroapptive.controller.sprintselector.SprintItem;
 import com.saxion.nl.retroapptive.controller.sprintselector.SprintSelectorFragment;
@@ -27,7 +25,6 @@ import com.saxion.nl.retroapptive.model.Sprint;
 import com.saxion.nl.retroapptive.view.NotesListViewFragment;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import scanner.ZBarConstants;
@@ -98,7 +95,7 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
     }
 
     public void loadNotes(final Sprint sprint) {
-        NotesListViewFragment.newInstance(new ArrayList<Notitie>());
+
         final List<Notitie> oldNotes = NotesListViewFragment.instance.getNotes();
         Log.d("BASEACTIVITTY", "OLDNOTES SIZE: " + oldNotes.size());
 
@@ -122,7 +119,7 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
                     public void run() {
 
                         NotesListViewFragment.instance.getNoteAdapter().notifyDataSetChanged();
-                        MainActivity.instance.getmCollectionPagerAdapter().notifyDataSetChanged();
+                        //MainActivity.instance.getmCollectionPagerAdapter().notifyNoteChanges();
                     }
                 });
             }
@@ -235,7 +232,7 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         if(item.getItemId()== R.id.action_logout){
             this.finish();
-        } else {
+        } else if(item.getItemId() == R.id.action_settings){
             startActivity(new Intent(this, ProfileActivity.class));
         }
         return super.onMenuItemSelected(featureId, item);

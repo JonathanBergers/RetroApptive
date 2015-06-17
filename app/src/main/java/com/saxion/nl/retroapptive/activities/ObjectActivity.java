@@ -17,8 +17,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.saxion.nl.retroapptive.BaseActivity;
-import com.saxion.nl.retroapptive.MainActivity;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.model.Model;
 
@@ -35,6 +33,11 @@ public class ObjectActivity extends BaseActivity {
     private CheckBox isPositive;
     private Uri imageUri;
     private ImageView photoView;
+
+
+    private final static int NOTE = 0;
+    private final static int USER_STORY = 1;
+    private final static int ACTION = 2;
 
 
     @Override

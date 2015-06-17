@@ -1,4 +1,4 @@
-package com.saxion.nl.retroapptive;
+package com.saxion.nl.retroapptive.activities;
 
 import java.util.Locale;
 
@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.saxion.nl.retroapptive.R;
 
 
 public class ListActivity extends Activity {

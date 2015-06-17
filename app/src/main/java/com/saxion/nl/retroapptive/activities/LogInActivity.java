@@ -2,7 +2,6 @@ package com.saxion.nl.retroapptive.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -12,9 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.saxion.nl.retroapptive.MainActivity;
 import com.saxion.nl.retroapptive.R;
-import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.ROClient;
 import com.saxion.nl.retroapptive.communication.login.LoginCredentials;
 import com.saxion.nl.retroapptive.model.Model;
 
