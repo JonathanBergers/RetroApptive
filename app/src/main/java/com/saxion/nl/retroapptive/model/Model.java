@@ -25,9 +25,9 @@ public class Model implements DataGatherer {
         return instance;
     }
 
-    public Profiel getLocalProfile() {
-        return new Profiel("LocalProfileTemp");
-    }
+//    public Profiel getLocalProfile() {
+//        return new Profiel("LocalProfileTemp");
+//    }
 
     public int login(final LoginCredentials loginCredentials) {
         return dataGathererImpl.login(loginCredentials);
