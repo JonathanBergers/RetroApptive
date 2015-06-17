@@ -26,7 +26,7 @@ import java.util.Calendar;
 /**
  * Created by Jelle on 1-6-2015.
  */
-public class ObjectActivity extends BaseActivity {
+public class EditCreateItemActivity extends BaseActivity {
 
     private EditText titleEditText, summaryEditText, categoryEditText;
     private Button save, cancel, takePhoto;
@@ -34,7 +34,9 @@ public class ObjectActivity extends BaseActivity {
     private Uri imageUri;
     private ImageView photoView;
 
-    private final int item = getIntent().getIntExtra("item", 0);
+
+
+    private int itemType;
 
 
     private final static int NOTE = 0;
@@ -45,42 +47,10 @@ public class ObjectActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getLayoutInflater().inflate(R.layout.activity_new_object, drawer);
-
-        titleEditText = (EditText) findViewById(R.id.editTextNewObjectTitle);
-        summaryEditText = (EditText) findViewById(R.id.editTextNewObjectSummary);
-        categoryEditText = (EditText) findViewById(R.id.editTextNewObjectCategory);
-
-
-        save = (Button) findViewById(R.id.buttonNewObjectSave);
-        cancel = (Button) findViewById(R.id.buttonNewObjectCancel);
-        takePhoto = (Button) findViewById(R.id.buttonNewPhoto);
-
-        isPositive = (CheckBox) findViewById(R.id.checkBoxNewObject);
+        getLayoutInflater().inflate(R.layout.item_details, drawer);
 
 
 
-
-        if (getIntent().getBooleanExtra("edit", false)) {
-            editMode();
-            }
-
-        else {
-            //setting data
-            newItemMode();
-
-
-
-        }
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                setResult(RESULT_CANCELED, getIntent());
-                finish();
-            }
-        });
 
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,21 +69,17 @@ public class ObjectActivity extends BaseActivity {
         });
     }
 
-    private void newItemMode() {
+    private void createItem() {
 
-        if (item == 0) {
-            setTitle("Making a new note:");
-        } else if (item == 1) {
-            setTitle("Making a new UserStory:");
-            categoryEditText.setHint("Points");
-            categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-            isPositive.setVisibility(View.INVISIBLE);
-        } else {
-            setTitle("Making a new Actie:");
-            categoryEditText.setHint("Priority");
-            categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-            isPositive.setVisibility(View.INVISIBLE);
+        switch (itemType){
+            case NOTE:
+                break;
+            case USER_STORY:
+                break;
+            case ACTION:
+                break;
         }
+
 
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +94,7 @@ public class ObjectActivity extends BaseActivity {
                 summary = summaryEditText.getText().toString();
 
 
-                if (item == 0) {
+                if (itemType == 0) {
                     category = categoryEditText.getText().toString();
                     ispositive = isPositive.isChecked();
 
@@ -150,7 +116,7 @@ public class ObjectActivity extends BaseActivity {
                     //Model.getInstance().addNote(n);
 
 
-                } else if (item == 1) {
+                } else if (itemType == 1) {
                     p = Integer.parseInt(categoryEditText.getText().toString());
                     //UserStory u =  new UserStory(new Item(title, summary, 0));
                     //u.setPoints(p);
@@ -177,27 +143,27 @@ public class ObjectActivity extends BaseActivity {
                 finish();
 
 
-                //Intent i = new Intent(ObjectActivity.this, MainActivity.class);
+                //Intent i = new Intent(EditCreateItemActivity.this, MainActivity.class);
                 //startActivity(i);
             }
         });
 
     }
 
-    private void editMode() {
-        final int currentItemPos = getIntent().getIntExtra("position", 0);
 
-        switch(item){
-            case 1:
-                setTitle("Editing note:");
+    private void createUIEdit(){
 
-				/*titleEditText.setText(Model.getInstance().getNote(currentItemPos).getDescription());
-                summaryEditText.setText(Model.getInstance().getNote(currentItemPos).getSummary());
-				categoryEditText.setText(Model.getInstance().getNote(currentItemPos).getSubcategory());
-				isPositive.setChecked(Model.getInstance().getNote(currentItemPos).isPositive());*/;
+        switch(itemType){
+            case NOTE:
+                setTitle("Pas notitie aan:");
+//
+//				titleEditText.setText(Model.getInstance().getNote(currentItemPos).getDescription());
+//                summaryEditText.setText(Model.getInstance().getNote(currentItemPos).getSummary());
+//				categoryEditText.setText(Model.getInstance().getNote(currentItemPos).getSubcategory());
+//				isPositive.setChecked(Model.getInstance().getNote(currentItemPos).isPositive());
                 break;
-            case 2:
-                setTitle("Editing UserStory:");
+            case USER_STORY:
+                setTitle("Pas user story aan");
                 categoryEditText.setHint("Points");
                 categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 isPositive.setText("Burned");
@@ -207,8 +173,75 @@ public class ObjectActivity extends BaseActivity {
 				categoryEditText.setText("" + Model.getInstance().getUserStory(currentItemPos).getPoints());
 				isPositive.setChecked(Model.getInstance().getUserStory(currentItemPos).isBurned());*/
                 break;
-            case 3:
-                setTitle("Editing Actie:");
+            case ACTION:
+                setTitle("Pas actie aan");
+                categoryEditText.setHint("Priority");
+                categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                isPositive.setVisibility(View.INVISIBLE);
+
+				/*titleEditText.setText(Model.getInstance().getAction(currentItemPos).getDescription());
+				summaryEditText.setText(Model.getInstance().getAction(currentItemPos).getSummary());
+				categoryEditText.setText("" + Model.getInstance().getAction(currentItemPos).getPriority());*/
+                break;
+        }
+
+
+    }
+
+
+    private void createUICreate(){
+
+
+        if (itemType == NOTE) {
+            setTitle("Making a new note:");
+            return;
+        }
+
+
+        if (itemType == USER_STORY) {
+            setTitle("Making a new UserStory:");
+            categoryEditText.setHint("Points");
+            categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            isPositive.setVisibility(View.INVISIBLE);
+            return;
+
+        }
+
+        if(itemType == ACTION) {
+            setTitle("Making a new Actie:");
+            categoryEditText.setHint("Priority");
+            categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            isPositive.setVisibility(View.INVISIBLE);
+            return;
+        }
+
+    }
+
+    private void editItem() {
+        final int currentItemPos = getIntent().getIntExtra("position", 0);
+
+        switch(itemType){
+            case NOTE:
+                setTitle("Pas notitie aan:");
+
+				/*titleEditText.setText(Model.getInstance().getNote(currentItemPos).getDescription());
+                summaryEditText.setText(Model.getInstance().getNote(currentItemPos).getSummary());
+				categoryEditText.setText(Model.getInstance().getNote(currentItemPos).getSubcategory());
+				isPositive.setChecked(Model.getInstance().getNote(currentItemPos).isPositive());*/;
+                break;
+            case USER_STORY:
+                setTitle("Pas user story aan");
+                categoryEditText.setHint("Points");
+                categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                isPositive.setText("Burned");
+
+				/*titleEditText.setText(Model.getInstance().getUserStory(currentItemPos).getDescription());
+				summaryEditText.setText(Model.getInstance().getUserStory(currentItemPos).getSummary());
+				categoryEditText.setText("" + Model.getInstance().getUserStory(currentItemPos).getPoints());
+				isPositive.setChecked(Model.getInstance().getUserStory(currentItemPos).isBurned());*/
+                break;
+            case ACTION:
+                setTitle("Pas actie aan");
                 categoryEditText.setHint("Priority");
                 categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 isPositive.setVisibility(View.INVISIBLE);
@@ -230,7 +263,7 @@ public class ObjectActivity extends BaseActivity {
                 title = titleEditText.getText().toString();
                 summary = summaryEditText.getText().toString();
 
-                if (item == 0) {
+                if (itemType == 0) {
                     category = categoryEditText.getText().toString();
                     ispositive = isPositive.isChecked();
 
@@ -241,7 +274,7 @@ public class ObjectActivity extends BaseActivity {
                     //Model.getInstance().getNote(currentItemPos).setIsPositive(ispositive);
 
 
-                } else if (item == 1) {
+                } else if (itemType == 1) {
                     p = Integer.parseInt(categoryEditText.getText().toString());
                     ispositive = isPositive.isChecked();
 
@@ -280,7 +313,7 @@ public class ObjectActivity extends BaseActivity {
             Uri selectedImage = imageUri;
             cr.notifyChange(selectedImage,null);
 
-            photoView = (ImageView)findViewById(R.id.imageViewPhoto);
+            //photoView = (ImageView)findViewById(R.id.imageViewPhoto);
             Log.d("DEBUG","Zo ver komt die ook");
             Bitmap bitmapPhoto;
 

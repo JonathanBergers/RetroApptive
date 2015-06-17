@@ -12,6 +12,7 @@ import android.view.View;
 import com.melnykov.fab.FloatingActionButton;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.controller.CollectionPagerAdapter;
+import com.saxion.nl.retroapptive.controller.sprintselector.Item;
 import com.saxion.nl.retroapptive.model.Sprint;
 
 public class MainActivity extends BaseActivity {
@@ -37,6 +38,8 @@ public class MainActivity extends BaseActivity {
     FragmentManager fragmentManager;
 
     private static final int NEW_NOTE_REQUEST = 100;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +99,7 @@ public class MainActivity extends BaseActivity {
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, ObjectActivity.class);
+                Intent i = new Intent(MainActivity.this, EditCreateItemActivity.class);
                 i.putExtra("item", (mViewPager.getCurrentItem()));
                 Log.d("Item", "" + mViewPager.getCurrentItem());
                 startActivityForResult(i, NEW_NOTE_REQUEST);

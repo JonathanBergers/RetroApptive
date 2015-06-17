@@ -14,6 +14,17 @@ public class Model implements DataGatherer {
 
     private DataGatherer dataGathererImpl;
 
+
+    private Item currentItem;
+
+    public Item getCurrentItem() {
+        return currentItem;
+    }
+
+    public void setCurrentItem(Item currentItem) {
+        this.currentItem = currentItem;
+    }
+
     public Model(final DataGatherer dataGatherer) {
         this.dataGathererImpl = dataGatherer;
     }
@@ -83,4 +94,6 @@ public class Model implements DataGatherer {
     public void addAttachment(Notitie note, byte[] attachment) throws IOException {
         dataGathererImpl.addAttachment(note, attachment);
     }
+
+
 }

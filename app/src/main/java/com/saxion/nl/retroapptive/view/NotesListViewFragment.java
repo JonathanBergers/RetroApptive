@@ -1,22 +1,16 @@
 package com.saxion.nl.retroapptive.view;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.saxion.nl.retroapptive.R;
-import com.saxion.nl.retroapptive.activities.DetailActivity;
+import com.saxion.nl.retroapptive.activities.ItemDetailActivity;
 import com.saxion.nl.retroapptive.controller.NoteAdapter;
-import com.saxion.nl.retroapptive.controller.UserStoryAdapter;
-import com.saxion.nl.retroapptive.model.Model;
+import com.saxion.nl.retroapptive.model.ItemType;
 import com.saxion.nl.retroapptive.model.Notitie;
-import com.saxion.nl.retroapptive.model.Sprint;
 
 import java.util.List;
 
@@ -63,17 +57,6 @@ public final class NotesListViewFragment extends ListViewFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent detailsIntent = new Intent(getActivity(), DetailActivity.class);
-                detailsIntent.putExtra("position", i);
-                detailsIntent.putExtra("list", DetailActivity.NOTES_LIST);
-                getActivity().startActivityForResult(detailsIntent, 102);
-            }
-        });
-        Log.d("ADAPTERx", ":" + noteAdapter);
         listView.setAdapter(noteAdapter);
     }
 

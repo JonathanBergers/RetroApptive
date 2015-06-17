@@ -3,7 +3,6 @@ package com.saxion.nl.retroapptive.view;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.saxion.nl.retroapptive.R;
-import com.saxion.nl.retroapptive.activities.DetailActivity;
-import com.saxion.nl.retroapptive.controller.NoteAdapter;
-import com.saxion.nl.retroapptive.controller.ActionAdapter;
-import com.saxion.nl.retroapptive.controller.UserStoryAdapter;
+import com.saxion.nl.retroapptive.activities.ItemDetailActivity;
+import com.saxion.nl.retroapptive.model.Actie;
+import com.saxion.nl.retroapptive.model.Item;
+import com.saxion.nl.retroapptive.model.ItemType;
 import com.saxion.nl.retroapptive.model.Model;
+import com.saxion.nl.retroapptive.model.Notitie;
+import com.saxion.nl.retroapptive.model.UserStory;
 
 /**
  * Created by falco on 28-5-15.
@@ -34,6 +35,44 @@ public class ListViewFragment extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.listView);
         return rootView;
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+
+        super.onActivityCreated(savedInstanceState);
+
+        setOnclickListener();
+
+
+
+    }
+
+
+    protected void setOnclickListener(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Model.getInstance().setCurrentItem((Item)listView.getSelectedItem());
+
+
+                Intent intent = new Intent(getActivity(), ItemDetailActivity.class);
+                startActivity(intent);
+
+
+
+            }
+
+
+
+        });
+
+
+
+    }
+
 
 
 }
