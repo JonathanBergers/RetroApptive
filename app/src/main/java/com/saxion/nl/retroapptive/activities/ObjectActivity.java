@@ -69,86 +69,6 @@ public class ObjectActivity extends BaseActivity {
             //setting data
             newItemMode();
 
-            if (item == 0) {
-                setTitle("Making a new note:");
-            } else if (item == 1) {
-                setTitle("Making a new UserStory:");
-                categoryEditText.setHint("Points");
-                categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                isPositive.setVisibility(View.INVISIBLE);
-            } else {
-                setTitle("Making a new Actie:");
-                categoryEditText.setHint("Priority");
-                categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                isPositive.setVisibility(View.INVISIBLE);
-            }
-
-
-            save.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //getting de values
-                    final String title, summary, category;
-                    int p;
-                    final boolean ispositive;
-
-                    title = titleEditText.getText().toString();
-                    summary = summaryEditText.getText().toString();
-
-
-                    if (item == 0) {
-                        category = categoryEditText.getText().toString();
-                        ispositive = isPositive.isChecked();
-
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    Model.getInstance().createNote(MainActivity.currentSprint, title, summary, ispositive, category);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                MainActivity.instance.loadNotes(MainActivity.currentSprint);
-                            }
-                        }).start();
-
-                        //Notitie n = new Notitie(new Item(title, summary, 0 ));
-                        //n.setCategory(category);
-                        //n.setIsPositive(ispositive);
-                        //Model.getInstance().addNote(n);
-
-
-                    } else if (item == 1) {
-                        p = Integer.parseInt(categoryEditText.getText().toString());
-                        //UserStory u =  new UserStory(new Item(title, summary, 0));
-                        //u.setPoints(p);
-                        //Model.getInstance().addUserStory(u);
-
-                    } else {
-                        p = Integer.parseInt(categoryEditText.getText().toString());
-                        //Actie a = new Actie(new Item(title, summary, 0));
-                        //	a.setPriority(p);
-                        //Model.getInstance().addAction(a);
-
-
-                    }
-
-
-                    //new object van user story of note
-                    //new Object(title, description,category);
-                    //waardes title description, catergory
-
-
-                    //terug gaan naar de main view
-
-                    setResult(RESULT_OK, getIntent());
-                    finish();
-
-
-                    //Intent i = new Intent(ObjectActivity.this, MainActivity.class);
-                    //startActivity(i);
-                }
-            });
 
 
         }
@@ -180,6 +100,88 @@ public class ObjectActivity extends BaseActivity {
     }
 
     private void newItemMode() {
+
+        if (item == 0) {
+            setTitle("Making a new note:");
+        } else if (item == 1) {
+            setTitle("Making a new UserStory:");
+            categoryEditText.setHint("Points");
+            categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            isPositive.setVisibility(View.INVISIBLE);
+        } else {
+            setTitle("Making a new Actie:");
+            categoryEditText.setHint("Priority");
+            categoryEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            isPositive.setVisibility(View.INVISIBLE);
+        }
+
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //getting de values
+                final String title, summary, category;
+                int p;
+                final boolean ispositive;
+
+                title = titleEditText.getText().toString();
+                summary = summaryEditText.getText().toString();
+
+
+                if (item == 0) {
+                    category = categoryEditText.getText().toString();
+                    ispositive = isPositive.isChecked();
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Model.getInstance().createNote(MainActivity.currentSprint, title, summary, ispositive, category);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            MainActivity.instance.loadNotes(MainActivity.currentSprint);
+                        }
+                    }).start();
+
+                    //Notitie n = new Notitie(new Item(title, summary, 0 ));
+                    //n.setCategory(category);
+                    //n.setIsPositive(ispositive);
+                    //Model.getInstance().addNote(n);
+
+
+                } else if (item == 1) {
+                    p = Integer.parseInt(categoryEditText.getText().toString());
+                    //UserStory u =  new UserStory(new Item(title, summary, 0));
+                    //u.setPoints(p);
+                    //Model.getInstance().addUserStory(u);
+
+                } else {
+                    p = Integer.parseInt(categoryEditText.getText().toString());
+                    //Actie a = new Actie(new Item(title, summary, 0));
+                    //	a.setPriority(p);
+                    //Model.getInstance().addAction(a);
+
+
+                }
+
+
+                //new object van user story of note
+                //new Object(title, description,category);
+                //waardes title description, catergory
+
+
+                //terug gaan naar de main view
+
+                setResult(RESULT_OK, getIntent());
+                finish();
+
+
+                //Intent i = new Intent(ObjectActivity.this, MainActivity.class);
+                //startActivity(i);
+            }
+        });
+
     }
 
     private void editMode() {
