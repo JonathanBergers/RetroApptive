@@ -6,8 +6,13 @@ public class IsisProfiel extends Profiel {
 	
 	private final String profielURL;
 
-	public IsisProfiel(final String name, final String profielURL) {
-		super(name);
+	public IsisProfiel(final ProfielType profielType, final String name, final String profielURL) {
+		super(profielType, name);
+		this.profielURL = profielURL;
+	}
+
+	public IsisProfiel(final ProfielType profielType, final String name, final String surname, final String profielURL) {
+		super(profielType, name, surname);
 		this.profielURL = profielURL;
 	}
 	
