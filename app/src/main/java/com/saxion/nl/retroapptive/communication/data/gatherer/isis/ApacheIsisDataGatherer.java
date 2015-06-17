@@ -122,15 +122,29 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 		final List<Profiel> profileList = new ArrayList<>(values.size());
 		for (CollectionValue collectionValue : values) {
 			final String title = collectionValue.getTitle();
-			String name = title;
-			if (title.contains(":")) {
-				name = title.substring(title.indexOf(":") + 1).trim();
-			}
-			final Profiel profile = new IsisProfiel(name, collectionValue.getHref());
+			final Profiel profile = getProfileFromTitle(title, collectionValue.getHref());
 			System.out.println("SPRINT URL: " + collectionValue.getHref());
 			profileList.add(profile);
 		}
 		return profileList;
+	}
+
+	private Profiel getProfileFromTitle(final String title, final String href) {
+		final int indexOfDash = title.indexOf("-");
+		final Profiel.ProfielType profileType = Profiel.ProfielType.valueOf(title.substring(0, indexOfDash));
+		String firstName = "";
+		String surname = "";
+		final boolean hasSurname = title.contains(":");
+		final Profiel profile;
+		if (hasSurname) {
+			firstName = title.substring(indexOfDash + 1, title.indexOf(":"));
+			surname = title.substring(title.indexOf(":"));
+			profile = new IsisProfiel(profileType, firstName, surname, href);
+		} else {
+			firstName = title.substring(indexOfDash + 1);
+			profile = new IsisProfiel(profileType, firstName, href);
+		}
+		return profile;
 	}
 
 	@Override
@@ -210,13 +224,7 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 		final JsonNode profileData = arguments.get("profiel").get("value");
 		final String profileURL = profileData.get("href").getTextValue();
 		final String profileTitle = profileData.get("title").getTextValue();
-		final String profileName;
-		if (profileTitle.contains(":")) {
-			profileName = profileTitle.substring(profileTitle.indexOf(":") + 1).trim();
-		} else {
-			profileName = profileTitle;
-		}
-		final Profiel profile = new IsisProfiel(profileName, profileURL);
+		final Profiel profile = getProfileFromTitle(profileTitle, profileURL);
 		return new IsisNotitie(sprint, description, summary, profile, isPositive, subcategory, link.getHref());
 	}
 
@@ -233,13 +241,7 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 		final JsonNode profileData = arguments.get("profiel").get("value");
 		final String profileURL = profileData.get("href").getTextValue();
 		final String profileTitle = profileData.get("title").getTextValue();
-		final String profileName;
-		if (profileTitle.contains(":")) {
-			profileName = profileTitle.substring(profileTitle.indexOf(":") + 1).trim();
-		} else {
-			profileName = profileTitle;
-		}
-		final Profiel profile = new IsisProfiel(profileName, profileURL);
+		final Profiel profile = getProfileFromTitle(profileTitle, profileURL);
 		return new IsisActie(sprint, description, summary, profile, priority, link.getHref());
 	}
 
