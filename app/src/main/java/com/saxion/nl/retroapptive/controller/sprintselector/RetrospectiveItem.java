@@ -7,7 +7,5 @@ public class RetrospectiveItem implements Item {
     public static final int VIEW_TYPE = 4;
 
     @Override
-    public int getViewType() {
-        return VIEW_TYPE;
-    }
+    public int getViewType() {return VIEW_TYPE;}
 }
