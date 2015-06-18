@@ -5,12 +5,15 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.controller.CollectionPagerAdapter;
+import com.saxion.nl.retroapptive.controller.sprintselector.Item;
 import com.saxion.nl.retroapptive.model.Actie;
 import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.model.Notitie;
@@ -26,7 +29,6 @@ public class MainActivity extends BaseActivity {
 
     private static int PAGE_NUM_NOTE = 0;
     private static int PAGE_NUM_ACTION = 1;
-    private static int PAGE_NUM_TEAM = 2;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
