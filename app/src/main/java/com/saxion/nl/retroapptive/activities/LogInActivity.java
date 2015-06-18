@@ -62,8 +62,8 @@ public class LogInActivity extends Activity {
             loginProgressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
             loggingTextView = (TextView) findViewById(R.id.textViewLogging);
 
-            username.setText("jonathan");
-            password.setText("pass");
+//            username.setText("jonathan");
+//            password.setText("pass");
             //Set Visiblity
             username.setVisibility(View.GONE);
             password.setVisibility(View.GONE);

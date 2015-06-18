@@ -57,6 +57,8 @@ public class ItemDetailActivity extends BaseActivity {
 
     private Item currentItem;
 
+    private boolean backClicked = false;
+
 
 
 
@@ -267,6 +269,11 @@ public class ItemDetailActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
 
+if(backClicked){
+    goBack();
+}
+
+        backClicked = true;
 
         if(currentItem instanceof Notitie){
 
@@ -321,14 +328,6 @@ public class ItemDetailActivity extends BaseActivity {
                 removeNote((IsisNotitie) Model.getInstance().getCreatedItem());
             }
 
-        });
-
-        snackbar.setCancelable(true);
-        snackbar.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                ItemDetailActivity.this.goBack();
-            }
         });
         snackbar.show();
 
