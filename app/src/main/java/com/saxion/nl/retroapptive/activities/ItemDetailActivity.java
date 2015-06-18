@@ -34,12 +34,9 @@ import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.model.Profiel;
 import com.saxion.nl.retroapptive.model.UserPicture;
 import com.saxion.nl.retroapptive.model.UserStory;
-import com.saxion.nl.retroapptive.view.NotesListViewFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
-
 /**
  * Created by falco on 31-5-15.
  */
