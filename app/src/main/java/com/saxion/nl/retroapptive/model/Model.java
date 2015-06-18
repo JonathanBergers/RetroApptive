@@ -16,6 +16,15 @@ public class Model implements DataGatherer {
 
 
     private Item currentItem;
+    private Item createdItem;
+
+    public Item getCreatedItem() {
+        return createdItem;
+    }
+
+    public void setCreatedItem(Item createdItem) {
+        this.createdItem = createdItem;
+    }
 
     public Item getCurrentItem() {
         return currentItem;

@@ -43,6 +43,7 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
         switch(i){
             case 0:
                 return NotesListViewFragment.newInstance(notities);
+
             case 1:
                 return ActiesListViewFragment.newInstance(acties);
         }

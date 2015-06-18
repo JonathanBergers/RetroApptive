@@ -8,11 +8,15 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.controller.CollectionPagerAdapter;
 import com.saxion.nl.retroapptive.controller.sprintselector.Item;
+import com.saxion.nl.retroapptive.model.Actie;
+import com.saxion.nl.retroapptive.model.Model;
+import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.model.Sprint;
 
 public class MainActivity extends BaseActivity {
@@ -23,6 +27,8 @@ public class MainActivity extends BaseActivity {
 
     public static Sprint currentSprint = null;
 
+    private static int PAGE_NUM_NOTE = 0;
+    private static int PAGE_NUM_ACTION = 1;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -99,10 +105,29 @@ public class MainActivity extends BaseActivity {
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, EditCreateItemActivity.class);
-                i.putExtra("item", (mViewPager.getCurrentItem()));
-                Log.d("Item", "" + mViewPager.getCurrentItem());
-                startActivityForResult(i, NEW_NOTE_REQUEST);
+
+                if(mViewPager.getCurrentItem() == PAGE_NUM_NOTE){
+
+                    // haalt local profile op
+                    // maakt nieuwe lege notitie
+                    Notitie notitie = new Notitie(currentSprint, null, null, Model.getInstance().getLocalProfile(), true, null);
+
+                    Model.getInstance().setCurrentItem(notitie);
+
+
+                }
+                if(mViewPager.getCurrentItem() == PAGE_NUM_ACTION){
+
+                    // haalt local profile op
+                    // maakt nieuwe lege notitie
+                    Actie actie = new Actie(currentSprint, null, null, Model.getInstance().getLocalProfile(), 5);
+
+                    Model.getInstance().setCurrentItem(actie);
+
+
+                }
+                Intent i = new Intent(MainActivity.this, ItemDetailActivity.class);
+                startActivity(i);
             }
         });
 

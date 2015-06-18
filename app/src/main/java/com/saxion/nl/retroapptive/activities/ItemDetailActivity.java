@@ -1,10 +1,11 @@
 package com.saxion.nl.retroapptive.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,15 +13,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesign.views.Slider;
+import com.gc.materialdesign.views.Switch;
+import com.gc.materialdesign.widgets.SnackBar;
+import com.jorgecastilloprz.expandablepanel.ExpandablePanelView;
+import com.melnykov.fab.FloatingActionButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.saxion.nl.retroapptive.R;
-import com.saxion.nl.retroapptive.communication.data.gatherer.isis.applib.representation.Action;
+import com.saxion.nl.retroapptive.communication.data.gatherer.isis.IsisNotitie;
+import com.saxion.nl.retroapptive.communication.data.gatherer.isis.IsisSprint;
 import com.saxion.nl.retroapptive.model.Actie;
 import com.saxion.nl.retroapptive.model.Item;
 import com.saxion.nl.retroapptive.model.Model;
@@ -39,12 +45,15 @@ import java.util.List;
  */
 public class ItemDetailActivity extends BaseActivity {
 
-    private MaterialEditText editTextItem1, editTextItem2;
-    private TextView textViewTitleCat, textViewProject, textViewSprint, textViewAccount, textViewTitlePoints;
+    private MaterialEditText editTextItemTitle, editTextItemSummary;
+    private TextView textViewTitleCat, textViewProject, textViewSprint, textViewAccount, textViewTitlePoints, textViewBoolean;
     private Spinner spinnerCat;
-    private Button buttonBurned;
     private Slider sliderPoints;
+    private Switch switchViewItem;
+    private ExpandablePanelView expandablePanelView;
+    private ImageView imageViewArrow;
 
+    private byte[] attachment;
 
     private Item currentItem;
 
@@ -55,7 +64,6 @@ public class ItemDetailActivity extends BaseActivity {
     private static final int SELECT_SINGLE_PICTURE = 4;
     public static final String IMAGE_TYPE = "image/*";
 
-    private ImageView selectedImagePreview;
 
 
 
@@ -84,14 +92,20 @@ public class ItemDetailActivity extends BaseActivity {
 
 
 
-        editTextItem1 = (MaterialEditText) findViewById(R.id.editTextItem1);
-        editTextItem2 = (MaterialEditText) findViewById(R.id.editTextItem2);
+        editTextItemTitle = (MaterialEditText) findViewById(R.id.editTextItemTitle);
+        editTextItemSummary = (MaterialEditText) findViewById(R.id.editTextItemSummary);
 
         textViewTitleCat = (TextView) findViewById(R.id.textViewCatTitle);
         textViewProject = (TextView) findViewById(R.id.textViewProject);
         textViewSprint = (TextView) findViewById(R.id.textViewSprint);
         textViewAccount = (TextView) findViewById(R.id.textViewAccount);
         textViewTitlePoints = (TextView) findViewById(R.id.textViewPointsTitle);
+        textViewBoolean = (TextView) findViewById(R.id.textViewBoolean);
+        switchViewItem = (Switch) findViewById(R.id.switchViewItem);
+        expandablePanelView = (ExpandablePanelView) findViewById(R.id.expandableView);
+        imageViewArrow = (ImageView) findViewById(R.id.imageViewArrow);
+
+
 
 
 
@@ -101,8 +115,28 @@ public class ItemDetailActivity extends BaseActivity {
 
         spinnerCat = (Spinner) findViewById(R.id.spinnerCat);
 
-        ButtonFloat floatingActionButton = (ButtonFloat) findViewById(R.id.buttonFloat);
+        FloatingActionButton plusButton = (FloatingActionButton) findViewById(R.id.fabItem);
+        plusButton.setColorNormal(Color.YELLOW);
 
+        plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType(IMAGE_TYPE);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,
+                        getString(R.string.select_picture)), SELECT_SINGLE_PICTURE);
+            }
+        });
+
+
+        //TODO
+//        if(currentItem.getAttachment() == null){
+//
+//
+//        }
+
+        imageViewArrow.setVisibility(View.INVISIBLE);
 
 
 
@@ -118,8 +152,8 @@ public class ItemDetailActivity extends BaseActivity {
     private void setupCurrentItem(){
 
         currentItem = Model.getInstance().getCurrentItem();
-        editTextItem1.setText(currentItem.getDescription());
-        editTextItem2.setText(currentItem.getSummary());
+        editTextItemTitle.setText(currentItem.getDescription());
+        editTextItemSummary.setText(currentItem.getSummary());
 
         if(currentItem.getProfile().getProfileType() == Profiel.ProfielType.SCRUM_MASTER){
             textViewAccount.setCompoundDrawables(getDrawable(R.drawable.account_scrum), null, null, null);
@@ -175,7 +209,26 @@ public class ItemDetailActivity extends BaseActivity {
 
 
         //setting up data
+        switchViewItem.setChecked(notitie.isPositive());
 
+        if(switchViewItem.isCheck()){
+            switchViewItem.setBackgroundColor(Color.GREEN);
+        }else{
+            switchViewItem.setBackgroundColor(Color.RED);
+
+        }
+        switchViewItem.setOncheckListener(new Switch.OnCheckListener() {
+            @Override
+            public void onCheck(Switch aSwitch, boolean b) {
+                if (b) {
+                    switchViewItem.setBackgroundColor(Color.GREEN);
+                    textViewBoolean.setText("Positief");
+                } else {
+                    switchViewItem.setBackgroundColor(Color.RED);
+                    textViewBoolean.setText("Negatief");
+                }
+            }
+        });
 
 
 
@@ -190,11 +243,14 @@ public class ItemDetailActivity extends BaseActivity {
 
         textViewTitleCat.setVisibility(View.INVISIBLE);
         spinnerCat.setVisibility(View.INVISIBLE);
-
+        switchViewItem.setVisibility(View.INVISIBLE);
+        textViewBoolean.setVisibility(View.INVISIBLE);
 
         textViewTitlePoints.setText("Prioriteit");
         sliderPoints.setShowNumberIndicator(true);
         sliderPoints.setValue(actie.getPriority());
+        sliderPoints.setMin(0);
+        sliderPoints.setMax(10);
 
 
 
@@ -208,30 +264,162 @@ public class ItemDetailActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+
+
+        if(currentItem instanceof Notitie){
+
+            saveCreatedNote();
+
+        }else if(currentItem instanceof Actie){
+            saveCreatedAction();
+
+        }else if(currentItem instanceof UserStory){
+            setupUserStory();
+
+
+        }
 
 
 
 
 
+    }
+
+    private void saveCreatedNote(){
+        SnackBar snackbar = new SnackBar(ItemDetailActivity.this, "Wil je de notitie opslaan?", "Ja", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+
+                            //TODO WERKT NIET< ISIS ITEM >???
+                            final Notitie notitie =  Model.getInstance().createNote((IsisSprint)currentItem.getSprint(), editTextItemTitle.getText().toString(),
+                                    editTextItemSummary.getText().toString(),switchViewItem.isCheck(),
+                                    spinnerCat.getTransitionName());
+
+
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ItemDetailActivity.this.goBack();
+                                }
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
+                removeNote((IsisNotitie) Model.getInstance().getCreatedItem());
+            }
+
+        });
+
+        snackbar.setCancelable(true);
+        snackbar.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                ItemDetailActivity.this.goBack();
+            }
+        });
+        snackbar.show();
 
 
 
 
 
+    }
+
+
+    private  void goBack(){
+        super.onBackPressed();
+
+    }
+    private void saveCreatedAction(){
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//
+//                    final Actie actie =  Model.getInstance().createNote(currentItem.getSprint(), editTextItemTitle.getText().toString(),
+//                            editTextItemSummary.getText().toString(),switchViewItem.isCheck(),
+//                            spinnerCat.getTransitionName());
+//
+//                    Model.getInstance().deleteNote((Notitie)currentItem);
+//                    Model.getInstance().setCreatedItem(notitie);
+//
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            SnackBar snackbar = new SnackBar(ItemDetailActivity.this, "Notitie opgeslagen", "Ongedaan maken", new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//
+//                                    removeNote((Notitie) Model.getInstance().getCreatedItem());
+//
+//                                }
+//                            });
+//                            snackbar.show();
+//                        }
+//                    });
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+
+
+    }
+
+
+    private void removeNote(final Notitie notitie){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
 
 
 
+                    Model.getInstance().deleteNote(notitie);
 
 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
+    }
 
+    private void removeAction(final Actie actie){
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//
+//
+//
+//                    //TODO
+//
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
 
-
-
-
-
-
-
+    }
 
 
     @Override
@@ -253,27 +441,15 @@ public class ItemDetailActivity extends BaseActivity {
 
                     Bitmap yourBitmap =new UserPicture(selectedImageUri, getContentResolver()).getBitmap();
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    yourBitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
                     final byte[] bArray = bos.toByteArray();
-
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-
-                                final List<Notitie> notes = NotesListViewFragment.instance.getNotes();
-
-                                Model.getInstance().addAttachment(notes.get(getIntent().getIntExtra("position", 0)), bArray);
+                    attachment = bArray;
 
 
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
 
-                        }
-                    }).start();
+                    expandablePanelView.setBackground(new BitmapDrawable(yourBitmap));
 
-                    selectedImagePreview.setImageBitmap(yourBitmap);
+                    imageViewArrow.setVisibility(View.VISIBLE);
+
 
                 } catch (IOException e) {
                     Log.e(MainActivity.class.getSimpleName(), "Failed to load image", e);
