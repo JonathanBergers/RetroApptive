@@ -215,34 +215,42 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 
 	private Notitie getNoteFromItem(final Sprint sprint, final Link link) {
 		final Map<String, Map<String, JsonNode>> arguments = link.getArguments();
-		final String description = arguments.get("description").get("value").getTextValue();
-		final String summary = arguments.get("summary").get("value").getTextValue();
+		IsisItem isisItem = createIsisItem(sprint, link);
+
 		final JsonNode categoryNode = arguments.get("subcategory").get("value");
 		final String subcategory = categoryNode == null ? "Other" : categoryNode.getTextValue();
 		final boolean isPositive = arguments.get("isPositive").get("value").getBooleanValue();
 
-		final JsonNode profileData = arguments.get("profiel").get("value");
-		final String profileURL = profileData.get("href").getTextValue();
-		final String profileTitle = profileData.get("title").getTextValue();
-		final Profiel profile = getProfileFromTitle(profileTitle, profileURL);
-		return new IsisNotitie(sprint, description, summary, profile, isPositive, subcategory, link.getHref());
+
+		return new IsisNotitie(sprint, isisItem, isPositive, subcategory);
 	}
 
 	private Actie getActionFromItem(final Sprint sprint, final Link link) {
 		final Map<String, Map<String, JsonNode>> arguments = link.getArguments();
-		final String description = arguments.get("description").get("value").getTextValue();
-		final String summary = arguments.get("summary").get("value").getTextValue();
+		IsisItem isisItem = createIsisItem(sprint, link);
+
 		//final JsonNode categoryNode = arguments.get("subcategory").get("value");
 		//final String subcategory = categoryNode == null ? "Other" : categoryNode.getTextValue();
 		//final boolean isPositive = arguments.get("isPositive").get("value").getBooleanValue();
 
 		final int priority = arguments.get("points").get("value").getIntValue();
 
+
+		return new IsisActie(sprint, isisItem, priority);
+	}
+
+	private IsisItem createIsisItem(final Sprint sprint, final Link link){
+		final Map<String, Map<String, JsonNode>> arguments = link.getArguments();
+		final String description = arguments.get("description").get("value").getTextValue();
+		final String summary = arguments.get("summary").get("value").getTextValue();
 		final JsonNode profileData = arguments.get("profiel").get("value");
 		final String profileURL = profileData.get("href").getTextValue();
 		final String profileTitle = profileData.get("title").getTextValue();
 		final Profiel profile = getProfileFromTitle(profileTitle, profileURL);
-		return new IsisActie(sprint, description, summary, profile, priority, link.getHref());
+
+		return new IsisItem(sprint, description, summary, profile, link.getHref());
+
+
 	}
 
 	@Override

@@ -6,7 +6,7 @@ public class UserStory extends Item {
     private Boolean isBurned = false; //standaard false
 
     public UserStory(Item item) {
-        super(item.getSprint(), item.getDescription(), item.getSummary());
+        super(item.getSprint(), item.getDescription(), item.getSummary(), item.getProfile());
     }
 
     public void setPoints(Integer points) {

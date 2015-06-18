@@ -121,12 +121,12 @@ public class ItemDetailActivity extends BaseActivity {
         editTextItem1.setText(currentItem.getDescription());
         editTextItem2.setText(currentItem.getSummary());
 
-        if(currentItem.getProfiel().getProfileType() == Profiel.ProfielType.SCRUM_MASTER){
+        if(currentItem.getProfile().getProfileType() == Profiel.ProfielType.SCRUM_MASTER){
             textViewAccount.setCompoundDrawables(getDrawable(R.drawable.account_scrum), null, null, null);
         }
 
 
-        textViewAccount.setText("  " + currentItem.getProfiel().getName() + " " + currentItem.getProfiel().getSurname());
+        textViewAccount.setText("  " + currentItem.getProfile().getName() + " " + currentItem.getProfile().getSurname());
         textViewProject.setText("  " +currentItem.getSprint().getProject().getName());
         textViewSprint.setText("  " + currentItem.getSprint().getSprintID());
 

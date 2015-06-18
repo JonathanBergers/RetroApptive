@@ -9,9 +9,10 @@ public class IsisActie extends Actie {
 
 	private final String actieURL;
 
-	public IsisActie(final Sprint sprint, final String description, final String summary, final Profiel profile, final int priority, final String actieURL) {
-		super(sprint, description, summary, profile, priority);
-		this.actieURL = actieURL;
+	public IsisActie(final Sprint sprint, final IsisItem isisItem,final int priority) {
+		super(sprint, isisItem.getDescription(), isisItem.getSummary(), isisItem.getProfile(), priority);
+		this.actieURL = isisItem.getItemURL();
+
 	}
 
 	public String getActieURL() {

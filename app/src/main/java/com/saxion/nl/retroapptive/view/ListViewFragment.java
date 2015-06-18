@@ -17,13 +17,16 @@ import com.saxion.nl.retroapptive.model.ItemType;
 import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.model.UserStory;
+import com.twotoasters.jazzylistview.JazzyEffect;
+import com.twotoasters.jazzylistview.JazzyHelper;
+import com.twotoasters.jazzylistview.JazzyListView;
 
 /**
  * Created by falco on 28-5-15.
  */
 public class ListViewFragment extends Fragment {
 
-    protected ListView listView;
+    protected JazzyListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -32,7 +35,10 @@ public class ListViewFragment extends Fragment {
         // properly.
         View rootView = inflater.inflate(
                 R.layout.list, container, false);
-        listView = (ListView) rootView.findViewById(R.id.listView);
+        listView = (JazzyListView) rootView.findViewById(R.id.listView);
+
+        //Animation
+        listView.setTransitionEffect(JazzyHelper.FLIP);
         return rootView;
     }
 

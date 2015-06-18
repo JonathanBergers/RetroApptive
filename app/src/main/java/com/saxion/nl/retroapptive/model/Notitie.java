@@ -7,7 +7,7 @@ public class Notitie extends Item {
     private final String subcategory;
 
     public Notitie(final Sprint sprint, final String description, final String summary, final Profiel profile, final boolean isPositive, final String subcategory) {
-        super(sprint, description, summary);
+        super(sprint, description, summary, profile);
         this.profile = profile;
         this.isPositive = isPositive;
         this.subcategory = subcategory;

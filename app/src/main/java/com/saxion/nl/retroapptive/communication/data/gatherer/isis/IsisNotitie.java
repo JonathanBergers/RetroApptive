@@ -8,9 +8,9 @@ public class IsisNotitie extends Notitie {
 
 	private final String notitieURL;
 
-	public IsisNotitie(final Sprint sprint, final String description, final String summary, final Profiel profile, final boolean isPositive, final String subcategory, final String notitieURL) {
-		super(sprint, description, summary, profile, isPositive, subcategory);
-		this.notitieURL = notitieURL;
+	public IsisNotitie(final Sprint sprint, final IsisItem isisItem, final boolean isPositive, final String subcategory) {
+		super(sprint, isisItem.getDescription(), isisItem.getSummary(), isisItem.getProfile(),isPositive, subcategory);
+		this.notitieURL = isisItem.getItemURL();
 	}
 
 	public String getNotitieURL() {
