@@ -20,7 +20,7 @@ import java.util.List;
 public class LedenAdapter extends ArrayAdapter<Profiel> {
 
     private TextView naam;
-    private TextView type;
+    private TextView rol;
 
     public LedenAdapter(Context context, int resource, List<Profiel> objects) {
         super(context, resource, objects);
@@ -32,18 +32,18 @@ public class LedenAdapter extends ArrayAdapter<Profiel> {
         if (convertView == null) {
 
             LayoutInflater inflater = (LayoutInflater) super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            //convertView = inflater.inflate(R.layout.fragment_list_item_lid, parent);
+            convertView = inflater.inflate(R.layout.fragment_list_item_team, parent);
 
 
         }
 
-        //naam = (TextView) convertView.findViewById(R.id.textViewListItemLidNaam);
-        //type = (TextView) convertView.findViewById(R.id.textViewRol);
+        naam = (TextView) convertView.findViewById(R.id.textViewNaamTeamlid);
+        rol = (TextView) convertView.findViewById(R.id.textViewRol);
 
         try {
             Profiel profiel = Model.getInstance().getMembers(MainActivity.currentSprint.getProject()).get(position);
             naam.setText(profiel.getName()+ " "+profiel.getSurname());
-            type.setText(profiel.getProfileType().name());
+            rol.setText(profiel.getProfileType().name());
 
         } catch (Exception e) {
             e.printStackTrace();

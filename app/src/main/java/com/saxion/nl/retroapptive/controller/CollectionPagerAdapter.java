@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
 
-    private String[] pageTitles = new String[] {"Notities", "Acties"};//"User stories", "Acties"};
+    private String[] pageTitles = new String[] {"Notities", "Acties", "TeamLeden"};//"User stories"};
     private MainActivity activity;
     private List<Notitie> notities = new ArrayList<>();
     private List<Actie> acties = new ArrayList<>();
@@ -45,6 +45,7 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter {
                 return NotesListViewFragment.newInstance(notities);
             case 1:
                 return ActiesListViewFragment.newInstance(acties);
+
         }
         return null;
     }
