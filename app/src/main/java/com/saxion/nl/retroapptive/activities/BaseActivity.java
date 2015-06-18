@@ -17,11 +17,13 @@ import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.controller.sprintselector.ProjectItem;
 import com.saxion.nl.retroapptive.controller.sprintselector.SprintItem;
 import com.saxion.nl.retroapptive.controller.sprintselector.SprintSelectorFragment;
+import com.saxion.nl.retroapptive.model.Actie;
 import com.saxion.nl.retroapptive.model.Item;
 import com.saxion.nl.retroapptive.model.Model;
 import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.model.Project;
 import com.saxion.nl.retroapptive.model.Sprint;
+import com.saxion.nl.retroapptive.view.ActiesListViewFragment;
 import com.saxion.nl.retroapptive.view.NotesListViewFragment;
 
 import java.io.IOException;
@@ -96,9 +98,13 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
     public void loadNotes(final Sprint sprint) {
 
         final List<Notitie> oldNotes = NotesListViewFragment.instance.getNotes();
+        final List<Actie> oldActions = ActiesListViewFragment.instance.getActies();
+        //final List<Profiel> oldLeden = LedenListViewFragment.instance.getLeden();
+
         Log.d("BASEACTIVITTY", "OLDNOTES SIZE: " + oldNotes.size());
 
         oldNotes.clear();
+        oldActions.clear();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -108,6 +114,11 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
                         if (item instanceof Notitie) {
                             oldNotes.add((Notitie) item);
                             Log.d("BASEACTIVITTY", item.getDescription() + ": ADDED");
+                        } else if(item instanceof Actie){
+                            oldActions.add((Actie) item);
+                            Log.d("BASEACTIVITTY", item.getDescription() + ": ADDED");
+                        } else {
+                            Log.d("BASEACTIVITTY", item.getDescription() + ": NOT ADDED");
                         }
                     }
                 } catch (Exception e) {
@@ -118,6 +129,7 @@ public class BaseActivity extends FragmentActivity implements SprintSelectorFrag
                     public void run() {
 
                         NotesListViewFragment.instance.getNoteAdapter().notifyDataSetChanged();
+                        ActiesListViewFragment.instance.getActionAdapter().notifyDataSetChanged();
                         //MainActivity.instance.getmCollectionPagerAdapter().notifyNoteChanges();
                     }
                 });

@@ -47,6 +47,7 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.0.3'
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
     compile 'com.twotoasters.jazzylistview:library:1.2.1'
+    compile 'com.github.jorgecastilloprz:expandablepanel:1.0.4@aar'
 
 
 }

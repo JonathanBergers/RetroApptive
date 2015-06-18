@@ -1,14 +1,11 @@
 package com.saxion.nl.retroapptive.view;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.saxion.nl.retroapptive.R;
 import com.saxion.nl.retroapptive.controller.LedenAdapter;
-import com.saxion.nl.retroapptive.model.Notitie;
 import com.saxion.nl.retroapptive.model.Profiel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,4 +40,7 @@ public final class LedenListViewFragment extends ListViewFragment {
         listView.setAdapter(ledenAdapter);
 
     }
+     public List<Profiel> getLeden(){ return leden; }
+
+     public LedenAdapter getLedenAdapter(){ return ledenAdapter; }
 }

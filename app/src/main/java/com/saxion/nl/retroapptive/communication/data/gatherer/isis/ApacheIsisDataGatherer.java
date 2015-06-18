@@ -18,12 +18,6 @@ import com.saxion.nl.retroapptive.model.Profiel;
 import com.saxion.nl.retroapptive.model.Project;
 import com.saxion.nl.retroapptive.model.Sprint;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -31,6 +25,12 @@ import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.JsonNode;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ApacheIsisDataGatherer implements DataGatherer {
 
@@ -190,6 +190,7 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 			final DomainObject itemObject = httpClient.executeT(DomainObject.class, HttpMethod.GET, itemFetchURL);
 			final List<Link> links = itemObject.getLinks();
 			for (Link link : links) {
+				System.out.println("sizeee"+links.size());
 				final Map<String, Map<String, JsonNode>> arguments = link.getArguments();
 				if (arguments == null) {
 					continue;
@@ -202,7 +203,7 @@ public class ApacheIsisDataGatherer implements DataGatherer {
 				Item item = null;
 				if (category.equalsIgnoreCase("Note")) {
 					item = getNoteFromItem(sprint, link);
-				} else if (category.equalsIgnoreCase("Actie")) {
+				} else if (category.equalsIgnoreCase("Action")) {
 					item = getActionFromItem(sprint, link);
 				}
 				if (item != null) {

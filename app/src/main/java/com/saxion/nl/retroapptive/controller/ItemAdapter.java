@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.saxion.nl.retroapptive.R;
-import com.saxion.nl.retroapptive.view.ListViewFragment;
-
 
 import java.util.List;
 
@@ -24,6 +22,8 @@ public class ItemAdapter<T> extends ArrayAdapter<T> {
     protected TextView sprintNumber;
 
     private TextView category;
+
+    protected LayoutInflater inflater;
 
     public int currentPosition = 0;
 
@@ -42,22 +42,13 @@ public class ItemAdapter<T> extends ArrayAdapter<T> {
 
         if (convertView == null) {
 
-            LayoutInflater inflater = (LayoutInflater) super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater = (LayoutInflater) super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
-            if (currentPosition == 0) {
-                convertView = inflater.inflate(R.layout.fragment_list_item_note, parent, false);
-                title = (TextView) convertView.findViewById(R.id.textViewItemTitle);
-                summary = (TextView) convertView.findViewById(R.id.textViewItemCategory);
-            } else if (currentPosition == 1) {
-                convertView = inflater.inflate(R.layout.fragment_list_item_user_story, parent, false);
-                title = (TextView) convertView.findViewById(R.id.textViewListUserStoryTitle);
-                summary = (TextView) convertView.findViewById(R.id.textViewListUserStorySummary);
-            } else {
-                convertView = inflater.inflate(R.layout.fragment_list_item_action, parent, false);
-                title = (TextView) convertView.findViewById(R.id.textViewListActionTitel);
-                summary = (TextView) convertView.findViewById(R.id.textViewListActionSummary);
-            }
+            convertView = inflateView(convertView, parent);
+            title = (TextView) convertView.findViewById(R.id.textViewListItemTitle);
+
+
 
         }
 
@@ -83,6 +74,11 @@ public class ItemAdapter<T> extends ArrayAdapter<T> {
     public void addViews(View convertedView, int position) {
 //OVERIDE
 
+    }
+
+    public View inflateView(View view, ViewGroup parent){
+        //OVERRIDE
+        return null;
     }
 
 

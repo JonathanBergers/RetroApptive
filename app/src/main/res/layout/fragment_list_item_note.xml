@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Title"
-            android:id="@+id/textViewItemTitle"
+            android:id="@+id/textViewListItemTitle"
             />
 
         <TextView

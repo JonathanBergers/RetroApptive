@@ -8,12 +8,12 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Titel"
-        android:id="@+id/textViewListActionTitel" />
+        android:id="@+id/textViewListItemTitle" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="summary"
-        android:id="@+id/textViewListActionSummary" />
+        android:id="@+id/textViewListItemSummary" />
 </LinearLayout>
